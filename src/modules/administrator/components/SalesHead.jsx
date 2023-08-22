@@ -62,8 +62,19 @@ export const SalesHead = () => {
 
                             <>
                                 <div className="salesDetails">
-                                    <p>Ventas distribuidores</p>
-                                    <p>$ 10000</p>
+                                    <div style={{
+
+                                        'height': '50px',
+                                        'padding-top': '80px',
+                                        'padding-bottom': '160px',
+                                        '-moz-box-shadow':'0px 0px 1px 0px rgb(210, 210, 210)',
+                                        'box-shadow': '0px 0px 7px 8px rgb(199, 199, 199)',
+                                        
+                                    }}>
+                                        <p>Ventas distribuidores</p>
+                                        <p>$ 10000</p>
+                                    </div>
+                                    
                                 </div>
 
                                 <div className="salesDetails">
