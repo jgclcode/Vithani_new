@@ -80,7 +80,9 @@ export const SalesHead = () => {
                                     <hr className="vertical"/>
                                     <hr className="vertical"/> */}
                                 </div>
-                                <div className="salesDetails">
+                                <div className="salesDetails" style={{
+                                    'width': '50%'
+                                }}>
                                     <hr className="divider"/>
                                 </div>
 
@@ -89,7 +91,9 @@ export const SalesHead = () => {
                                     <p>$ 10000</p>
                                 </div>
                                 
-                                <div className="salesDetails">
+                                <div className="salesDetails" style={{
+                                    'width': '50%'
+                                }}>
                                     <hr className="divider"/>
                                 </div>
 
@@ -98,7 +102,9 @@ export const SalesHead = () => {
                                     <p>$ 10000</p>
                                 </div>
                                 
-                                <div className="salesDetails">
+                                <div className="salesDetails" style={{
+                                    'width': '50%'
+                                }}>
                                     <hr className="divider"/>
                                 </div>
 
