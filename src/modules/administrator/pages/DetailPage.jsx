@@ -1,4 +1,3 @@
-import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { DetailHead } from '../components/DetailHead';
@@ -9,18 +8,19 @@ export const DetailPage = () => {
   
     const {user_id} = useParams();
 
-    const [user, setUser] = useState<any>()
-    const [loading, setLoading] = useState(false)
+    const [user, setUser] = useState();
+    const [loading, setLoading] = useState(false);
     
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({user_id: user_id,  dateBegin: '2023-08-01', dateEnd: '2023-08-31' })
+        body: JSON.stringify({user_id: user_id,  dateBegin: '2023-05-01', dateEnd: '2023-08-31' })
     };
 
     useEffect(() => {
         setLoading(true)
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        // fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => setUser(json.data))
         .finally(() => {
@@ -43,7 +43,9 @@ export const DetailPage = () => {
                             <>  
                                 <h1>{user.user_nicename}</h1>
                                 <br />
-                                <h3>{user.state} - { user.city }</h3>
+                                <h3>Email: {user.user_email}</h3>
+                                <br />
+                                <h3>Ubicación: {user.state} - { user.city }</h3>
                                 <br />
                                 <h4>Cuenta bancaria: {user.account}</h4>
                                 <div className='detailContainer'>
@@ -60,14 +62,14 @@ export const DetailPage = () => {
 
                                 <div className='detailContainer'>
                                     <div className='detailContent'>
-                                        <p>$ {user.salesTotal}</p>
+                                        <p>$ {user.salesTotal.toFixed(2).toLocaleString("en-US")}</p>
                                     </div>
                                     <div className='detailContent'>
-                                        <p>$ {user.commission}</p>
+                                        <p>$ {user.commission.toFixed(2).toLocaleString("en-US")}</p>
 
                                     </div>
                                     <div className='detailContent'>
-                                        <p> $ 30000 </p>
+                                        <p> $ 2,997 </p>
                                     </div>
                                 </div>
                             </>

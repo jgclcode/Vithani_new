@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../../styles.css";
+import {statesMX} from '../../../constants/statesConst'
 
 export const Locations = () => {
 
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
-    const [statesSales , setStateSales] = useState()
-    const [statesTotalSales, setStatesTotalSales] = useState();
+    const [statesSales , setStateSales] = useState(0)
+    const [statesTotalSales, setStatesTotalSales] = useState(0);
     
     let resStates = {};
 
@@ -15,14 +16,14 @@ export const Locations = () => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ dateBegin: '2023-08-01', dateEnd: '2023-08-31' })
+        body: JSON.stringify({ dateBegin: '2023-05-01', dateEnd: '2023-08-31' })
     };
 
     useEffect(() => {
         setLoading(true)
 
-
-        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        // fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json =>{
             setUsers(json.data)
@@ -35,7 +36,7 @@ export const Locations = () => {
 
             resSales = json.data.reduce(function(obj, v) {
 
-                obj[v.state] = ( obj[v.state] || 0 ) + parseFloat(v.salesTotal.replace(",", ""));
+                obj[v.state] = ( obj[v.state] || 0 ) + v.salesTotal;
                 
                 return obj;
             }, {})
@@ -54,17 +55,31 @@ export const Locations = () => {
 
     return(
         <>
-            <div className="containerCitys backgroundColorWhite">
-                <div className="cits">
+            <div className="containerCities backgroundColorWhite">
+                <h2>Ventas nacional</h2>
+                <div className="city">
+                    
                     { loading ? (
                             <div>Loading...</div>
                         ) : (
 
+                            // (statesSales) ? (
+                            //     Object.entries(statesSales).map( state => (
+                            //         <div className="cityss">
+                            //             <h3>{state[0]}</h3>
+                            //             <p>$<span>{ statesTotalSales[state[0]].toFixed(2).toLocaleString("en-US") }</span></p>
+                            //         </div>
+                                
+                            //     ))
+                            // ) : (
+                            //     <div>No data</div>
+                            // )
+
                             (statesSales) ? (
                                 Object.entries(statesSales).map( state => (
-                                    <div className="cityss">
-                                        <h3>{state[0]}</h3>
-                                        <p>$<span>{statesTotalSales[state[0]]}</span></p>
+                                    <div className="cities">
+                                        <h3>{statesMX[state[0]]}</h3>
+                                        <p><span>{ statesSales[state[0]] }</span></p>
                                     </div>
                                 
                                 ))

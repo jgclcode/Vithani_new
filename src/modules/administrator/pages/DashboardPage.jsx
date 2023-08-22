@@ -5,24 +5,27 @@ import "../../../styles.css";
 import { Locations } from "../components/Locations";
 import { Link, useNavigate } from "react-router-dom";
 import { DashboardHead } from "../components/DashboardHead";
+import { SalesHead } from "../components/SalesHead";
 
 
 const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ dateBegin: '2023-08-01', dateEnd: '2023-08-31' })
+    body: JSON.stringify({ dateBegin: '2023-05-01', dateEnd: '2023-08-31' })
 };
 
 export const DashboardPage = () => {
     
-    const [users, setUsers] = useState<any[]>([])
+    const [users, setUsers] = useState([])
+    const [globalTotal, setGlobalTotal] = useState()
     const [loading, setLoading] = useState(false)
     
     useEffect(() => {
         setLoading(true)
-        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        // fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
-        .then(json => setUsers(json.data))
+        .then(json => {setUsers(json.data), setGlobalTotal(json.globalTotal)})
         .finally(() => {
             setLoading(false)
         })
@@ -42,16 +45,18 @@ export const DashboardPage = () => {
             ) : (
                 <>
                     <DashboardHead/>
+                    {/* {globalTotal ? globalTotal.toFixed(2).toLocaleString("en-US") : 0} */}
+                    <SalesHead/>
                     <Locations/> 
                     <div>
-                        <div className="membersandDistri containerCitys ">
+                        <div className="membersandDistri containerCities ">
                             <div>
                                 <div className="miembros"><h2>Distribuidores</h2></div>
                                 <div className="containerD">
                                     
                                     {users.map(user => (
-                                        <div className="miembros contMember backgroundColorWhite">
-                                            <div className="namep">
+                                        <div className="miembros contMember">
+                                            <div className="name">
                                                 <img src={perfil}/>
                                                     <h3>{ user.user_nicename }</h3>
                                             </div>
@@ -73,14 +78,14 @@ export const DashboardPage = () => {
                                 <div className="containerDis backgroundColorWhite">
                                     {users.map(user => (
                                         <div className="ditribuidorD">
-                                            <div className="namep evenly">
+                                            <div className="name evenly">
                                                 <img src={perfil}/>
                                                 <h3>{user.user_nicename}</h3>
                                                 <div className="percentage">
                                                     <p > 100 %</p>
                                                 </div>
                                             </div>
-                                            <div className="namep">
+                                            <div className="name">
                                                 <div className="barraPorcentaje" />
                                                 
                                             </div>
