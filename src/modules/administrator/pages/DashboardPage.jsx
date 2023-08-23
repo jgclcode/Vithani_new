@@ -6,37 +6,107 @@ import { Locations } from "../components/Locations";
 import { Link, useNavigate } from "react-router-dom";
 import { DashboardHead } from "../components/DashboardHead";
 import { SalesHead } from "../components/SalesHead";
-
-
-const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ dateBegin: '2023-05-01', dateEnd: '2023-08-31' })
-};
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import {statesMX} from '../../../constants/statesConst'
 
 export const DashboardPage = () => {
-    
-    const [users, setUsers] = useState([])
-    const [globalTotal, setGlobalTotal] = useState()
-    const [loading, setLoading] = useState(false)
-    
-    useEffect(() => {
-        setLoading(true)
+        
+    let resStates = {};
+    let resSales = {};
+
+    const firstDay = new Date();
+    const lastDay = new Date();
+
+    const loadData = (firstDay, lastDay) => {
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ dateBegin: firstDay, dateEnd: lastDay })
+        };
+        
+        let total = 0;
+        let publicTotal = 0;
+
         // fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
         fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
-        .then(json => {setUsers(json.data), setGlobalTotal(json.globalTotal)})
+        .then(json => {
+            
+            // setGlobalTotal(json.globalTotal)
+            
+            setUsers(json.data);
+
+            for (const user in json.data) {
+                
+                total += json.data[user].salesTotal;
+                publicTotal += json.data[user].publicSales;
+            }
+
+            resStates = json.data.reduce(function(obj, v) {
+                obj[v.state] = (obj[v.state] || 0) + 1;
+                
+                return obj;
+            }, {})
+
+            resSales = json.data.reduce(function(obj, v) {
+
+                obj[v.state] = ( obj[v.state] || 0 ) + v.salesTotal;
+                
+                return obj;
+            }, {})
+        })
         .finally(() => {
+            setPublicSales(publicTotal);
+            setTotalSales(total);
+            setStateSales(resStates);
+            setStatesTotalSales(resSales);
             setLoading(false)
         })
-    }, [])
+    }
+    const [statesSales , setStateSales] = useState(0)
+    const [statesTotalSales, setStatesTotalSales] = useState(0);
+
+
+    const [users, setUsers] = useState([])
+    const [globalTotal, setGlobalTotal] = useState()
+    const [loading, setLoading] = useState(false)
+    const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
+    const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
+    const [totalSales, setTotalSales] = useState(0);
+    const [publicSales, setPublicSales] = useState(0);
 
     const navigate = useNavigate();
-    
     const onDetail = (user_id) => {
         navigate(`/detail/${user_id}`);
     }
+    
+    useEffect(() => {
 
+        setLoading(true)
+        loadData(firstDay, lastDay)
+
+    }, [])
+
+    
+    const dateBeginSet = (date) => {
+        setLoading(true);
+
+        console.log(date);
+        setDateStart(date);
+        loadData(dateStart, dateEnd)
+    };
+
+    const dateEndSet = (date) => {
+        
+        setLoading(true);
+        
+        console.log(date);
+        setDateEnd(date);
+        loadData(dateStart, dateEnd)
+    };
 
     return(
         <>
@@ -45,9 +115,82 @@ export const DashboardPage = () => {
             ) : (
                 <>
                     <DashboardHead/>
-                    {/* {globalTotal ? globalTotal.toFixed(2).toLocaleString("en-US") : 0} */}
-                    <SalesHead/>
-                    <Locations/> 
+
+                    <div className="membersandDistri containerCities ">
+                        <DatePicker
+                            selected={dateStart}
+                            onChange={(date) => dateBeginSet(date)}
+                        />
+
+                        <DatePicker
+                            selected={dateEnd}
+                            onChange={(date) => dateEndSet(date)}
+                        />
+                    </div>
+
+                    <div className="containerCities backgroundColorWhite">
+                        <div className="salesGlobal">
+                            <div className="salesDetails">
+                                <div>
+                                    <p>Ventas distribuidores</p>
+                                    <p>$ {totalSales.toLocaleString("en-US")}</p>
+                                    
+                                </div>
+                            </div>
+                            <div className="salesDetails" style={{
+                                'width': '50%'
+                            }}>
+                                <hr className="divider"/>
+                            </div>
+
+                            <div className="salesDetails">
+                                <p>Ganancias</p>
+                                <p>$ {(totalSales*.2285).toLocaleString("en-US")}</p>
+                            </div>
+                            
+                            <div className="salesDetails" style={{
+                                'width': '50%'
+                            }}>
+                                <hr className="divider"/>
+                            </div>
+
+                            <div className="salesDetails">
+                                <p>Objetivo anual</p>
+                                <p>$ {(735000 * users.length).toLocaleString("en-US")} </p>
+                            </div>
+                            
+                            <div className="salesDetails" style={{
+                                'width': '50%'
+                            }}>
+                                <hr className="divider"/>
+                            </div>
+
+                            <div className="salesDetails">
+                                <p>Ventas al público</p>
+                                <p>$ {publicSales.toLocaleString("en-US")}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="containerCities backgroundColorWhite">
+                        <h2>Ventas nacional</h2>
+                        <div className="city">
+                            
+                            {(statesSales) ? (
+                                Object.entries(statesSales).map( state => (
+                                    <div className="cities">
+                                        <h3>{statesMX[state[0]]}</h3>
+                                        <p><span>{ statesSales[state[0]] }</span></p>
+                                    </div>
+                                
+                                ))
+                            ) : (
+                                <div>No data</div>
+                            )}
+
+                        </div>
+                    </div>
+
                     <div>
                         <div className="membersandDistri containerCities ">
                             <div>
@@ -89,8 +232,6 @@ export const DashboardPage = () => {
                                                 <div className="barraPorcentaje" />
                                                 
                                             </div>
-                                            
-                                            
                                         </div>
                                     ))}
                                     
