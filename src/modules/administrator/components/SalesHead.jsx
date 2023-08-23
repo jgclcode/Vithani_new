@@ -3,14 +3,9 @@ import "../../../styles.css";
 import {statesMX} from '../../../constants/statesConst'
 
 export const SalesHead = () => {
-    const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [statesSales , setStateSales] = useState(0)
-    const [statesTotalSales, setStatesTotalSales] = useState(0);
     
-    let resStates = {};
-
-    let resSales = {};
+    const [loading, setLoading] = useState(false)
+    const [totalSales, setTotalSales] = useState(0);
 
     const requestOptions = {
         method: 'POST',
@@ -20,34 +15,23 @@ export const SalesHead = () => {
 
     useEffect(() => {
         setLoading(true)
-
+        let total = 0;
+        
         // fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
         fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json =>{
-            setUsers(json.data)
-
-            resStates = json.data.reduce(function(obj, v) {
-                obj[v.state] = (obj[v.state] || 0) + 1;
+            
+            for (const user in json.data) {
                 
-                return obj;
-            }, {})
-
-            resSales = json.data.reduce(function(obj, v) {
-
-                obj[v.state] = ( obj[v.state] || 0 ) + v.salesTotal;
-                
-                return obj;
-            }, {})
-
+                if( json.data[user].salesTotal > 1000 )
+                    total += json.data[user].salesTotal;
+            }
         }
         )  
         .finally(() => {
             
-            setStateSales(resStates);
-
-            setStatesTotalSales(resSales);
-
+            setTotalSales(total);
             setLoading(false);
         })
     }, [])
@@ -72,13 +56,9 @@ export const SalesHead = () => {
                                         
                                     }}>
                                         <p>Ventas distribuidores</p>
-                                        <p>$ 10000</p>
+                                        <p>$ {totalSales.toFixed(2).toLocaleString("en-US")}</p>
                                         
                                     </div>
-                                    
-                                    {/* <hr className="vertical"/>
-                                    <hr className="vertical"/>
-                                    <hr className="vertical"/> */}
                                 </div>
                                 <div className="salesDetails" style={{
                                     'width': '50%'
@@ -88,7 +68,7 @@ export const SalesHead = () => {
 
                                 <div className="salesDetails">
                                     <p>Ganancias</p>
-                                    <p>$ 10000</p>
+                                    <p>$ </p>
                                 </div>
                                 
                                 <div className="salesDetails" style={{
