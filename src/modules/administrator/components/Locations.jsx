@@ -63,18 +63,6 @@ export const Locations = () => {
                             <div>Loading...</div>
                         ) : (
 
-                            // (statesSales) ? (
-                            //     Object.entries(statesSales).map( state => (
-                            //         <div className="cityss">
-                            //             <h3>{state[0]}</h3>
-                            //             <p>$<span>{ statesTotalSales[state[0]].toFixed(2).toLocaleString("en-US") }</span></p>
-                            //         </div>
-                                
-                            //     ))
-                            // ) : (
-                            //     <div>No data</div>
-                            // )
-
                             (statesSales) ? (
                                 Object.entries(statesSales).map( state => (
                                     <div className="cities">

@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
+import { statesMX } from '../../../constants/statesConst';
 
 export const DetailPage = () => {
   
@@ -20,11 +21,8 @@ export const DetailPage = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({user_id: user_id, dateBegin: firstDay, dateEnd: lastDay })
+            body: JSON.stringify({user_id: user_id, dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
-        
-        // let total = 0;
-        // let publicTotal = 0;
 
         // fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
         fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
@@ -35,34 +33,46 @@ export const DetailPage = () => {
         })
     }
 
+    const exportReport = () => {
+        
+        // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`http://127.0.0.1:8000/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        .then(
+            (response) => {
+
+                const  url = response.url;
+                const link = document.createElement('a')
+                link.href = url
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            }
+        );
+    }
+
+
     const [loading, setLoading] = useState(false)
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
 
     
     useEffect(() => {
-
-        setLoading(true)
-        loadData(firstDay, lastDay)
-
+        setLoading(true);
+        loadData(dateStart, dateEnd)
+        console.log(dateStart);
     }, [])
 
     
     const dateBeginSet = (date) => {
         setLoading(true);
-
-        console.log(date);
         setDateStart(date);
-        loadData(dateStart, dateEnd)
+        loadData(date, dateEnd)
     };
 
     const dateEndSet = (date) => {
-        
         setLoading(true);
-        
-        console.log(date);
         setDateEnd(date);
-        loadData(dateStart, dateEnd)
+        loadData(dateStart, date)
     };
 
 
@@ -78,30 +88,38 @@ export const DetailPage = () => {
                         (user) ? (
 
                             <>  
-                                <div className="membersandDistri containerCities" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
+                                <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
                                     <Link to={'/dashboard'}>
                                         Regresar
                                     </Link>
                                 </div>
                                 <br />
-                                <div className="membersandDistri containerCities " style={{marginLeft:'150px', marginBottom:'20px', marginTop:'20px'}}>
+                                <div className="membersandDistri containerCities " style={{justifyItems:'center',}}>
+                                    
                                     <DatePicker
                                         selected={dateStart}
                                         onChange={(date) => dateBeginSet(date)}
+                                        inline
                                     />
 
                                     <DatePicker
                                         selected={dateEnd}
                                         onChange={(date) => dateEndSet(date)}
+                                        inline
                                     />
+
                                 </div>
                                 <br />
+
+                                <div>
+                                    <span style={{marginLeft:'50px', marginBottom:'50px'}}className="btn btn-success btn-sm" onClick = {exportReport}> Descargar Reporte</span>
+                                </div>
                                 <div className="containerCities backgroundColorWhite">
                                     <h1>{user.user_nicename}</h1>
                                     <br />
                                     <h3>Email: {user.user_email}</h3>
                                     <br />
-                                    <h3>Ubicación: {user.state} - { user.city }</h3>
+                                    <h3>Ubicación: {statesMX[user.state]} - { user.city }</h3>
                                     <br />
                                     <h4>Cuenta bancaria: {user.account}</h4>
                                     <div className='detailContainer'>
@@ -129,6 +147,37 @@ export const DetailPage = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <br />
+                                <table className='table'>
+                                    <thead>
+                                        <tr>
+                                            <th>No. </th>
+                                            <th>Id venta</th>
+                                            <th>Estatus</th>
+                                            <th>Referencia</th>
+                                            <th>Compra</th>
+                                            <th>Comisión</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            user.refferedSales.map((sale, index) => (
+                                                <tr key={sale.sale_id}>
+                                                    
+                                                    <td>{index +1 }</td>
+                                                    <td>{sale.sale_id}</td>
+                                                    <td>{sale.post_status}</td>
+                                                    <td>{sale.reference}</td>
+                                                    <td>{sale._order_total.toLocaleString("en-US")}</td>
+                                                    <td>{sale.commission.toLocaleString("en-US")}</td>
+                                                    <td>{sale.date}</td>
+
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
                             </>
                         ) : (
                             <div>No data</div>

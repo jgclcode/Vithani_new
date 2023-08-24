@@ -2,13 +2,10 @@
 import React, { useEffect, useState } from "react";
 import perfil from "../../../assets/perfil.png";
 import "../../../styles.css";
-import { Locations } from "../components/Locations";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DashboardHead } from "../components/DashboardHead";
-import { SalesHead } from "../components/SalesHead";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
 import {statesMX} from '../../../constants/statesConst'
 
 export const DashboardPage = () => {
@@ -24,9 +21,9 @@ export const DashboardPage = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ dateBegin: firstDay, dateEnd: lastDay })
+            body: JSON.stringify({dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
-        
+
         let total = 0;
         let publicTotal = 0;
 
@@ -34,9 +31,7 @@ export const DashboardPage = () => {
         fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json => {
-            
-            // setGlobalTotal(json.globalTotal)
-            
+                        
             setUsers(json.data);
 
             for (const user in json.data) {
@@ -46,7 +41,10 @@ export const DashboardPage = () => {
             }
 
             resStates = json.data.reduce(function(obj, v) {
-                obj[v.state] = (obj[v.state] || 0) + 1;
+                if(v.salesTotal > 0){
+                    obj[v.state] = (obj[v.state] || 0) + 1;
+                }
+                
                 
                 return obj;
             }, {})
@@ -62,18 +60,13 @@ export const DashboardPage = () => {
             setPublicSales(publicTotal);
             setTotalSales(total);
             setStateSales(resStates);
-            setStatesTotalSales(resSales);
             setLoading(false)
         })
     }
     const [statesSales , setStateSales] = useState(0)
-    const [statesTotalSales, setStatesTotalSales] = useState(0);
-
-
     const [users, setUsers] = useState([])
-    const [globalTotal, setGlobalTotal] = useState()
     const [loading, setLoading] = useState(false)
-    const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
+    const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1) );
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
     const [totalSales, setTotalSales] = useState(0);
     const [publicSales, setPublicSales] = useState(0);
@@ -84,28 +77,21 @@ export const DashboardPage = () => {
     }
     
     useEffect(() => {
-
-        setLoading(true)
-        loadData(firstDay, lastDay)
-
+        setLoading(true);
+        loadData(dateStart, dateEnd)
     }, [])
 
     
     const dateBeginSet = (date) => {
         setLoading(true);
-
-        console.log(date);
         setDateStart(date);
-        loadData(dateStart, dateEnd)
+        loadData(date, dateEnd)
     };
 
     const dateEndSet = (date) => {
-        
         setLoading(true);
-        
-        console.log(date);
         setDateEnd(date);
-        loadData(dateStart, dateEnd)
+        loadData(dateStart, date)
     };
 
     return(
@@ -116,15 +102,20 @@ export const DashboardPage = () => {
                 <>
                     <DashboardHead/>
 
-                    <div className="membersandDistri containerCities ">
+                    <div className="membersandDistri containerCities " style={{
+                        justifyItems:'center',
+                    }}>                     
+
                         <DatePicker
                             selected={dateStart}
                             onChange={(date) => dateBeginSet(date)}
+                            inline
                         />
 
                         <DatePicker
                             selected={dateEnd}
                             onChange={(date) => dateEndSet(date)}
+                            inline
                         />
                     </div>
 
@@ -234,7 +225,6 @@ export const DashboardPage = () => {
                                             </div>
                                         </div>
                                     ))}
-                                    
                                 </div>
                             </div>
                         </div>
