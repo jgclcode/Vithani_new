@@ -136,10 +136,10 @@ export const DetailPage = () => {
 
                                     <div className='detailContainer'>
                                         <div className='detailContent'>
-                                            <p>$ {user.salesTotal.toFixed(2).toLocaleString("en-US")}</p>
+                                            <p>$ {user.salesTotal.toLocaleString("en-US")}</p>
                                         </div>
                                         <div className='detailContent'>
-                                            <p>$ {user.commission.toFixed(2).toLocaleString("en-US")}</p>
+                                            <p>$ {user.commission.toLocaleString("en-US")}</p>
 
                                         </div>
                                         <div className='detailContent'>
@@ -170,7 +170,7 @@ export const DetailPage = () => {
                                                     <td>{sale.post_status}</td>
                                                     <td>{sale.reference}</td>
                                                     <td>{sale._order_total.toLocaleString("en-US")}</td>
-                                                    <td>{sale.commission.toLocaleString("en-US")}</td>
+                                                    <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
                                                     <td>{sale.date}</td>
 
                                                 </tr>
