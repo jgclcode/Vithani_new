@@ -188,21 +188,30 @@ export const DashboardPage = () => {
                                 <div className="miembros"><h2>Distribuidores</h2></div>
                                 <div className="containerD">
                                     
-                                    {users.map(user => (
-                                        <div className="miembros contMember">
-                                            <div className="name">
-                                                <img src={perfil}/>
-                                                    <h3>{ user.user_nicename }</h3>
-                                            </div>
+                                    {
+                                        users.map( (user) => {
                                             
-                                            <button
-                                                onClick={ () => onDetail(user.user_id) }
-                                            >
-                                                Distribuidor asociado
-                                            </button>
+                                            if( user.user_nicename != 'carlosgtz'){
+                                                
+                                                return (
+                                                    
+                                                    <div className="miembros contMember">
+                                                        <div className="name">
+                                                            <img src={perfil}/>
+                                                                <h3>{ user.user_nicename }</h3>
+                                                        </div>
+                                                        
+                                                        <button
+                                                            onClick={ () => onDetail(user.user_id) }
+                                                        >
+                                                            Distribuidor asociado
+                                                        </button>
 
-                                        </div>
-                                    ))}
+                                                    </div>
+                                                )
+                                            }
+                                        })
+                                    }
                                     
                                 </div>
                             </div>
@@ -210,24 +219,33 @@ export const DashboardPage = () => {
                             <div className="distri ">
                                 <div className="miembros"><h2>Objetivos</h2></div>
                                 <div className="containerDis backgroundColorWhite">
-                                    {users.map(user => (
-                                        <div className="ditribuidorD">
-                                            <div className="name evenly">
-                                                <img src={perfil}/>
-                                                <h3>{user.user_nicename}</h3>
-                                                <div className="percentage">
-                                                    <p > 100 %</p>
-                                                </div>
-                                            </div>
-                                            <div className="name">
-                                                <div className="barraPorcentaje" />
-                                                
-                                            </div>
-                                        </div>
-                                    ))}
+                                    {
+                                        users.map( (user) => {
+                                            
+                                            if( user.user_nicename != 'carlosgtz'){
+                                                let percentage = ((user.salesTotal * 999)/100) >= 100 ? 100:  ((user.salesTotal * 999)/100);
+                                            
+                                                return(
+                                                    <div className="ditribuidorD">
+                                                        <div className="name">
+                                                            <img src={perfil}/>
+                                                            <h3>{user.user_nicename}</h3>
+                                                        </div>
+                                                        <div className="percentageSegment">
+                                                            <div className="barraPorcentaje" style={{ width: `${percentage}%` }}/>
+                                                            <div className="percentage">
+                                                                <p > {percentage} %</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        })
+                                    }
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </>
             )}

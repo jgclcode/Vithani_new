@@ -33,10 +33,27 @@ export const DetailPage = () => {
         })
     }
 
-    const exportReport = () => {
+    const exportReportCSV = () => {
         
         // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        fetch(`http://127.0.0.1:8000/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`http://127.0.0.1:8000/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        .then(
+            (response) => {
+
+                const  url = response.url;
+                const link = document.createElement('a')
+                link.href = url
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            }
+        );
+    }
+
+    const exportReportExcel = () => {
+        
+        // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`http://127.0.0.1:8000/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -112,7 +129,9 @@ export const DetailPage = () => {
                                 <br />
 
                                 <div>
-                                    <span style={{marginLeft:'50px', marginBottom:'50px'}}className="btn btn-success btn-sm" onClick = {exportReport}> Descargar Reporte</span>
+                                    <span style={{marginLeft:'50px', marginBottom:'50px'}}className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
+
+                                    <span style={{marginLeft:'50px', marginBottom:'50px'}}className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
                                 </div>
                                 <div className="containerCities backgroundColorWhite">
                                     <h1>{user.user_nicename}</h1>
@@ -143,41 +162,44 @@ export const DetailPage = () => {
 
                                         </div>
                                         <div className='detailContent'>
-                                            <p> $ 2,997 </p>
+                                            <p> $ 999 </p>
                                         </div>
                                     </div>
                                 </div>
                                 <br />
-                                <table className='table'>
-                                    <thead>
-                                        <tr>
-                                            <th>No. </th>
-                                            <th>Id venta</th>
-                                            <th>Estatus</th>
-                                            <th>Referencia</th>
-                                            <th>Compra</th>
-                                            <th>Comisión</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            user.refferedSales.map((sale, index) => (
-                                                <tr key={sale.sale_id}>
-                                                    
-                                                    <td>{index +1 }</td>
-                                                    <td>{sale.sale_id}</td>
-                                                    <td>{sale.post_status}</td>
-                                                    <td>{sale.reference}</td>
-                                                    <td>{sale._order_total.toLocaleString("en-US")}</td>
-                                                    <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
-                                                    <td>{sale.date}</td>
+                                <div className="containerCities backgroundColorWhite">
+                                    <table className='table'>
+                                        <thead>
+                                            <tr>
+                                                <th>No. </th>
+                                                <th>Id venta</th>
+                                                <th>Estatus</th>
+                                                <th>Referencia</th>
+                                                <th>Compra</th>
+                                                <th>Comisión</th>
+                                                <th>Fecha</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                user.refferedSales.map((sale, index) => (
+                                                    <tr key={sale.sale_id}>
+                                                        
+                                                        <td>{index +1 }</td>
+                                                        <td>{sale.sale_id}</td>
+                                                        <td>{sale.post_status}</td>
+                                                        <td>{sale.reference}</td>
+                                                        <td>{sale._order_total.toLocaleString("en-US")}</td>
+                                                        <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
+                                                        <td>{sale.date}</td>
 
-                                                </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
                             </>
                         ) : (
                             <div>No data</div>

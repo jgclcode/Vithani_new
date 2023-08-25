@@ -250,6 +250,7 @@ code {
   display: grid;
   grid-template-columns: repeat(2,1fr);
   gap: 3rem;
+  margin-bottom: 2%;
 }
 .miembros{
   display: flex;
@@ -278,7 +279,7 @@ code {
 .name h3{
   font-weight: 300;
   margin-left: 25px;
-  margin: 25px;
+  /* margin: 25px; */
   font-size: 25px;
 }
 
@@ -291,18 +292,28 @@ code {
 
 
 
-
+.percentageSegment{
+  display: flex;
+  align-items: center;
+}
 
 
 .percentage {
   align-self: flex-end;
+  width: 10%;
+  margin-left: 10px;
   align-items: end;
 }
 
+.percentage p{
+  margin-bottom: 10px;
+}
+
 .barraPorcentaje{
-  width: 75%;
   height: 6px;
-  margin: 0 auto;
+  margin-left: 10%;
+  margin-bottom: 10px;
+  /* margin-top: 2%; */
   border-radius: 2pc;
 
   background-color: rgb(82, 231, 82);
@@ -345,7 +356,8 @@ code {
   /* justify-content: space-between; */
 }
 .ditribuidorD{
-  margin:  10px;
+  margin-left:  10px;
+  margin-top: 10px;
 }
 .containerD
 {
