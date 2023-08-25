@@ -10,10 +10,6 @@ export const SalesHead = ({totalSales, publicSales, users}) => {
     const [publicSales_, setPublicSales] = useState(0);
     const [users_, setUsers] = useState([]);
 
-    // let firstDay = dateStart; //moment().startOf('month').format('YYYY-MM-DD');
-    // let lastDay = dateEnd; //moment().endOf('month').format('YYYY-MM-DD');
-
-
     useEffect(() => {
         setLoading(true);
         setTotalSales(totalSales)

@@ -27,8 +27,8 @@ export const DashboardPage = () => {
         let total = 0;
         let publicTotal = 0;
 
-        // fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
-        fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json => {
                         

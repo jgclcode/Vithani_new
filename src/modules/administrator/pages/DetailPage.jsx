@@ -24,8 +24,8 @@ export const DetailPage = () => {
             body: JSON.stringify({user_id: user_id, dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
 
-        // fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
-        fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => setUser(json.data))
         .finally(() => {
@@ -35,8 +35,8 @@ export const DetailPage = () => {
 
     const exportReportCSV = () => {
         
-        // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        fetch(`http://127.0.0.1:8000/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -52,8 +52,8 @@ export const DetailPage = () => {
 
     const exportReportExcel = () => {
         
-        // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        fetch(`http://127.0.0.1:8000/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 

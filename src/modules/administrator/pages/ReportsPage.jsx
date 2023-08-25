@@ -30,8 +30,8 @@ export const ReportsPage = () => {
             body: JSON.stringify({dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
 
-        // fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
-        fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json => {
 
@@ -58,8 +58,8 @@ export const ReportsPage = () => {
 
     const exportReportCSV = () => {
         
-        // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        fetch(`http://127.0.0.1:8000/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -75,8 +75,8 @@ export const ReportsPage = () => {
 
     const exportReportExcel = () => {
         
-        // fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReport/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        fetch(`http://127.0.0.1:8000/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
