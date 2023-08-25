@@ -28,14 +28,14 @@ export const Navbar = () => {
                         </div>
 
                         <div className="enlace">
-                            <Link to="./reports">
+                            <Link to="/reports">
                                 <img className="imgEnlace1" src={reporte}/>
                                 <p>Reporte</p>
                             </Link>
                         </div>
                         
-                        <div className="enlace">
-                            <Link to="./public">
+                        {/* <div className="enlace">
+                            <Link to="/public">
                                 <img className="imgEnlace4" src={ventas}/>
                                 <p>Publico</p>
                             </Link>
@@ -43,7 +43,7 @@ export const Navbar = () => {
 
 
                         <div className="enlace">
-                            <Link to="./Notifications">
+                            <Link to="/Notifications">
                                 <img 
                                     className="imgEnlace2" 
                                     src={notificacionesimg}
@@ -51,7 +51,7 @@ export const Navbar = () => {
                                 <p>Notificaciones</p>
                             </Link>
 
-                        </div>
+                        </div> */}
                         
                         {/* <div className="enlace">
                             <Link to="./DescuentosandBeneficios">

@@ -169,7 +169,7 @@ export const DashboardPage = () => {
                             
                             {(statesSales) ? (
                                 Object.entries(statesSales).map( state => (
-                                    <div className="cities">
+                                    <div key={state[0]} className="cities">
                                         <h3>{statesMX[state[0]]}</h3>
                                         <p><span>{ statesSales[state[0]] }</span></p>
                                     </div>
@@ -195,7 +195,7 @@ export const DashboardPage = () => {
                                                 
                                                 return (
                                                     
-                                                    <div className="miembros contMember">
+                                                    <div key={user.user_id} className="miembros contMember">
                                                         <div className="name">
                                                             <img src={perfil}/>
                                                                 <h3>{ user.user_nicename }</h3>
@@ -226,7 +226,7 @@ export const DashboardPage = () => {
                                                 let percentage = ((user.salesTotal * 999)/100) >= 100 ? 100:  ((user.salesTotal * 999)/100);
                                             
                                                 return(
-                                                    <div className="ditribuidorD">
+                                                    <div key={user.user_nicename} className="ditribuidorD">
                                                         <div className="name">
                                                             <img src={perfil}/>
                                                             <h3>{user.user_nicename}</h3>
