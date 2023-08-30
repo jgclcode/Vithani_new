@@ -18,7 +18,7 @@ export const Navbar = () => {
             <nav className="flexStar">
                 <div className="containerHeader" >
 
-                        <div className="MenuPrincipal"><img  className="logo" src={icono}/> </div>
+                        <div className="MenuPrincipal"><img src={icono}/> </div>
                         
                         <div className="enlace">
                             <Link  to="/dashboard">

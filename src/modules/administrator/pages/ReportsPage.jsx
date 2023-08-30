@@ -41,7 +41,7 @@ export const ReportsPage = () => {
 
             for (let userData of usersTemp) {
                 for(let saleData of userData.sales){
-                    saleData.user_nicename = userData.user_nicename
+                    saleData.display_name = userData.display_name
                     salesData.push(saleData)
                 }
             }
@@ -112,45 +112,51 @@ export const ReportsPage = () => {
 
 
     return (
-        <>
+        <>  
+            <ReportsHead/>
+
+            <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
+                <Link to={'/dashboard'}>
+                    Regresar
+                </Link>
+            </div>
+
+            <div className="row marginRow">
+                <div className="col-md justifyElements">
+                    <DatePicker
+                        selected={dateStart}
+                        onChange={(date) => dateBeginSet(date)}
+                        inline
+                    />
+                </div>
+                <div className="col-md justifyElements">
+                    <DatePicker
+                        selected={dateEnd}
+                        onChange={(date) => dateEndSet(date)}
+                        inline
+                    />
+                </div>
+            </div>
+
+            <div className="row marginRow">
+                <div className="col-md justifyElements">
+                    <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
+                </div>
+                <div className="col-md justifyElements">
+                    <span className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
+                </div>
+            </div>
+
             { loading ? (
                 <div>Loading...</div>
             ) : (
                 <>
-                    <ReportsHead/>
+                    
                     
                     {
                         (users) ? (
 
                             <>  
-                                <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
-                                    <Link to={'/dashboard'}>
-                                        Regresar
-                                    </Link>
-                                </div>
-                                <br />
-                                <div className="membersandDistri containerCities " style={{justifyItems:'center',}}>
-                                    
-                                    <DatePicker
-                                        selected={dateStart}
-                                        onChange={(date) => dateBeginSet(date)}
-                                        inline
-                                    />
-
-                                    <DatePicker
-                                        selected={dateEnd}
-                                        onChange={(date) => dateEndSet(date)}
-                                        inline
-                                    />
-
-                                </div>
-                                <br />
-
-                                <div>
-                                    <span style={{marginLeft:'50px', marginBottom:'50px'}}className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
-
-                                    <span style={{marginLeft:'50px', marginBottom:'50px'}}className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
-                                </div>
                                 <div className="containerCities backgroundColorWhite">
                                     
                                     <div className='detailContainer'>
@@ -184,13 +190,13 @@ export const ReportsPage = () => {
                                         <thead>
                                             <tr>
                                                 <th>No. </th>
-                                                <th>Id venta</th>
-                                                <th>Estatus</th>
-                                                <th>Afiliado</th>
                                                 <th>Referencia</th>
+                                                <th>Fecha</th>
+                                                <th>Referido</th>
                                                 <th>Compra</th>
                                                 <th>Comisión</th>
-                                                <th>Fecha</th>
+                                                <th>Distribuidor</th>
+
                                             </tr>
                                         </thead>
                                             <tbody>
@@ -198,13 +204,12 @@ export const ReportsPage = () => {
                                                 sales.map((sale, index) => (
                                                     <tr key={sale.sale_id}>
                                                         <td>{index + 1 }</td>
-                                                        <td>{sale.sale_id}</td>
-                                                        <td>{sale.post_status}</td>
-                                                        <td>{sale.user_nicename}</td>
                                                         <td>{sale.reference}</td>
+                                                        <td>{sale.date}</td>
+                                                        <td>{sale.refferal_wp_uid}</td>
                                                         <td>{sale._order_total.toLocaleString("en-US")}</td>
                                                         <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
-                                                        <td>{sale.date}</td>
+                                                        <td>{sale.display_name}</td>
                                                     </tr>
                                                 ))
                                             }

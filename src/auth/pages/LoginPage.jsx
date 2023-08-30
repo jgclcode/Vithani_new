@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-
+import icono from "../../assets/Vithani.svg";
 
 
 export const LoginPage = () => {
@@ -14,17 +14,29 @@ export const LoginPage = () => {
     }
     
     return (
-        <div className="container mt-5">
-            <h1>Login</h1>
-            <hr />
+        <>
+            <div className="main-content">
+                <div className="py-7 py-lg-8 loginBody">
+                
+                    <div className="cardLogin">
+                        
+                        <div className="logoLogin"><img  className="logo" src={icono}/> </div>
+                        
+                        <br />
+                        <br />
 
-            <button
-                className="btn btn-primary"
-                onClick={onLogin}
-            >
-                Login
-            </button>
+                        <button
+                            className="btn btn-primary"
+                            onClick={onLogin}
+                        >
+                            Administrador
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        </div>
+
+        
+        </>
     )
 }
