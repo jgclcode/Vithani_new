@@ -55,6 +55,14 @@ code {
   background:none;
 }
 
+.containerTop{
+  display: flex;
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  padding-left: 40px;
+  padding-right: 10px;
+}
 
 .containerHeader{
   display: flex;
@@ -65,16 +73,52 @@ code {
   /* width: max-content; */
 }
 
-.flexStar{
-  /* margin: 0 auto; */
+.menuPrincipal{
+  display: flex;
   width: 100%;
-  height: 100%;
+  flex: 1;
+}
+.menuPrincipal img{
+
+}
+.btn_menuPrincipal{
+  display: flex;
+  /*flex: 1;
+  flex-basis: 50%;*/
+  align-items: center;
+  margin: 10px 0px;
+  padding: 0px 9px;
+}
+.btn_menuPrincipal span{
+  font-size: 15px;
+}
+.flexStar{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.MenuPrincipal{
-  width: 85%;
-  margin: 35px 0px 30px 0px;
+@media (min-width: 992px){
+  #navbarSupportedContent{
+    align-items: flex-start;
+  }
+  .flexStar{
+    /* margin: 0 auto; */
+    height: 100%; 
+  }
+  .menuPrincipal{
+    width: 85%;
+    margin: 15px 5px 30px 5px;
+    display: block;
+  }
+  .containerTop{
+    padding: 0;
+    height: auto;
+  }  
 }
+
+
 
 .enlace{
   color: rgb(0, 0, 0);
@@ -84,7 +128,7 @@ code {
   text-align: center;
   display: flex;
   justify-content: center;
-
+  flex-direction: column!important;
 }
 
 .enlace img{
@@ -485,12 +529,16 @@ code {
   height: 30px;
 
 }
-.flexMenu{
-  display: grid;
-  grid-template-columns: 10% 90%;
-  justify-content: flex-start;
-  align-items: flex-start;
+
+@media (min-width: 992px){
+  .flexMenu{
+    display: grid;
+    grid-template-columns: 10% 90%;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 }
+
 .gridData{
   display: flex;
   gap: 20px;
@@ -579,3 +627,4 @@ code {
 .marginColg {
   margin-top: 5%;
 }
+
