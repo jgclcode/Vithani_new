@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Outlet , Link} from "react-router-dom";
 
 import icono from "../../assets/Vithani.svg";
@@ -18,9 +18,20 @@ export const Navbar = () => {
 
     const [open, setOpen] = useState(false);
 
+
+    const onSetActiveMenuItem = (e) => {
+        var elems = document.querySelector("#navList div.bg-nav-item-active");
+        if(elems !==null){
+            elems.classList.remove("bg-nav-item-active");
+            elems.classList.add('nav-item');
+         
+        }
+        e.currentTarget.className = "nav-item bg-nav-item-active";
+    };
+
     return(
         <div className="flexMenu">
-            <nav className="flexStar navbar navbar-vertical fixed-left navbar-expand-lg navbar-light bg-white">
+            <nav className="flexStar navbar navbar-vertical fixed-left navbar-expand-lg "> {/* navbar-light bg-white */}
                 <div className="containerHeader container-fluid" >
                     <div className="containerTop">
                         <div className="menuPrincipal navbar-brand"><img src={icono}/> </div>
@@ -35,19 +46,19 @@ export const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     
                     
-                        <ul className="enlace navbar-nav me-auto mb-2 mb-lg-0">
-                            <div className="nav-item">
-                                <Link to="/dashboard">
+                        <ul className="enlace navbar-nav me-auto mb-2 mb-lg-0" id="navList"> {/*onClick={onSetActiveMenuItem}*/}
+                            <Link to="/dashboard" >
+                                <div className="nav-item bg-nav-item-active"  onClick={onSetActiveMenuItem}>
                                     <img className="imgLink" src={DashboardImg}/>
                                     <p className="textLink">Dashboard</p>
-                                </Link>
-                            </div>
-                            <div className="nav-item">
-                                <Link to="/reports">
+                                </div>
+                            </Link>
+                            <Link to="/reports">
+                                <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={reporte}/>
                                     <p>Reporte</p>
-                                </Link>
-                            </div>
+                                </div>
+                            </Link>
                         </ul>     
 
                         {/* <div className="enlace">

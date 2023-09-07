@@ -115,6 +115,9 @@ code {
   .containerTop{
     padding: 0;
     height: auto;
+  }
+  .enlace .nav-item{
+    padding: 5px 10px;
   }  
 }
 
@@ -153,6 +156,12 @@ code {
   font-size: 1.3vw;
 }
 
+.bg-nav-item-active {
+  background-color: white;
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 0.375rem;
+  box-shadow: 0 0 2rem 0 rgba(136,152,170,.15);
+}
 .imgLink {
   /* width: 130px;
   height: 195px;
