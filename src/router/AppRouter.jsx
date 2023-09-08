@@ -1,8 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom"
+
+import { Navbar } from "../custom"
+
+import { LoginPage } from "../auth/pages/LoginPage"
+
 import { DashboardPage } from "../modules/administrator/pages/DashboardPage"
 import { ReportsPage } from "../modules/administrator/pages/ReportsPage"
-import { LoginPage } from "../auth/pages/LoginPage"
-import { Navbar } from "../custom"
 import { DetailPage } from "../modules/administrator/pages/DetailPage"
 
 export const AppRouter = () => {
