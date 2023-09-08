@@ -160,7 +160,7 @@ export const DetailPage = () => {
                                         </div>
                                         <div className='detailContent'>
                                             <h6 className='upper-h-6 mb-0 pb-0 pt-4'> Rango de Fechas</h6>
-                                            <h4 className='style-h-4 mb-0'>{firstDay.toLocaleDateString("en-GB")} - {lastDay.toLocaleDateString("en-GB")}</h4>
+                                            <h4 className='style-h-4 mb-0'>{dateStart.toLocaleDateString("en-GB")} - {dateEnd.toLocaleDateString("en-GB")}</h4>
                                         </div>
                                     </div>
                                 </div>
