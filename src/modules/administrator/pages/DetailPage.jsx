@@ -148,15 +148,15 @@ export const DetailPage = () => {
                                     <div className='detailContainer'>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
-                                            <h2 className='style-h-2'>$ {user.salesTotal.toLocaleString("en-US",{minimumFractionDigits: 2})}</h2>  
+                                            <h2 className='style-h-2'>$ {user.salesTotal.toLocaleString("en-US",{maximumFractionDigits: 2})}</h2>  
                                         </div>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ganancias</h6>
-                                            <h2 className='style-h-2'>$ {user.salesTotal.toLocaleString("en-US",{minimumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
+                                            <h2 className='style-h-2'>$ {user.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
                                         </div>
                                         <div className='detailContent'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
-                                            <h2 className='style-h-2'>$ {user.commission.toLocaleString("en-US",{minimumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
+                                            <h2 className='style-h-2'>$ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
                                         </div>
                                         <div className='detailContent'>
                                             <h6 className='upper-h-6 mb-0 pb-0 pt-4'> Rango de Fechas</h6>
