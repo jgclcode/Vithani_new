@@ -246,7 +246,8 @@ code {
 }
 .containerCities{
   margin: 20px 10px;
-  width: 100%;
+  /*width: 100%;*/
+
 }
 .grafis{
   width: 400px;
@@ -586,14 +587,15 @@ code {
 .detailContainer {
   background-color:#efeeee;
   width:100%;
-  height:50px;
+  height:auto;
   display:flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 .detailContent {
   height:20px;
-  width:30%;
+  width:auto;
   float: center;
   margin: 10px;
   
@@ -604,6 +606,15 @@ code {
 }
 
 
+@media (min-width: 992px){
+  .detailContainer{
+    height: 50px;
+    flex-direction: row;
+  }
+  .detailContent{
+    width: 20%;
+  }
+}
 
 
 .bg-gradient-info {
