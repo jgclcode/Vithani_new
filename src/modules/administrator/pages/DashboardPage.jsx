@@ -179,7 +179,7 @@ export const DashboardPage = () => {
                                         </div>
                                         <div className="col-auto col">
                                             <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                                <i className="fas fa-chart-bar"></i>
+                                                {/*<i className="fas fa-chart-bar"></i>*/}
                                             </div>
                                         </div>
                                     </div>

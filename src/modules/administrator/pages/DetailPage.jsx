@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
+import '../css/DetailPage.css'
 import { statesMX } from '../../../constants/statesConst';
 
 export const DetailPage = () => {
@@ -137,35 +138,29 @@ export const DetailPage = () => {
                         (user) ? (
                             <>  
                                 <div className="containerCities backgroundColorWhite">
-                                    <h1>{user.display_name}</h1>
-                                    <br />
-                                    <h3>Email: {user.user_email}</h3>
-                                    <br />
-                                    <h3>Ubicación: {statesMX[user.state]} - { user.city }</h3>
-                                    <br />
-                                    <h4>Cuenta bancaria: {user.account}</h4>
+                                    <h3 className='style-h-3 mb-5'>{user.display_name}</h3>
+                                    
+                                    {/*<h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
+                                    
+                                    <h3 className='style-h-3'> <span className='style-location'> {statesMX[user.state]} - { user.city } </span></h3>
+                                    
+                        <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>*/}
                                     <div className='detailContainer'>
-                                        <div className='detailContent'>
-                                            <p>Ventas Distribuidores</p>   
+                                        <div className='detailContent content-border'>
+                                            <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
+                                            <h2 className='style-h-2'>$ {user.salesTotal.toLocaleString("en-US",{minimumFractionDigits: 2})}</h2>  
+                                        </div>
+                                        <div className='detailContent content-border'>
+                                            <h6 className='upper-h-6'>Ganancias</h6>
+                                            <h2 className='style-h-2'>$ {user.salesTotal.toLocaleString("en-US",{minimumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
                                         </div>
                                         <div className='detailContent'>
-                                            <p>Ganancias</p>
+                                            <h6 className='upper-h-6'> Objetivo anual</h6>
+                                            <h2 className='style-h-2'>$ {user.commission.toLocaleString("en-US",{minimumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
                                         </div>
                                         <div className='detailContent'>
-                                            <p> Objetivo anual</p>
-                                        </div>
-                                    </div>
-
-                                    <div className='detailContainer'>
-                                        <div className='detailContent'>
-                                            <p>$ {user.salesTotal.toLocaleString("en-US")}</p>
-                                        </div>
-                                        <div className='detailContent'>
-                                            <p>$ {user.commission.toLocaleString("en-US")}</p>
-
-                                        </div>
-                                        <div className='detailContent'>
-                                            <p> $ 999 </p>
+                                            <h6 className='upper-h-6 mb-0 pb-0 pt-4'> Rango de Fechas</h6>
+                                            <h4 className='style-h-4 mb-0'>{firstDay.toLocaleDateString("en-GB")} - {lastDay.toLocaleDateString("en-GB")}</h4>
                                         </div>
                                     </div>
                                 </div>
