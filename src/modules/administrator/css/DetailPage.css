@@ -21,9 +21,6 @@ h2, h3, h4, h5, h6{
 .font-weight-light {
     font-weight: 300!important;
 }
-.style-location{
-    font: normal normal normal 14px/1 NucleoIcons;
-}
 .upper-h-6{
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -31,6 +28,17 @@ h2, h3, h4, h5, h6{
     letter-spacing: .04em;
     text-transform: uppercase;
     color: #8898aa!important;
+}
+.container-info-calendar{
+    /*align-items: center;*/
+    /*box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;*/
+    /*box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;*/
+}
+.container-info-calendar .card{
+    background-color: transparent;
+    /*box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;*/
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 25px 20px -20px;
+    
 }
 .detailContainer{
     background-color: transparent;
@@ -46,6 +54,15 @@ h2, h3, h4, h5, h6{
 }
 
 @media (min-width: 992px){
+    .container-info-calendar .card{
+        border: 0;
+    }
+    .container-info-calendar .card-info-user{
+        box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    }
+    .container-info-calendar .card-calendar-content{
+        box-shadow: none;
+    }
     .detailContainer .content-border{
         border-right: 2px solid rgba(0,0,0,.1);
         padding-bottom: 0;
@@ -62,4 +79,32 @@ h2, h3, h4, h5, h6{
     color: #f5365c;
     font-size: .875rem;
     margin-left: 10px;
+}
+.profile-user{
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.profile-user img{
+    border: 0;
+    background-color: transparent;
+}
+.card-body-profile-info{
+    /*border-bottom: 1px solid hsl( 0 0% calc( 93% - 3%) );*/
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+}
+.user-info{
+    font: normal normal normal 14px/1 NucleoIcons;
+    font-size: .85rem;
+    color: hsl( 226 34% 24%); 
+}
+
+.style-email{
+    text-align: center;
+    font-size: .9rem;
+    font-weight: 300;
+    color: hsl( 232 14% 68% );
 }
