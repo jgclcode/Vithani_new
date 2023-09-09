@@ -68,7 +68,6 @@ export const DetailPage = () => {
         );
     }
 
-
     const [loading, setLoading] = useState(false)
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
@@ -77,7 +76,6 @@ export const DetailPage = () => {
     useEffect(() => {
         setLoading(true);
         loadData(dateStart, dateEnd)
-        console.log(dateStart);
     }, [])
 
     
@@ -99,7 +97,7 @@ export const DetailPage = () => {
             <DetailHead/>
 
             <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
-                <Link to={'/dashboard'}>
+                <Link to={-1}>
                     Regresar
                 </Link>
             </div>
