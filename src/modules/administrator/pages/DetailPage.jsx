@@ -102,7 +102,7 @@ export const DetailPage = () => {
                 </Link>
             </div>
 
-            <div className="row marginRow">
+            <div className="row" style={{marginBottom: '25px'}}>
                 <div className="col-md justifyElements">
                     <DatePicker
                         selected={dateStart}
@@ -119,7 +119,7 @@ export const DetailPage = () => {
                 </div>
             </div>
 
-            <div className="row marginRow">
+            <div className="row" style={{marginBottom: '50px'}}>
                 <div className="col-md justifyElements">
                     <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
                 </div>
@@ -129,21 +129,26 @@ export const DetailPage = () => {
             </div>
 
             { loading ? (
-                <div>Loading...</div>
+                <div className="containerCities backgroundColorWhite">
+                    <h3 className='style-h-3 mb-3'>Cargando información</h3>
+                </div>
             ) : (
                 <>
                     {
                         (user) ? (
                             <>  
                                 <div className="containerCities backgroundColorWhite">
-                                    <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
-                                    
-                                    <h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
-                                    
-                                    <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[user.state]} - { user.city } </span></h3>
-                                    
-                                    <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>
-                                    
+
+                                    <div style={{marginBottom: '50px'}}>
+                                        <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
+                                        
+                                        <h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
+                                        
+                                        <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[user.state]} - { user.city } </span></h3>
+                                        
+                                        <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>
+                                    </div>
+
                                     <div className='detailContainer'>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
@@ -151,14 +156,20 @@ export const DetailPage = () => {
                                         </div>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ganancias</h6>
-                                            <h2 className='style-h-2'>$ {user.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
+                                            <h2 className='style-h-2'>
+                                                $ {user.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}
+                                                {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
+                                            </h2>
                                         </div>
-                                        <div className='detailContent'>
+                                        <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
-                                            <h2 className='style-h-2'>$ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
+                                            <h2 className='style-h-2'>
+                                                $ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})} 
+                                                {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
+                                            </h2>
                                         </div>
                                         <div className='detailContent'>
-                                            <h6 className='upper-h-6 mb-0 pb-0 pt-4'> Rango de Fechas</h6>
+                                            <h6 className='upper-h-6 mb-0'> Rango de Fechas</h6>
                                             <h4 className='style-h-4 mb-0'>{dateStart.toLocaleDateString("en-GB")} - {dateEnd.toLocaleDateString("en-GB")}</h4>
                                         </div>
                                     </div>
@@ -185,8 +196,8 @@ export const DetailPage = () => {
                                                         <td>{sale.reference}</td>
                                                         <td>{sale.date}</td>
                                                         <td>{sale.refferal_wp_uid}</td>
-                                                        <td>{sale._order_total.toLocaleString("en-US")}</td>
-                                                        <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
+                                                        <td>{sale._order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+                                                        <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
                                                         
                                                     </tr>
                                                 ))
