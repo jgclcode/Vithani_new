@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import perfil from "../../../assets/perfil.png";
+import { AuthContext } from '../../../auth/context/AuthContext';
 
 
 
 export const DashboardHead = () => {
+
+    const {user} = useContext(AuthContext);
+
     return (
         <>
             <div className="row marginRow">
@@ -11,8 +15,8 @@ export const DashboardHead = () => {
                     <h2>Dashboard</h2>
                 </div>
                 <div className="coponentTwo col-md justifyElements" style={{marginTop: '15px'}}>
-                    <img src={perfil}/>
-                    <p>Administrador</p>
+                    {/* <img src={perfil}/> */}
+                    <p>{ user?.name}</p>
                 </div>
             </div>
 

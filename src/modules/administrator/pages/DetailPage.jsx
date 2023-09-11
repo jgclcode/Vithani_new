@@ -136,13 +136,14 @@ export const DetailPage = () => {
                         (user) ? (
                             <>  
                                 <div className="containerCities backgroundColorWhite">
-                                    <h3 className='style-h-3 mb-5'>{user.display_name}</h3>
+                                    <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
                                     
-                                    {/*<h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
+                                    <h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
                                     
-                                    <h3 className='style-h-3'> <span className='style-location'> {statesMX[user.state]} - { user.city } </span></h3>
+                                    <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[user.state]} - { user.city } </span></h3>
                                     
-                        <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>*/}
+                                    <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>
+                                    
                                     <div className='detailContainer'>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ventas Distribuidores</h6> 

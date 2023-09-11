@@ -1,65 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { DashboardHead } from '../components/DashboardHead';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
+import '../css/DashboardPage.css'
+import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
-import { ReportsHead } from '../components/ReportsHead';
 
-export const ReportsPage = () => {
-  
+export const DashboardPage = () => {
+    
+    
+    const {user} = useContext(AuthContext);
+    const user_id = user.id.toString();
+    
+    const [userData, setUserData] = useState();
+
     const firstDay = new Date();
     const lastDay = new Date();
-
-    const [users, setUsers] = useState([]);
-    const [totalGlobal, setTotalGlobal] = useState(0);
-    const [totalCommission, setTotalCommission] = useState(0);
-    const [sales, setSales] = useState([]);
-    const [loading, setLoading] = useState(false)
-    const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
-    const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
-
-    let salesData = [];
 
     const loadData = (firstDay, lastDay) => {
         
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
+            body: JSON.stringify({user_id: user_id, dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
-        .then(json => {
-
-            salesData = [];
-            let usersTemp = json.data
-            setUsers(json.data)
-
-            for (let userData of usersTemp) {
-                for(let saleData of userData.sales){
-                    saleData.display_name = userData.display_name
-                    salesData.push(saleData)
-                }
-            }
-
-            setTotalGlobal(json.totalGlobal)
-            setTotalCommission(json.totalCommission)
-            
-        })
+        .then(json => setUserData(json.data))
         .finally(() => {
-            setSales(salesData);
-            setLoading(false);
+            setLoading(false)
         })
     }
 
     const exportReportCSV = () => {
         
-        fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -75,8 +55,8 @@ export const ReportsPage = () => {
 
     const exportReportExcel = () => {
         
-        fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -90,11 +70,13 @@ export const ReportsPage = () => {
         );
     }
 
-    
+    const [loading, setLoading] = useState(false)
+    const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
+    const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
+
     useEffect(() => {
         setLoading(true);
-        
-        loadData(dateStart, dateEnd)
+        loadData(dateStart, dateEnd);
     }, [])
 
     
@@ -113,13 +95,7 @@ export const ReportsPage = () => {
 
     return (
         <>  
-            <ReportsHead/>
-
-            <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
-                <Link to={-1}>
-                    Regresar
-                </Link>
-            </div>
+            <DashboardHead/>
 
             <div className="row marginRow">
                 <div className="col-md justifyElements">
@@ -152,32 +128,33 @@ export const ReportsPage = () => {
             ) : (
                 <>
                     {
-                        (users) ? (
+                        (userData) ? (
                             <>  
                                 <div className="containerCities backgroundColorWhite">
+                                    <h3 className='style-h-3 mb-3'>{userData.display_name}</h3>
+                                    
+                                    <h3 className='style-h-3'> <span className='font-weight-light'>{userData.user_email}</span></h3>
+                                    
+                                    <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[userData.state]} - { userData.city } </span></h3>
+                                    
+                                    <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {userData.account} </span></h3>
                                     
                                     <div className='detailContainer'>
-                                        <div className='detailContent'>
-                                            <p>Ventas Distribuidores</p>   
+                                        <div className='detailContent content-border'>
+                                            <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
+                                            <h2 className='style-h-2'>$ {userData.salesTotal.toLocaleString("en-US",{maximumFractionDigits: 2})}</h2>  
+                                        </div>
+                                        <div className='detailContent content-border'>
+                                            <h6 className='upper-h-6'>Ganancias</h6>
+                                            <h2 className='style-h-2'>$ {userData.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
                                         </div>
                                         <div className='detailContent'>
-                                            <p>Ganancias</p>
+                                            <h6 className='upper-h-6'> Objetivo anual</h6>
+                                            <h2 className='style-h-2'>$ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
                                         </div>
                                         <div className='detailContent'>
-                                            <p> Objetivo anual</p>
-                                        </div>
-                                    </div>
-
-                                    <div className='detailContainer'>
-                                        <div className='detailContent'>
-                                            <p>$ {totalGlobal.toLocaleString("en-US")}</p>
-                                        </div>
-                                        <div className='detailContent'>
-                                            <p>$ {totalCommission.toLocaleString("en-US")}</p>
-
-                                        </div>
-                                        <div className='detailContent'>
-                                            <p> $ {(735000 * users.length).toLocaleString("en-US")} </p>
+                                            <h6 className='upper-h-6 mb-0 pb-0 pt-4'> Rango de Fechas</h6>
+                                            <h4 className='style-h-4 mb-0'>{dateStart.toLocaleDateString("en-GB")} - {dateEnd.toLocaleDateString("en-GB")}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -192,25 +169,24 @@ export const ReportsPage = () => {
                                                 <th>Referido</th>
                                                 <th>Compra</th>
                                                 <th>Comisión</th>
-                                                <th>Distribuidor</th>
-
+                                                
                                             </tr>
                                         </thead>
-                                            <tbody>
-                                            {   
-                                                sales.map((sale, index) => (
+                                        <tbody>
+                                            {
+                                                userData.refferedSales.map((sale, index) => (
                                                     <tr key={sale.sale_id}>
-                                                        <td>{index + 1 }</td>
+                                                        <td>{index +1 }</td>
                                                         <td>{sale.reference}</td>
                                                         <td>{sale.date}</td>
                                                         <td>{sale.refferal_wp_uid}</td>
                                                         <td>{sale._order_total.toLocaleString("en-US")}</td>
                                                         <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
-                                                        <td>{sale.display_name}</td>
+                                                        
                                                     </tr>
                                                 ))
                                             }
-                                            </tbody>
+                                        </tbody>
                                     </table>
                                 </div>
                                 
@@ -219,6 +195,7 @@ export const ReportsPage = () => {
                             <div>No data</div>
                         )
                     }
+
                 </>
             )}
         </>
