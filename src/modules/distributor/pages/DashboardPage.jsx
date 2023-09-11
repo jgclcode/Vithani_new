@@ -71,7 +71,19 @@ export const DashboardPage = () => {
     }
 
     const exportReportPDF = () => {
-        console.log("PDF")
+        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportPDF/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportPDF/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        .then(
+            (response) => {
+
+                const  url = response.url;
+                const link = document.createElement('a')
+                link.href = url
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            }
+        );
     }
 
     const [loading, setLoading] = useState(false)
