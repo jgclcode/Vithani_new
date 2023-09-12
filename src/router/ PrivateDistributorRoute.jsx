@@ -8,5 +8,5 @@ export const PrivateDistributorRoute = ( {children} ) => {
 
     return (logged && user.id != 1)
     ? children
-    : <Navigate to='/panel-vithani/administrator/dashboard'/>
+    : <Navigate to='/administrator/dashboard'/>
 }

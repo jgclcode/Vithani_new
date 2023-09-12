@@ -75,7 +75,7 @@ export const DashboardPage = () => {
     const navigate = useNavigate();
 
     const onDetail = (user_id) => {
-        navigate(`/panel-vithani/administrator/detail/${user_id}`);
+        navigate(`/administrator/detail/${user_id}`);
     }
     
     useEffect(() => {

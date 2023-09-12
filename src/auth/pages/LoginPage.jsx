@@ -8,13 +8,13 @@ export const LoginPage = () => {
     const navigate = useNavigate();
 
     const onLoginAdministrador = () => {
-        navigate('/panel-vithani/loginAdministrator',{
+        navigate('/loginAdministrator',{
             replace: true
         });
     }
 
     const onLoginDistribuidor = () => {
-        navigate('/panel-vithani/loginDistributor',{
+        navigate('/loginDistributor',{
             replace: true
         });
     }

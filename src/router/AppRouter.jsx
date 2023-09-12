@@ -14,26 +14,26 @@ export const AppRouter = () => {
     return (
         <>
             <Routes>
-                <Route path="/panel-vithani/login" element= {<LoginPage/>} />
+                <Route path="/login" element= {<LoginPage/>} />
 
-                <Route path="/panel-vithani/loginAdministrator" element= {<LoginAdministrador/>} />
+                <Route path="/loginAdministrator" element= {<LoginAdministrador/>} />
 
-                <Route path="/panel-vithani/loginDistributor" element= {<LoginDistribuidor/>} />
+                <Route path="/loginDistributor" element= {<LoginDistribuidor/>} />
 
 
-                <Route path="/panel-vithani/administrator/*" element= {
+                <Route path="/administrator/*" element= {
                     <PrivateAdministratorRoute>
                         <AdministratorRoutes/>
                     </PrivateAdministratorRoute>}
                 />
 
-                <Route path="/panel-vithani/distributor/*" element= {
+                <Route path="/distributor/*" element= {
                     <PrivateDistributorRoute>
                         <DistributorRoutes/>
                     </PrivateDistributorRoute>}
                 />
 
-                <Route path="/panel-vithani/*" element={<Navigate to="/panel-vithani/login"/>}/>
+                <Route path="/*" element={<Navigate to="/login"/>}/>
             </Routes>
         </>
     )

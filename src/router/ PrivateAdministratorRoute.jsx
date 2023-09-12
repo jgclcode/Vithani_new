@@ -8,5 +8,5 @@ export const PrivateAdministratorRoute = ( {children} ) => {
 
     return (logged && user.id == 1)
     ? children
-    : <Navigate to='/panel-vithani/distributor/dashboard'/>
+    : <Navigate to='/distributor/dashboard'/>
 }
