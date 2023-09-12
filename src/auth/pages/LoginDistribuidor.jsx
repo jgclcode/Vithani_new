@@ -56,7 +56,7 @@ export const LoginDistribuidor = () => {
                 } else {
                     login(json.user.ID, json.user.display_name, type);
 
-                    navigate('/distributor/dashboard',{
+                    navigate('/panel-vithani/distributor/dashboard',{
                         replace: true
                     });
                 }
@@ -127,7 +127,7 @@ export const LoginDistribuidor = () => {
                         <br />
                         <br />
 
-                        <Link to={'/login'}>
+                        <Link to={'/panel-vithani/login'}>
                             Volver
                         </Link>
                     </div>

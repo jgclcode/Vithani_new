@@ -52,7 +52,7 @@ export const LoginAdministrador = () => {
                     type = 'Administrador';
                     login(json.user.ID, json.user.display_name, type);
 
-                    navigate('/administrator/dashboard',{
+                    navigate('/panel-vithani/administrator/dashboard',{
                         replace: true
                     });
                     
@@ -131,7 +131,7 @@ export const LoginAdministrador = () => {
                         <br />
                         <br />
 
-                        <Link to={'/login'}>
+                        <Link to={'/panel-vithani/login'}>
                             Volver
                         </Link>
                     </div>

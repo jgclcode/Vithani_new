@@ -31,7 +31,7 @@ export const NavbarDistributor = () => {
 
     const onLogout = () => {
         logout();
-        navigate('/login', {
+        navigate('/panel-vithani/login', {
             replace: true
         });
     }
@@ -54,7 +54,7 @@ export const NavbarDistributor = () => {
                     
                     
                         <ul className="enlace navbar-nav me-auto mb-2 mb-lg-0" id="navList">
-                            <Link to="/distributor/dashboard" >
+                            <Link to="/panel-vithani/distributor/dashboard" >
                                 <div className="nav-item bg-nav-item-active"  onClick={onSetActiveMenuItem}>
                                     <img className="imgLink" src={DashboardImg}/>
                                     <p className="textLink">Dashboard</p>
