@@ -6,7 +6,7 @@ import perfil from "../../../assets/perfil.png";
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
-import '../css/DetailPage.css'
+import '../css/styles-admin.css'
 import { statesMX } from '../../../constants/statesConst';
 
 export const DetailPage = () => {
