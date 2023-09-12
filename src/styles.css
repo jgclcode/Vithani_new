@@ -62,6 +62,7 @@ code {
   justify-content: center;
   padding-left: 40px;
   padding-right: 10px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 }
 
 .containerHeader{
@@ -115,6 +116,7 @@ code {
   .containerTop{
     padding: 0;
     height: auto;
+    box-shadow: none;
   }
   .enlace .nav-item{
     padding: 5px 10px;
