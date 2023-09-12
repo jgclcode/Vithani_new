@@ -20,7 +20,7 @@ export const Popup = ({ closePopup }) => {
 
     const onLogout = () => {
         logout();
-        navigate('/login', {
+        navigate('/panel-vithani/login', {
             replace: true
         });
     }
@@ -45,13 +45,13 @@ export const Popup = ({ closePopup }) => {
                     </div>
                     <ul className="enlace-popup navbar-nav">
                         <div className={`nav-item mb-3 ${isActive ? 'bg-nav-item-active' : ''}`} onClick={handleClick}>
-                            <Link to="/administrator/dashboard" onClick={closePopup}>
+                            <Link to="/panel-vithani/administrator/dashboard" onClick={closePopup}>
                                 <img className="imgLink" src={DashboardImg}/>
                                 <p className="textLink">Dashboard</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3">
-                            <Link to="/administrator/reports" onClick={closePopup}>
+                            <Link to="/panel-vithani/administrator/reports" onClick={closePopup}>
                                 <img className="imgEnlace1" src={reporte}/>
                                 <p>Reporte</p>
                             </Link>
