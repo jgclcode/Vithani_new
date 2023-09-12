@@ -106,40 +106,56 @@ export const DetailPage = () => {
             <div className='row ms-0 me-0 container-info-calendar'>
                 <div className='col-xl-4 col-md-12 col-lg-12'>
                     <div className='card card-info-user mb-4'>
-                        {user ? (
-                            <div className='card-body'>
-                                <div className='row card-body-profile-info'>
-                                    <div className='col-sm-4'>
-                                        <div className='profile-user'>
-                                            <img src={perfil} className='img-thumbnail rounded-circle'/>
-                                        </div>
-                                    </div>
-                                    <div className='col-sm-8'>
-                                        <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
-                                        <div className='user-info'>
-                                            <span>
-                                                <i className="fas fa-map-marker-alt"></i>
-                                                <span> {statesMX[user.state]} - { user.city } </span>
-                                            </span>
-                                            <br/>
-                                            <br/>
-                                            <span>
-                                                <i className="fas fa-money-check-alt"></i>
-                                                <span> {user.account} </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p className='style-email'>{user.user_email}</p>
+                        { loading ? (
+                            <div className="containerCities backgroundColorWhite">
+                                <h3 className='style-h-3 mb-3'>Cargando información</h3>
                             </div>
                         ) : (
-                            <div> No data </div>
+                            <>
+                                {user ? (
+                                    <div className='card-body'>
+                                        <div className='row card-body-profile-info'>
+                                            <div className='col-sm-4'>
+                                                <div className='profile-user'>
+                                                    <img src={perfil} className='img-thumbnail rounded-circle'/>
+                                                </div>
+                                            </div>
+                                            <div className='col-sm-8'>
+                                                <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
+                                                <div className='user-info'>
+                                                    <span>
+                                                        <i className="fas fa-map-marker-alt"></i>
+                                                        <span> {statesMX[user.state]} - { user.city } </span>
+                                                    </span>
+                                                    <br/>
+                                                    <br/>
+                                                    <span>
+                                                        <i className="fas fa-money-check-alt"></i>
+                                                        <span> {user.account} </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p className='style-email'>{user.user_email}</p>
+                                    </div>
+                                ) : (
+                                    <div> No data </div>
+                                )}
+                            </>
                         )}
                     </div>
                 </div>
                 <div className='col-xl-8 col-md-12 col-lg-12'>
                     <div className='card card-calendar-content mb-4'>
                         <div className='card-body'>
+                            <div className="row" style={{marginBottom: '20px'}}>
+                                <div className="col-md justifyElements">
+                                    <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
+                                </div>
+                                <div className="col-md justifyElements">
+                                    <span className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col-md justifyElements mt-0">
                                     <DatePicker
@@ -156,14 +172,7 @@ export const DetailPage = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-md justifyElements">
-                                    <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
-                                </div>
-                                <div className="col-md justifyElements">
-                                    <span className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
