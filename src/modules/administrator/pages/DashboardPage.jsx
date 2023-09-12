@@ -63,6 +63,7 @@ export const DashboardPage = () => {
             setLoading(false)
         })
     }
+
     const [statesSales , setStateSales] = useState(0)
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -72,8 +73,9 @@ export const DashboardPage = () => {
     const [publicSales, setPublicSales] = useState(0);
 
     const navigate = useNavigate();
+
     const onDetail = (user_id) => {
-        navigate(`/detail/${user_id}`);
+        navigate(`/panel-vithani/administrator/detail/${user_id}`);
     }
     
     useEffect(() => {
@@ -118,31 +120,44 @@ export const DashboardPage = () => {
             { loading ? (
                 <div>Loading...</div>
             ) : (
-                <>
-
+                <>  
+                    <div className="containerCities backgroundColorWhite">
+                        <h2>Ventas nacional</h2>
+                        <div className="city">
+                            
+                            {(statesSales) ? (
+                                Object.entries(statesSales).map( state => (
+                                    <div className="cities" key={state[0]}>
+                                        <h3>{statesMX[state[0]]}</h3>
+                                        <p><span>{ statesSales[state[0]] }</span></p>
+                                    </div>
+                                
+                                ))
+                            ) : (
+                                <div>No data</div>
+                            )}
+                        </div>
+                    </div>
                     <div className="row marginRow">
-                        <div className="containerCities backgroundColorWhite">
-                            <div className='detailContainer'>
-                                <div className='detailContent content-border' >
-                                    <h6 className='upper-h-6'>Ventas distribuidores</h6>
-                                    <h2 className='style-h-2' style={{width:'auto', paddingRight:'30px'}}>$ {totalSales.toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})}</h2>
-                                </div>
-                                <div className='detailContent content-border' >
-                                    <h6 className='upper-h-6'>Ganancias</h6>
-                                    <h2 className='style-h-2' style={{width:'auto', paddingRight:'30px'}}>$ {(totalSales*.2285).toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})} <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> </h2>
-                                </div>
-                                <div className='detailContent content-border' >
-                                    <h6 className='upper-h-6'>Objetivo anual</h6>
-                                    <h2 className='style-h-2' style={{width:'auto', paddingRight:'30px'}}>$ {(735000 * users.length).toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> </h2>
-                                </div>
-                                <div className='detailContent' >
-                                    <h6 className='upper-h-6'>Ventas al público</h6>
-                                    <h2 className='style-h-2' style={{width:'auto', paddingRight:'30px'}}>$ {publicSales.toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> </h2>
-                                </div>
+                        <div className='detailContainer'>
+                            <div className='detailContent content-border'>
+                                <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
+                                <h2 className='style-h-2'>$ {totalSales.toLocaleString("en-US",{maximumFractionDigits: 2})}</h2>  
+                            </div>
+                            <div className='detailContent content-border'>
+                                <h6 className='upper-h-6'>Ganancias</h6>
+                                <h2 className='style-h-2'>$ {(totalSales*.2285).toLocaleString("en-US",{maximumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
+                            </div>
+                            <div className='detailContent content-border'>
+                                <h6 className='upper-h-6'> Objetivo anual</h6>
+                                <h2 className='style-h-2'>$ {(735000 * users.length).toLocaleString("en-US",{maximumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
+                            </div>
+                            <div className='detailContent'>
+                                <h6 className='upper-h-6 '> Ventas al público</h6>
+                                <h4 className='style-h-2 '>$ {publicSales.toLocaleString("en-US",{maximumFractionDigits: 2})}</h4>
                             </div>
                         </div>
                     </div>
-
                     <div className="row marginRow">
                             <div className="col-lg-6 marginColg">
                                 <h2>Distribuidores</h2>
@@ -172,16 +187,6 @@ export const DashboardPage = () => {
                                                         </div>
 
                                                     </div>
-
-                                                    // <div key={user.user_id} className="miembros contMember">
-                                                    //     <div className="name">
-                                                    //         <img src={perfil}/>
-                                                    //         <h3>{ user.display_name }</h3>
-                                                    //     </div>
-                                                        
-                                                    //     
-
-                                                    // </div>
                                                 )
                                             }
                                         })
@@ -227,19 +232,6 @@ export const DashboardPage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    // <div key={user.display_name} className="ditribuidorD">
-                                                    //     <div className="name">
-                                                    //         <img className='imageMiembros' src={perfil}/>
-                                                    //         <h3>{user.display_name}</h3>
-                                                    //     </div>
-                                                    //     <div className="percentageSegment">
-                                                    //         <div className="barraPorcentaje" style={{ width: `${percentage}%` }}/>
-                                                    //         <div className="percentage">
-                                                    //             <p > {percentage} %</p>
-                                                    //         </div>
-                                                    //     </div>
-                                                    // </div>
                                                 )
                                             }
                                         })

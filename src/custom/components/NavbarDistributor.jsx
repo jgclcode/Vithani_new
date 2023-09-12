@@ -1,23 +1,23 @@
-import { React, useState, useEffect } from "react";
-import { Outlet , Link} from "react-router-dom";
+import { React, useState, useEffect, useContext } from "react";
+import { Outlet , Link, useNavigate} from "react-router-dom";
 
 import icono from "../../assets/Vithani.svg";
 
 import DashboardImg  from "../../assets/dashboard.svg";
 import reporte from "../../assets/Grupo_1_hover.png";
-import notificacionesimg from "../../assets/Grupo_3.png";
-// import beneficios from "../../assets/Publico.svg";
-// import Logout from "../../assets/Salir.svg";
-import ventas from "../../assets/ventas_publico.svg";
+import logoutImg from "../../assets/logout.png"
 
 import "../../styles.css" ;
 
 import { Popup } from "./Popup/Popup";
+import { AuthContext } from "../../auth/context/AuthContext";
 
-export const Navbar = () => {
+export const NavbarDistributor = () => {
+
+    const navigate = useNavigate();
+    const {logout} = useContext(AuthContext);
 
     const [open, setOpen] = useState(false);
-
 
     const onSetActiveMenuItem = (e) => {
         var elems = document.querySelector("#navList div.bg-nav-item-active");
@@ -29,9 +29,16 @@ export const Navbar = () => {
         e.currentTarget.className = "nav-item bg-nav-item-active";
     };
 
+    const onLogout = () => {
+        logout();
+        navigate('/panel-vithani/login', {
+            replace: true
+        });
+    }
+
     return(
         <div className="flexMenu">
-            <nav className="flexStar navbar navbar-vertical fixed-left navbar-expand-lg "> {/* navbar-light bg-white */}
+            <nav className="flexStar navbar navbar-vertical fixed-left navbar-expand-lg ">
                 <div className="containerHeader container-fluid" >
                     <div className="containerTop">
                         <div className="menuPrincipal navbar-brand"><img src={icono}/> </div>
@@ -46,45 +53,27 @@ export const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     
                     
-                        <ul className="enlace navbar-nav me-auto mb-2 mb-lg-0" id="navList"> {/*onClick={onSetActiveMenuItem}*/}
-                            <Link to="/dashboard" >
+                        <ul className="enlace navbar-nav me-auto mb-2 mb-lg-0" id="navList">
+                            <Link to="/panel-vithani/distributor/dashboard" >
                                 <div className="nav-item bg-nav-item-active"  onClick={onSetActiveMenuItem}>
                                     <img className="imgLink" src={DashboardImg}/>
                                     <p className="textLink">Dashboard</p>
                                 </div>
                             </Link>
-                            <Link to="/reports">
+                            {/* <Link to="/administrator/reports">
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={reporte}/>
                                     <p>Reporte</p>
                                 </div>
-                            </Link>
-                        </ul>     
-
-                        {/* <div className="enlace">
-                            <Link to="/public">
-                                <img className="imgEnlace4" src={ventas}/>
-                                <p>Publico</p>
-                            </Link>
-                        </div>
-                        <div className="enlace">
-                            <Link to="/Notifications">
-                                <img 
-                                    className="imgEnlace2" 
-                                    src={notificacionesimg}
-                                />
-                                <p>Notificaciones</p>
-                            </Link>
-                        </div> */}
-                        {/* <div className="enlace">
-                            <Link to="./DescuentosandBeneficios">
-                                <img className="imgEnlace3" src={beneficios}/>
-                                <p>Beneficios</p>
-                            </Link>
-                        </div> */}
-                        {/* <div className="enlace">
-                            <img className="imgEnlace5" src={Logout}/>
-                        </div> */}
+                            </Link> */}
+                            <button onClick={onLogout} style={{border: "none", background: 'none'}}>
+                                <div className="nav-item" onClick={onSetActiveMenuItem}>
+                                    <img className="logout" src={logoutImg}/>
+                                    <p>Logout</p>
+                                </div>
+                            </button>
+                                
+                        </ul>
                     </div>
                              
                 </div>

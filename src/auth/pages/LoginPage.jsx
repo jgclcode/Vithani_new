@@ -4,11 +4,17 @@ import icono from "../../assets/Vithani.svg";
 
 
 export const LoginPage = () => {
-    const navigate = useNavigate()
+        
+    const navigate = useNavigate();
 
-    const onLogin = () => {
+    const onLoginAdministrador = () => {
+        navigate('/panel-vithani/loginAdministrator',{
+            replace: true
+        });
+    }
 
-        navigate('/dashboard',{
+    const onLoginDistribuidor = () => {
+        navigate('/panel-vithani/loginDistributor',{
             replace: true
         });
     }
@@ -24,12 +30,21 @@ export const LoginPage = () => {
                         
                         <br />
                         <br />
+                        <button
+                            className="btn btn-primary"
+                            onClick={onLoginAdministrador}
+                        >
+                            Administrador
+                        </button>
+                        
+                        <br />
+                        <br />
 
                         <button
                             className="btn btn-primary"
-                            onClick={onLogin}
+                            onClick={onLoginDistribuidor}
                         >
-                            Administrador
+                            Distribuidor
                         </button>
                     </div>
                 </div>

@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { DetailHead } from '../components/DetailHead';
+import React, { useContext, useEffect, useState } from 'react'
+import { DashboardHead } from '../components/DashboardHead';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
-import '../css/DetailPage.css'
+import '../css/DashboardPage.css'
+import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
 
-export const DetailPage = () => {
-  
-    const {user_id} = useParams();
+export const DashboardPage = () => {
     
-    const [user, setUser] = useState();
+    
+    const {user} = useContext(AuthContext);
+    const user_id = user.id.toString();
+    
+    const [userData, setUserData] = useState();
 
     const firstDay = new Date();
     const lastDay = new Date();
@@ -28,7 +30,7 @@ export const DetailPage = () => {
         fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
         // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
-        .then(json => setUser(json.data))
+        .then(json => setUserData(json.data))
         .finally(() => {
             setLoading(false)
         })
@@ -68,14 +70,29 @@ export const DetailPage = () => {
         );
     }
 
+    const exportReportPDF = () => {
+        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportPDF/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportPDF/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        .then(
+            (response) => {
+
+                const  url = response.url;
+                const link = document.createElement('a')
+                link.href = url
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            }
+        );
+    }
+
     const [loading, setLoading] = useState(false)
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
 
-    
     useEffect(() => {
         setLoading(true);
-        loadData(dateStart, dateEnd)
+        loadData(dateStart, dateEnd);
     }, [])
 
     
@@ -94,15 +111,9 @@ export const DetailPage = () => {
 
     return (
         <>  
-            <DetailHead/>
+            <DashboardHead/>
 
-            <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
-                <Link to={-1}>
-                    Regresar
-                </Link>
-            </div>
-
-            <div className="row" style={{marginBottom: '25px'}}>
+            {/* <div className="row marginRow">
                 <div className="col-md justifyElements">
                     <DatePicker
                         selected={dateStart}
@@ -117,7 +128,7 @@ export const DetailPage = () => {
                         inline
                     />
                 </div>
-            </div>
+            </div> */}
 
             <div className="row" style={{marginBottom: '50px'}}>
                 <div className="col-md justifyElements">
@@ -125,6 +136,9 @@ export const DetailPage = () => {
                 </div>
                 <div className="col-md justifyElements">
                     <span className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
+                </div>
+                <div className="col-md justifyElements">
+                    <span className="btn btn-danger btn-sm" onClick = {exportReportPDF}> Descargar Reporte PDF</span>
                 </div>
             </div>
 
@@ -135,36 +149,36 @@ export const DetailPage = () => {
             ) : (
                 <>
                     {
-                        (user) ? (
+                        (userData) ? (
                             <>  
                                 <div className="containerCities backgroundColorWhite">
-
+                                    
                                     <div style={{marginBottom: '50px'}}>
-                                        <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
+                                        <h3 className='style-h-3 mb-3'>{userData.display_name}</h3>
                                         
-                                        <h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
+                                        <h3 className='style-h-3'> <span className='font-weight-light'>{userData.user_email}</span></h3>
                                         
-                                        <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[user.state]} - { user.city } </span></h3>
+                                        <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[userData.state]} - { userData.city } </span></h3>
                                         
-                                        <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>
+                                        <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {userData.account} </span></h3>
                                     </div>
-
+                                    
                                     <div className='detailContainer'>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
-                                            <h2 className='style-h-2'>$ {user.salesTotal.toLocaleString("en-US",{maximumFractionDigits: 2})}</h2>  
+                                            <h2 className='style-h-2'>$ {userData.salesTotal.toLocaleString("en-US",{maximumFractionDigits: 2})}</h2>  
                                         </div>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ganancias</h6>
                                             <h2 className='style-h-2'>
-                                                $ {user.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}
+                                                $ {userData.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}
                                                 {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
                                             <h2 className='style-h-2'>
-                                                $ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})} 
+                                                $ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})}
                                                 {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
                                             </h2>
                                         </div>
@@ -190,7 +204,7 @@ export const DetailPage = () => {
                                         </thead>
                                         <tbody>
                                             {
-                                                user.refferedSales.map((sale, index) => (
+                                                userData.refferedSales.map((sale, index) => (
                                                     <tr key={sale.sale_id}>
                                                         <td>{index +1 }</td>
                                                         <td>{sale.reference}</td>
@@ -213,8 +227,7 @@ export const DetailPage = () => {
                     }
 
                 </>
-            )
-            }
+            )}
         </>
     )
 }

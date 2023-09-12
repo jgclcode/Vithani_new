@@ -116,7 +116,7 @@ export const ReportsPage = () => {
             <ReportsHead/>
 
             <div className="membersandDistri" style={{marginLeft:'100px', marginBottom:'20px', marginTop:'20px'}}>
-                <Link to={'/dashboard'}>
+                <Link to={-1}>
                     Regresar
                 </Link>
             </div>
@@ -151,11 +151,8 @@ export const ReportsPage = () => {
                 <div>Loading...</div>
             ) : (
                 <>
-                    
-                    
                     {
                         (users) ? (
-
                             <>  
                                 <div className="containerCities backgroundColorWhite">
                                     
@@ -222,10 +219,8 @@ export const ReportsPage = () => {
                             <div>No data</div>
                         )
                     }
-
                 </>
-            )
-            }
+            )}
         </>
     )
 }

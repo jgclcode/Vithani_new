@@ -1,26 +1,39 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { Navbar } from "../custom"
-
 import { LoginPage } from "../auth/pages/LoginPage"
+import { AdministratorRoutes } from "../modules/administrator"
+import { DistributorRoutes } from "../modules/distributor"
 
-import { DashboardPage } from "../modules/administrator/pages/DashboardPage"
-import { ReportsPage } from "../modules/administrator/pages/ReportsPage"
-import { DetailPage } from "../modules/administrator/pages/DetailPage"
+import { PrivateAdministratorRoute } from "./ PrivateAdministratorRoute"
+import { PrivateDistributorRoute } from "./ PrivateDistributorRoute"
+
+import { LoginAdministrador } from "../auth/pages/LoginAdministrador"
+import { LoginDistribuidor } from "../auth/pages/LoginDistribuidor"
 
 export const AppRouter = () => {
     return (
         <>
             <Routes>
-                <Route element={<Navbar/>}>
-                    <Route path="/dashboard" element={<DashboardPage />} />
-                    <Route path="/reports" element={<ReportsPage />} />
-                    <Route path="/detail/:user_id" element={<DetailPage />} />
-                </Route>
+                <Route path="/panel-vithani/login" element= {<LoginPage/>} />
 
-                <Route path="/login" element= {<LoginPage/>} />
-                
-                <Route path="/" element={<Navigate to="/login"/>}/>
+                <Route path="/panel-vithani/loginAdministrator" element= {<LoginAdministrador/>} />
+
+                <Route path="/panel-vithani/loginDistributor" element= {<LoginDistribuidor/>} />
+
+
+                <Route path="/panel-vithani/administrator/*" element= {
+                    <PrivateAdministratorRoute>
+                        <AdministratorRoutes/>
+                    </PrivateAdministratorRoute>}
+                />
+
+                <Route path="/panel-vithani/distributor/*" element= {
+                    <PrivateDistributorRoute>
+                        <DistributorRoutes/>
+                    </PrivateDistributorRoute>}
+                />
+
+                <Route path="/panel-vithani/*" element={<Navigate to="/panel-vithani/login"/>}/>
             </Routes>
         </>
     )
