@@ -57,9 +57,9 @@ h2, h3, h4, h5, h6{
     .container-info-calendar .card{
         border: 0;
     }
-    .container-info-calendar .card-info-user{
+    /* .container-info-calendar .card-info-user{
         box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-    }
+    } */
     .container-info-calendar .card-calendar-content{
         box-shadow: none;
     }
@@ -91,7 +91,7 @@ h2, h3, h4, h5, h6{
     background-color: transparent;
 }
 .card-body-profile-info{
-    /*border-bottom: 1px solid hsl( 0 0% calc( 93% - 3%) );*/
+    border-bottom: 1px solid hsl( 0 0% calc( 93% - 3%) );
     border-bottom: 2px solid rgba(0,0,0,.1);
     margin-bottom: 16px;
     padding-bottom: 16px;

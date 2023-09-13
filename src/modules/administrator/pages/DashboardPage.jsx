@@ -105,14 +105,16 @@ export const DashboardPage = () => {
                     <DatePicker
                         selected={dateStart}
                         onChange={(date) => dateBeginSet(date)}
-                        inline
+                        className="datepicker-input"
+                        // inline
                     />
                 </div>
                 <div className="col-md justifyElements">
                     <DatePicker
                         selected={dateEnd}
                         onChange={(date) => dateEndSet(date)}
-                        inline
+                        className="datepicker-input"
+                        // inline
                     />
                 </div>
             </div>
