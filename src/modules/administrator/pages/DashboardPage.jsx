@@ -63,6 +63,7 @@ export const DashboardPage = () => {
             setLoading(false)
         })
     }
+
     const [statesSales , setStateSales] = useState(0)
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -72,8 +73,9 @@ export const DashboardPage = () => {
     const [publicSales, setPublicSales] = useState(0);
 
     const navigate = useNavigate();
+
     const onDetail = (user_id) => {
-        navigate(`/detail/${user_id}`);
+        navigate(`/administrator/detail/${user_id}`);
     }
     
     useEffect(() => {
@@ -103,14 +105,16 @@ export const DashboardPage = () => {
                     <DatePicker
                         selected={dateStart}
                         onChange={(date) => dateBeginSet(date)}
-                        inline
+                        className="datepicker-input"
+                        // inline
                     />
                 </div>
                 <div className="col-md justifyElements">
                     <DatePicker
                         selected={dateEnd}
                         onChange={(date) => dateEndSet(date)}
-                        inline
+                        className="datepicker-input"
+                        // inline
                     />
                 </div>
             </div>
@@ -118,106 +122,44 @@ export const DashboardPage = () => {
             { loading ? (
                 <div>Loading...</div>
             ) : (
-                <>
-
+                <>  
+                    <div className="containerCities backgroundColorWhite">
+                        <h2>Ventas nacional</h2>
+                        <div className="city">
+                            
+                            {(statesSales) ? (
+                                Object.entries(statesSales).map( state => (
+                                    <div className="cities" key={state[0]}>
+                                        <h3>{statesMX[state[0]]}</h3>
+                                        <p><span>{ statesSales[state[0]] }</span></p>
+                                    </div>
+                                
+                                ))
+                            ) : (
+                                <div>No data</div>
+                            )}
+                        </div>
+                    </div>
                     <div className="row marginRow">
-                        <div className="col-lg-6 col-xl-3">
-                            <div className="card-stats mb-4 mb-xl-0 card">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col">
-                                            <h5 className="text-uppercase text-muted mb-0 card-title">Ventas distribuidores</h5>
-                                            <span className="h2 font-weight-bold mb-0">$ {totalSales.toFixed(2).toLocaleString("en-US")}</span>
-                                        </div>
-                                        {/* <div className="col-auto col">
-                                            <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                                <i className="fas fa-chart-bar"></i>
-                                            </div>
-                                        </div> */}
-                                    </div>
-                                    {/* <p className="mt-3 mb-0 text-muted text-sm">
-                                        <span className="text-success mr-2">
-                                            <i className="fa fa-arrow-up"></i> 3.48%
-                                        </span>
-                                        <span className="text-nowrap">Since last month</span>
-                                    </p> */}
-                                </div>
+                        <div className='detailContainer'>
+                            <div className='detailContent content-border'>
+                                <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
+                                <h2 className='style-h-2'>$ {totalSales.toLocaleString("en-US",{maximumFractionDigits: 2})}</h2>  
                             </div>
-                        </div>
-                    
-                        <div className="col-lg-6 col-xl-3">
-                            <div className="card-stats mb-4 mb-xl-0 card">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col">
-                                            <h5 className="text-uppercase text-muted mb-0 card-title">Ganancias</h5>
-                                            <span className="h2 font-weight-bold mb-0">$ {(totalSales*.2285).toFixed(2).toLocaleString("en-US")}</span>
-                                        </div>
-                                        {/* <div className="col-auto col">
-                                            <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                                <i className="fas fa-chart-bar"></i>
-                                            </div>
-                                        </div> */}
-                                    </div>
-                                    {/* <p className="mt-3 mb-0 text-muted text-sm">
-                                        <span className="text-success mr-2">
-                                            <i className="fa fa-arrow-up"></i> 3.48%
-                                        </span>
-                                        <span className="text-nowrap">Since last month</span>
-                                    </p> */}
-                                </div>
+                            <div className='detailContent content-border'>
+                                <h6 className='upper-h-6'>Ganancias</h6>
+                                <h2 className='style-h-2'>$ {(totalSales*.2285).toLocaleString("en-US",{maximumFractionDigits: 2})}<span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span></h2>
                             </div>
-                        </div>
-                    
-                        <div className="col-lg-6 col-xl-3">
-                            <div className="card-stats mb-4 mb-xl-0 card">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col">
-                                            <h5 className="text-uppercase text-muted mb-0 card-title">Objetivo anual</h5>
-                                            <span className="h2 font-weight-bold mb-0">$ {(735000 * users.length).toFixed(2).toLocaleString("en-US")}</span>
-                                        </div>
-                                        <div className="col-auto col">
-                                            <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                                {/*<i className="fas fa-chart-bar"></i>*/}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <p className="mt-3 mb-0 text-muted text-sm">
-                                        <span className="text-success mr-2">
-                                            <i className="fa fa-arrow-up"></i> 3.48%
-                                        </span>
-                                        <span className="text-nowrap">Since last month</span>
-                                    </p> */}
-                                </div>
+                            <div className='detailContent content-border'>
+                                <h6 className='upper-h-6'> Objetivo anual</h6>
+                                <h2 className='style-h-2'>$ {(735000 * users.length).toLocaleString("en-US",{maximumFractionDigits: 2})} <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span></h2>
                             </div>
-                        </div>
-                    
-                        <div className="col-lg-6 col-xl-3">
-                            <div className="card-stats mb-4 mb-xl-0 card">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col">
-                                            <h5 className="text-uppercase text-muted mb-0 card-title">Ventas al público</h5>
-                                            <span className="h2 font-weight-bold mb-0">$ {publicSales.toFixed(2).toLocaleString("en-US")}</span>
-                                        </div>
-                                        {/* <div className="col-auto col">
-                                            <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                                <i className="fas fa-chart-bar"></i>
-                                            </div>
-                                        </div> */}
-                                    </div>
-                                    {/* <p className="mt-3 mb-0 text-muted text-sm">
-                                        <span className="text-success mr-2">
-                                            <i className="fa fa-arrow-up"></i> 3.48%
-                                        </span>
-                                        <span className="text-nowrap">Since last month</span>
-                                    </p> */}
-                                </div>
+                            <div className='detailContent'>
+                                <h6 className='upper-h-6 '> Ventas al público</h6>
+                                <h4 className='style-h-2 '>$ {publicSales.toLocaleString("en-US",{maximumFractionDigits: 2})}</h4>
                             </div>
                         </div>
                     </div>
-
                     <div className="row marginRow">
                             <div className="col-lg-6 marginColg">
                                 <h2>Distribuidores</h2>
@@ -247,16 +189,6 @@ export const DashboardPage = () => {
                                                         </div>
 
                                                     </div>
-
-                                                    // <div key={user.user_id} className="miembros contMember">
-                                                    //     <div className="name">
-                                                    //         <img src={perfil}/>
-                                                    //         <h3>{ user.display_name }</h3>
-                                                    //     </div>
-                                                        
-                                                    //     
-
-                                                    // </div>
                                                 )
                                             }
                                         })
@@ -302,19 +234,6 @@ export const DashboardPage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    // <div key={user.display_name} className="ditribuidorD">
-                                                    //     <div className="name">
-                                                    //         <img className='imageMiembros' src={perfil}/>
-                                                    //         <h3>{user.display_name}</h3>
-                                                    //     </div>
-                                                    //     <div className="percentageSegment">
-                                                    //         <div className="barraPorcentaje" style={{ width: `${percentage}%` }}/>
-                                                    //         <div className="percentage">
-                                                    //             <p > {percentage} %</p>
-                                                    //         </div>
-                                                    //     </div>
-                                                    // </div>
                                                 )
                                             }
                                         })

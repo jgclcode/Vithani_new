@@ -9,7 +9,7 @@ import './styles.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='/panel-vithani/'>
       <Vithani />
     </BrowserRouter>
   </React.StrictMode>,
