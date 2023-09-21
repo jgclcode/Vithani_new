@@ -6,7 +6,13 @@ export const PrivateDistributorRoute = ( {children} ) => {
     
     const {logged, user} = useContext(AuthContext);
 
-    return (logged && user.id != 1)
+    if(user != undefined && user != null){
+
+        if(user.id == 1)
+            return <Navigate to='/administrator/dashboard'/>
+    }
+
+    return (logged)
     ? children
-    : <Navigate to='/administrator/dashboard'/>
+    : <Navigate to='/login'/>
 }
