@@ -9,16 +9,38 @@ import { PrivateDistributorRoute } from "./ PrivateDistributorRoute"
 
 import { LoginAdministrador } from "../auth/pages/LoginAdministrador"
 import { LoginDistribuidor } from "../auth/pages/LoginDistribuidor"
+import { PublicRoute } from "./PublicRoute"
 
 export const AppRouter = () => {
     return (
         <>
             <Routes>
-                <Route path="/login" element= {<LoginPage/>} />
+                {/* <Route path="/login" element= {<LoginPage/>} />
 
                 <Route path="/loginAdministrator" element= {<LoginAdministrador/>} />
 
-                <Route path="/loginDistributor" element= {<LoginDistribuidor/>} />
+                <Route path="/loginDistributor" element= {<LoginDistribuidor/>} /> */}
+
+                <Route path="/login" element= {
+                    <PublicRoute>
+                        <LoginPage/>
+                    </PublicRoute>
+                }
+                />
+
+                <Route path="/loginAdministrator" element= {
+                    <PublicRoute>
+                        <LoginAdministrador/>
+                    </PublicRoute>
+                }
+                />
+
+                <Route path="/loginDistributor" element= {
+                    <PublicRoute>
+                        <LoginDistribuidor/>
+                    </PublicRoute>
+                }
+                />
 
 
                 <Route path="/administrator/*" element= {
