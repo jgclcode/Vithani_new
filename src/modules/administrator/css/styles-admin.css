@@ -63,6 +63,9 @@ h2, h3, h4, h5, h6{
     .container-info-calendar .card-calendar-content{
         box-shadow: none;
     }
+    .detailContainer.reports .detailContent{
+        width: 30%;
+    }
     .detailContainer .content-border{
         border-right: 2px solid rgba(0,0,0,.1);
         padding-bottom: 0;
