@@ -4,13 +4,14 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
-import '../css/DashboardPage.css'
+import '../css/styles-distributor.css'
 import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
 
 export const DashboardPage = () => {
     
-    
+    const progress_test = 700;
+    const objective_test = 999; 
     const {user} = useContext(AuthContext);
     const user_id = user.id.toString();
     
@@ -149,8 +150,10 @@ export const DashboardPage = () => {
             ) : (
                 <>
                     {
-                        (userData) ? (
-                            <>  
+                        (userData ) ? (
+                            <>
+                            
+                              {/*
                                 <div className="containerCities backgroundColorWhite">
                                     
                                     <div style={{marginBottom: '50px'}}>
@@ -161,7 +164,7 @@ export const DashboardPage = () => {
                                         <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[userData.state]} - { userData.city } </span></h3>
                                         
                                         <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {userData.account} </span></h3>
-                                    </div>
+                                    </div> 
                                     
                                     <div className='detailContainer'>
                                         <div className='detailContent content-border'>
@@ -172,14 +175,14 @@ export const DashboardPage = () => {
                                             <h6 className='upper-h-6'>Ganancias</h6>
                                             <h2 className='style-h-2'>
                                                 $ {userData.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}
-                                                {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
+                                                <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span>
                                             </h2>
                                         </div>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
                                             <h2 className='style-h-2'>
                                                 $ {(2997*12).toLocaleString("en-US",{maximumFractionDigits: 2})}
-                                                {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
+                                                <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
                                             </h2>
                                         </div>
                                         <div className='detailContent'>
@@ -187,7 +190,48 @@ export const DashboardPage = () => {
                                             <h4 className='style-h-4 mb-0'>{dateStart.toLocaleDateString("en-GB")} - {dateEnd.toLocaleDateString("en-GB")}</h4>
                                         </div>
                                     </div>
+                                </div> */}
+
+                                
+                                <div className='card card-progress-bar'>
+                                    <div className='card-body ms-2 me-2'>
+                                        <div className='row'>
+                                            <div className='col-sm-4'>
+                                                <h6 className='upper-h-6'>Objetivo Mensual</h6> 
+                                            </div>
+                                            <div className='col-lg-12'>
+                                                {/* Datos de prueba */}
+                                                <h2 className='style-h-2'> ${`${progress_test}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_test}`} </h2>
+
+                                                {/* Datos con las variables correspondientes  */}
+
+                                                {/*
+                                                <h2 className='style-h-2'> ${`${userData.salesTotal}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> $999 </h2>
+                                                */}
+
+                                            </div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='progress-bar-parent'>
+
+                                                {/* Datos de prueba */}
+                                                <div className='progress-bar-child' style={{ width: (((`${progress_test}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${progress_test}` * 100)/999))+'%' }}>
+                                                    <span className='progress-text'>{(((`${progress_test}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${progress_test}` * 100)/999)).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                </div>
+                                                
+                                                
+                                                {/* Datos con las variables correspondientes  */}
+                                                {/*
+                                                <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}` * 100)/999) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/999))+'%' }}>
+                                                  <span className='progress-text'>{(((`${userData.salesTotal}` * 100)/999) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/999)).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                </div>
+                                                */}
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
                                     <table className='table'>

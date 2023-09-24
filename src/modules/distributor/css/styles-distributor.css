@@ -63,3 +63,37 @@ h2, h3, h4, h5, h6{
     font-size: .875rem;
     margin-left: 10px;
 }
+
+.card-progress-bar{
+    border: none;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.progress-bar-parent{
+    height: 40px;
+    width: 100%;
+    background-color: #e6e6e6;
+    border: 1px solid #4b4b4b;
+    border-radius: 40px;
+    margin: 10px 0px;
+    padding: 0;
+}
+
+.progress-bar-child{
+    height: 100%;
+    background-color: #03297f;
+    border-radius: 40px;
+    text-align: right;
+    padding-top: 2px;
+}
+
+.progress-text{
+    padding-right: 30px;
+    padding-left: 10px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.45rem;
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    line-height: 1.5;
+}
