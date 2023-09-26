@@ -174,7 +174,8 @@ export const DashboardPage = () => {
                                                     
                                                     <div key={user.user_id} className="row contMember">
                                                         <div className="col-2">
-                                                            <img className="imageMiembros" src={perfil}/>
+                                                            {/*<img className="imageMiembros" src={perfil}/>*/}
+                                                            <i className="fas fa-crown crown-icon" style={{color: "#5c67ed", fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-6">
                                                             <p className="nameMiembros">{ user.display_name }</p>
@@ -212,7 +213,8 @@ export const DashboardPage = () => {
 
                                                     <div key={user.display_name} className="row marginRowObjectives">
                                                         <div className="col-2">
-                                                            <img className='imageMiembros' src={perfil}/>
+                                                            {/*<img className='imageMiembros' src={perfil}/>*/}
+                                                            <i className="fas fa-crown crown-icon" style={{color: "#5c67ed", fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-10">
                                                             <div className="row">
