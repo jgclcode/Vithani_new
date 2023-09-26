@@ -10,8 +10,8 @@ import { statesMX } from '../../../constants/statesConst';
 
 export const DashboardPage = () => {
     
-    const progress_test = 700;
-    const objective_test = 999; 
+    // const progress_test = 700;
+    const objective_test = 2997; 
     const {user} = useContext(AuthContext);
     const user_id = user.id.toString();
     
@@ -195,8 +195,9 @@ export const DashboardPage = () => {
                                 <div className='row distributor-sales-table mb-3'>
                                     <div className='col-xl-6 col-md-12 col-lg-12'>
                                         <div className='detailContainer'>
-                                            <div className='detailContent'>
+                                            {/* <div className='detailContent'>
                                                 <h6 className='upper-h-6'>Ventas Totales</h6> 
+                                                <h6 className='upper-h-6'>Compras Totales</h6>
                                                 <h2 className='style-h-2'>$ {userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}
                                                     <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span>
                                                 </h2>  
@@ -212,7 +213,7 @@ export const DashboardPage = () => {
                                                 <h2 className='style-h-2'>$450
                                                     <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
                                                 </h2>  
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 
@@ -232,7 +233,7 @@ export const DashboardPage = () => {
                                                     </div>
                                                     <div className='col-lg-12'>
                                                         {/* Datos de prueba */}
-                                                        <h2 className='style-h-2'> ${`${progress_test}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_test}`} </h2>
+                                                        <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_test.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
 
                                                         {/* Datos con las variables correspondientes  */}
 
@@ -246,8 +247,8 @@ export const DashboardPage = () => {
                                                     <div className='progress-bar-parent'>
 
                                                         {/* Datos de prueba */}
-                                                        <div className='progress-bar-child' style={{ width: (((`${progress_test}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${progress_test}` * 100)/999))+'%' }}>
-                                                            <span className='progress-text'>{(((`${progress_test}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${progress_test}` * 100)/999)).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                        <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_test}`))+'%' }}>
+                                                            <span className='progress-text'>{(((`${userData.salesTotal}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_test}`)).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                         </div>
 
 
@@ -266,7 +267,7 @@ export const DashboardPage = () => {
                                 </div>
 
                                 <div className='row'>
-                                    <div className='col-xl-5 col-md-12 col-lg-12 distributor-bonus-table'>
+                                    {/* <div className='col-xl-5 col-md-12 col-lg-12 distributor-bonus-table'>
                                         <div className='card'>
                                             <div className='card-body ms-2 me-2'>
                                                 <div className='col'>
@@ -290,7 +291,7 @@ export const DashboardPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className='col-xl-7 col-md-12 col-lg-12'>
                                         {/* Columna para la parte del Acumulado Anual */}
 
