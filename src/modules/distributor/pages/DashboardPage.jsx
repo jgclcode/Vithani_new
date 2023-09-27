@@ -7,6 +7,7 @@ import '../../../styles.css'
 import '../css/styles-distributor.css'
 import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
+import { YearBarGraph } from '../components/graphs/YearBarGraph';
 
 export const DashboardPage = () => {
     
@@ -17,8 +18,27 @@ export const DashboardPage = () => {
     
     const [userData, setUserData] = useState();
 
+    const [userYearData, setUserYearData] = useState();
+
     const firstDay = new Date();
     const lastDay = new Date();
+
+    const loadYearData = () => {
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: user_id })
+        };
+
+        // fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
+        fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
+        .then(response => response.json())
+        .then(json => {
+                setUserYearData(json.data.yearSales)
+            }
+        )
+    }
 
     const loadData = (firstDay, lastDay) => {
         
@@ -31,9 +51,8 @@ export const DashboardPage = () => {
         fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
         // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
-        .then(json => setUserData(json.data))
-        .finally(() => {
-            setLoading(false)
+        .then(json => {
+            setUserData(json.data)
         })
     }
 
@@ -94,6 +113,8 @@ export const DashboardPage = () => {
     useEffect(() => {
         setLoading(true);
         loadData(dateStart, dateEnd);
+        loadYearData();
+        setLoading(false);
     }, [])
 
     
@@ -152,7 +173,8 @@ export const DashboardPage = () => {
                     {
                         (userData ) ? (
                             <>
-                            
+                                <YearBarGraph dataGraph={userYearData}/>
+
                               {/*
                                 <div className="containerCities backgroundColorWhite">
                                     
