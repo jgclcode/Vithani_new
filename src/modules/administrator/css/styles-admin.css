@@ -105,3 +105,11 @@ h2, h3, h4, h5, h6{
     font-size: 1.05rem;
     color: hsl( 226 34% 24%); 
 }
+
+.crown-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
