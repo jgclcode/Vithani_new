@@ -63,6 +63,9 @@ h2, h3, h4, h5, h6{
     .container-info-calendar .card-calendar-content{
         box-shadow: none;
     }
+    .detailContainer.reports .detailContent{
+        width: 30%;
+    }
     .detailContainer .content-border{
         border-right: 2px solid rgba(0,0,0,.1);
         padding-bottom: 0;
@@ -81,9 +84,9 @@ h2, h3, h4, h5, h6{
     margin-left: 10px;
 }
 .profile-user{
-    width: 80px;
-    min-width: 80px;
-    height: 80px;
+    width: 120px;
+    min-width: 120px;
+    height: 120px;
     object-fit: cover;
 }
 .profile-user img{
@@ -91,20 +94,22 @@ h2, h3, h4, h5, h6{
     background-color: transparent;
 }
 .card-body-profile-info{
-    border-bottom: 1px solid hsl( 0 0% calc( 93% - 3%) );
+    /*border-bottom: 1px solid hsl( 0 0% calc( 93% - 3%) );
     border-bottom: 2px solid rgba(0,0,0,.1);
-    margin-bottom: 16px;
+    margin-bottom: 16px;*/
     padding-bottom: 16px;
+    align-items: center;
 }
 .user-info{
     font: normal normal normal 14px/1 NucleoIcons;
-    font-size: .85rem;
+    font-size: 1.05rem;
     color: hsl( 226 34% 24%); 
 }
 
-.style-email{
-    text-align: center;
-    font-size: .9rem;
-    font-weight: 300;
-    color: hsl( 232 14% 68% );
+.crown-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }

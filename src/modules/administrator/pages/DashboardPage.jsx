@@ -64,6 +64,40 @@ export const DashboardPage = () => {
         })
     }
 
+    const exportReportCSV = () => {
+        
+        fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        .then(
+            (response) => {
+
+                const  url = response.url;
+                const link = document.createElement('a')
+                link.href = url
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            }
+        );
+    }
+
+    const exportReportExcel = () => {
+        
+        fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        .then(
+            (response) => {
+
+                const  url = response.url;
+                const link = document.createElement('a')
+                link.href = url
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            }
+        );
+    }
+
     const [statesSales , setStateSales] = useState(0)
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -116,6 +150,15 @@ export const DashboardPage = () => {
                         className="datepicker-input"
                         // inline
                     />
+                </div>
+
+                <div className="row" style={{marginBottom: '20px'}}>
+                    <div className="col-md justifyElements">
+                        <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
+                    </div>
+                    <div className="col-md justifyElements">
+                        <span className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
+                    </div>
                 </div>
             </div>
 
@@ -174,7 +217,8 @@ export const DashboardPage = () => {
                                                     
                                                     <div key={user.user_id} className="row contMember">
                                                         <div className="col-2">
-                                                            <img className="imageMiembros" src={perfil}/>
+                                                            {/*<img className="imageMiembros" src={perfil}/>*/}
+                                                            <i className="fas fa-crown crown-icon" style={{color: "#5c67ed", fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-6">
                                                             <p className="nameMiembros">{ user.display_name }</p>
@@ -212,7 +256,8 @@ export const DashboardPage = () => {
 
                                                     <div key={user.display_name} className="row marginRowObjectives">
                                                         <div className="col-2">
-                                                            <img className='imageMiembros' src={perfil}/>
+                                                            {/*<img className='imageMiembros' src={perfil}/>*/}
+                                                            <i className="fas fa-crown crown-icon" style={{color: "#5c67ed", fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-10">
                                                             <div className="row">

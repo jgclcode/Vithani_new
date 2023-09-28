@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { DetailHead } from '../components/DetailHead';
 import DatePicker from 'react-datepicker';
-import perfil from "../../../assets/perfil.png";
+import crown from "../../../assets/Crown.png";
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
@@ -104,7 +104,7 @@ export const DetailPage = () => {
             </div>
 
             <div className='row ms-0 me-0 container-info-calendar'>
-                <div className='col-xl-4 col-md-12 col-lg-12'>
+                <div className='col-xl-5 col-md-12 col-lg-12'>
                     <div className='card card-info-user mb-4'>
                         { loading ? (
                             <div className="containerCities backgroundColorWhite">
@@ -117,15 +117,21 @@ export const DetailPage = () => {
                                         <div className='row card-body-profile-info'>
                                             <div className='col-sm-4'>
                                                 <div className='profile-user'>
-                                                    <img src={perfil} className='img-thumbnail rounded-circle'/>
+                                                    <img src={crown} className='img-thumbnail'/>
                                                 </div>
                                             </div>
                                             <div className='col-sm-8'>
-                                                <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
+                                                <h2 className='style-h-2 mb-3'>{user.display_name}</h2>
                                                 <div className='user-info'>
                                                     <span>
                                                         <i className="fas fa-map-marker-alt"></i>
                                                         <span> {statesMX[user.state]} - { user.city } </span>
+                                                    </span>
+                                                    <br/>
+                                                    <br/>
+                                                    <span> 
+                                                        <i className="fas fa-envelope"></i>
+                                                        <span> {user.user_email} </span>
                                                     </span>
                                                     <br/>
                                                     <br/>
@@ -136,7 +142,6 @@ export const DetailPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <p className='style-email'>{user.user_email}</p>
                                     </div>
                                 ) : (
                                     <div> No data </div>
@@ -145,7 +150,7 @@ export const DetailPage = () => {
                         )}
                     </div>
                 </div>
-                <div className='col-xl-8 col-md-12 col-lg-12'>
+                <div className='col-xl-7 col-md-12 col-lg-12'>
                     <div className='card card-calendar-content mb-4'>
                         <div className='card-body'>
                             <div className="row" style={{marginBottom: '20px'}}>
