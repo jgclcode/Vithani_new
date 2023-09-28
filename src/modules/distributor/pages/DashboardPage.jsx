@@ -11,14 +11,15 @@ import { YearBarGraph } from '../components/graphs/YearBarGraph';
 
 export const DashboardPage = () => {
     
-    // const progress_test = 700;
-    const objective_test = 2997; 
+    const objective_month = 2997;
+    const objective_year = 35964;
     const {user} = useContext(AuthContext);
     const user_id = user.id.toString();
     
     const [userData, setUserData] = useState();
 
     const [userYearData, setUserYearData] = useState();
+    const [userYearTotal, setUserYearTotal] = useState(0);
 
     const firstDay = new Date();
     const lastDay = new Date();
@@ -31,11 +32,12 @@ export const DashboardPage = () => {
             body: JSON.stringify({ user_id: user_id })
         };
 
-        // fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
-        fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
         .then(response => response.json())
         .then(json => {
-                setUserYearData(json.data.yearSales)
+                setUserYearData(json.data.yearSales);
+                setUserYearTotal(json.data.yearTotal);
             }
         )
     }
@@ -238,49 +240,41 @@ export const DashboardPage = () => {
                                             </div> */}
                                         </div>
                                     </div>
-
-                                    <div className='col-xl-6 col-md-12 col-lg-12'>
-
-                                    </div>
-
                                 </div>
                                 
                                 <div className='row mb-3'>
-                                    <div className='col-12'>
+                                    <div className='col-sm-6'>
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
-                                                <div className='row'>
-                                                    <div className='col-sm-4'>
-                                                        <h6 className='upper-h-6'>Objetivo Mensual</h6> 
-                                                    </div>
-                                                    <div className='col-lg-12'>
-                                                        {/* Datos de prueba */}
-                                                        <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_test.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
+                                                <div className='col-sm-4'>
+                                                    <h6 className='upper-h-6'>Objetivo Mensual</h6> 
+                                                </div>
+                                                <div className='col-lg-12'>
+                                                    <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_month.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
+                                                </div>
 
-                                                        {/* Datos con las variables correspondientes  */}
-
-                                                        {/*
-                                                        <h2 className='style-h-2'> ${`${userData.salesTotal}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> $999 </h2>
-                                                        */}
-
+                                                <div className='progress-bar-parent'>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${objective_month}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_month}`))+'%' }}>
+                                                        <span className='progress-text'>{((`${userData.salesTotal}`*100)/`${objective_month}`) >= 100 ? '100':  ((`${userData.salesTotal}` * 100)/`${objective_month}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
-                                                <div className='row'>
-                                                    <div className='progress-bar-parent'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className='col-sm-6'>                    
+                                        <div className='card card-progress-bar'>
+                                            <div className='card-body ms-2 me-2'>
+                                                <div className='col-sm-4'>
+                                                    <h6 className='upper-h-6'>Objetivo Anual</h6> 
+                                                </div>
+                                                <div className='col-lg-12'>
+                                                    <h2 className='style-h-2'> ${`${userYearTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_year.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
+                                                </div>
 
-                                                        {/* Datos de prueba */}
-                                                        <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_test}`))+'%' }}>
-                                                            <span className='progress-text'>{(((`${userData.salesTotal}`*100)/`${objective_test}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_test}`)).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
-                                                        </div>
-
-
-                                                        {/* Datos con las variables correspondientes  */}
-                                                        {/*
-                                                        <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}` * 100)/999) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/999))+'%' }}>
-                                                          <span className='progress-text'>{(((`${userData.salesTotal}` * 100)/999) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/999)).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
-                                                        </div>
-                                                        */}
-
+                                                <div className='progress-bar-parent'>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${objective_year}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${objective_year}`))+'%' }}>
+                                                        <span className='progress-text'>{((`${userYearTotal}`*100)/`${objective_year}`) >= 100 ? '100':  ((`${userYearTotal}` * 100)/`${objective_year}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -359,7 +353,9 @@ export const DashboardPage = () => {
                                 
                             </>
                         ) : (
-                            <div>No data</div>
+                            <div className="containerCities backgroundColorWhite">
+                                <h3 className='style-h-3 mb-3'>Cargando información</h3>
+                            </div>
                         )
                     }
 
