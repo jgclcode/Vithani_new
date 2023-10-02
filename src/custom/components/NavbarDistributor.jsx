@@ -5,6 +5,7 @@ import icono from "../../assets/Vithani.svg";
 
 import DashboardImg  from "../../assets/dashboard.svg";
 import reporte from "../../assets/Grupo_1_hover.png";
+import referidos from "../../assets/Grupo.png"
 import logoutImg from "../../assets/logout.png"
 
 import "../../styles.css" ;
@@ -60,12 +61,12 @@ export const NavbarDistributor = () => {
                                     <p className="textLink">Dashboard</p>
                                 </div>
                             </Link>
-                            {/* <Link to="/administrator/reports">
+                            <Link to="/distributor/referrals">
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
-                                    <img className="imgEnlace1" src={reporte}/>
-                                    <p>Reporte</p>
+                                    <img className="imgEnlace1" src={referidos}/>
+                                    <p>Referidos</p>
                                 </div>
-                            </Link> */}
+                            </Link>
                             <button onClick={onLogout} style={{border: "none", background: 'none'}}>
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="logout" src={logoutImg}/>
