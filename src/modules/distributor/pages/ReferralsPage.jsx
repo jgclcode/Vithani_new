@@ -18,6 +18,9 @@ export const ReferralsPage = () => {
 
     const [userReferralsYear, setUserReferralsYear] = useState();
 
+    const firstDay = new Date();
+    const lastDay = new Date();
+
     const loadYearData = () => {
         
         const requestOptions = {
@@ -30,8 +33,8 @@ export const ReferralsPage = () => {
         // fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
         .then(response => response.json())
         .then(json => {
-                setUserYearData(json.data.yearSales);
-                setUserYearTotal(json.data.yearTotal);
+                // setUserYearData(json.data.yearSales);
+                // setUserYearTotal(json.data.yearTotal);
                 setUserReferralsYear(json.data.yearReffered);
             }
         )
@@ -54,6 +57,8 @@ export const ReferralsPage = () => {
     }
 
     const [loading, setLoading] = useState(false)
+    const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
+    const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
 
     useEffect(() => {
         setLoading(true);
