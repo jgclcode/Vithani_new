@@ -84,9 +84,8 @@ h2, h3, h4, h5, h6{
     margin-left: 10px;
 }
 .profile-user{
-    width: 120px;
-    min-width: 120px;
-    height: 120px;
+    /*width: 120px;
+    height: 120px;*/
     object-fit: cover;
 }
 .profile-user img{
