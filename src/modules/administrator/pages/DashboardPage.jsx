@@ -149,15 +149,19 @@ export const DashboardPage = () => {
 
     
     const dateBeginSet = (date) => {
-        setLoading(true);
-        setDateStart(date);
-        loadData(date, dateEnd)
+        if (date < dateEnd) {
+            setLoading(true);
+            setDateStart(date);
+            loadData(date, dateEnd)
+        };
     };
 
     const dateEndSet = (date) => {
-        setLoading(true);
-        setDateEnd(date);
-        loadData(dateStart, date)
+        if (date > dateStart) {
+            setLoading(true);
+            setDateEnd(date);
+            loadData(dateStart, date);
+        };
     };
 
     return(

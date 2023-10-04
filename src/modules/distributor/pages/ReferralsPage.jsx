@@ -35,7 +35,7 @@ export const ReferralsPage = () => {
         .then(json => {
                 // setUserYearData(json.data.yearSales);
                 // setUserYearTotal(json.data.yearTotal);
-                setUserReferralsYear(json.data.yearReffered);
+                setUserReferralsYear(json.data.yearReferrals);
             }
         )
     }
