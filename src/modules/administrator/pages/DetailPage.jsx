@@ -69,6 +69,36 @@ export const DetailPage = () => {
         );
     }
 
+    const changeRankColor = (idRank) => {
+        //Distribuidor Asociado
+        if(idRank === 1){
+            return '#5c67ed';
+        }
+        //Distribuidor Autorizado
+        if(idRank === 2){
+            return '#5c94ed';
+        }
+        //Director Junior
+        if(idRank === 21){
+            return '#5cb5ed';
+        }
+        //Director Regional
+        if(idRank === 23){
+            return '#000000';
+        }
+        //Director Senior
+        if(idRank === 22){
+            return '#895ced';
+        }
+        //Director Master
+        if(idRank === 24){
+            return '#000000';
+        }
+        else{
+            return '#FFFFFF';
+        }
+    }
+
     const [loading, setLoading] = useState(false)
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
@@ -81,15 +111,19 @@ export const DetailPage = () => {
 
     
     const dateBeginSet = (date) => {
-        setLoading(true);
-        setDateStart(date);
-        loadData(date, dateEnd)
+        if (date < dateEnd) {
+            setLoading(true);
+            setDateStart(date);
+            loadData(date, dateEnd)
+        };
     };
 
     const dateEndSet = (date) => {
-        setLoading(true);
-        setDateEnd(date);
-        loadData(dateStart, date)
+        if (date > dateStart) {
+            setLoading(true);
+            setDateEnd(date);
+            loadData(dateStart, date);
+        };
     };
 
 
@@ -117,7 +151,11 @@ export const DetailPage = () => {
                                         <div className='row card-body-profile-info'>
                                             <div className='col-sm-4'>
                                                 <div className='profile-user'>
-                                                    <img src={crown} className='img-thumbnail'/>
+                                                    {/*<img src={crown} className='img-thumbnail'/>*/}
+                                                    <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "3.5em"}}></i>
+                                                </div>
+                                                <div>
+                                                    <p style={{marginBottom: '0',textAlign: 'center', color: '#979797'}}>{user.rank}</p>
                                                 </div>
                                             </div>
                                             <div className='col-sm-8'>

@@ -98,6 +98,36 @@ export const DashboardPage = () => {
         );
     }
 
+    const changeRankColor = (idRank) => {
+        //Distribuidor Asociado
+        if(idRank === 1){
+            return '#5c67ed';
+        }
+        //Distribuidor Autorizado
+        if(idRank === 2){
+            return '#5c94ed';
+        }
+        //Director Junior
+        if(idRank === 21){
+            return '#5cb5ed';
+        }
+        //Director Regional
+        if(idRank === 23){
+            return '#000000';
+        }
+        //Director Senior
+        if(idRank === 22){
+            return '#895ced';
+        }
+        //Director Master
+        if(idRank === 24){
+            return '#000000';
+        }
+        else{
+            return '#FFFFFF';
+        }
+    }
+
     const [statesSales , setStateSales] = useState(0)
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -119,15 +149,19 @@ export const DashboardPage = () => {
 
     
     const dateBeginSet = (date) => {
-        setLoading(true);
-        setDateStart(date);
-        loadData(date, dateEnd)
+        if (date < dateEnd) {
+            setLoading(true);
+            setDateStart(date);
+            loadData(date, dateEnd)
+        };
     };
 
     const dateEndSet = (date) => {
-        setLoading(true);
-        setDateEnd(date);
-        loadData(dateStart, date)
+        if (date > dateStart) {
+            setLoading(true);
+            setDateEnd(date);
+            loadData(dateStart, date);
+        };
     };
 
     return(
@@ -218,7 +252,7 @@ export const DashboardPage = () => {
                                                     <div key={user.user_id} className="row contMember">
                                                         <div className="col-2">
                                                             {/*<img className="imageMiembros" src={perfil}/>*/}
-                                                            <i className="fas fa-crown crown-icon" style={{color: "#5c67ed", fontSize: "2em"}}></i>
+                                                            <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-6">
                                                             <p className="nameMiembros">{ user.display_name }</p>
@@ -227,8 +261,9 @@ export const DashboardPage = () => {
                                                             <button
                                                                 onClick={ () => onDetail(user.user_id) }
                                                                 className="buttonMiembros"
+                                                                style={{backgroundColor: changeRankColor(user.rank_id)}}
                                                             >
-                                                                Distribuidor asociado
+                                                                {user.rank}
                                                             </button>
                                                         </div>
 
@@ -257,7 +292,7 @@ export const DashboardPage = () => {
                                                     <div key={user.display_name} className="row marginRowObjectives">
                                                         <div className="col-2">
                                                             {/*<img className='imageMiembros' src={perfil}/>*/}
-                                                            <i className="fas fa-crown crown-icon" style={{color: "#5c67ed", fontSize: "2em"}}></i>
+                                                            <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-10">
                                                             <div className="row">

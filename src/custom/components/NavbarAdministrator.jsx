@@ -9,7 +9,7 @@ import logoutImg from "../../assets/logout.png"
 
 import "../../styles.css" ;
 
-import { Popup } from "./Popup/Popup";
+import { Popup } from "./PopupAdministrador/Popup";
 import { AuthContext } from "../../auth/context/AuthContext";
 
 export const NavbarAdministrator = () => {

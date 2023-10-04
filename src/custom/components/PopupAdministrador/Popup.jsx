@@ -63,6 +63,7 @@ export const Popup = ({ closePopup }) => {
                                 color: 'rgb(103, 96, 96)',
                                 display: 'inline-flex',
                                 alignItems: 'center',
+                                cursor: 'pointer',
                             }}>Logout</p>
                         </div>
                     </ul>     
