@@ -142,31 +142,14 @@ export const ReferralsPage = () => {
                 <>
                     {
                         (userData &&  userReferralsYear) ? (
-                            <>
-                                <div className="containerCities backgroundColorWhite">
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Referido</th>                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                userReferralsYear.map((referred, index) => (
-                                                    <tr key={index}>
-                                                        <td>{index +1 }</td>
-                                                        <td>{referred}</td>
-                                                    </tr>
-                                                ))
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
+                            <>                              
                                 <h3>Árbol Referidos</h3>
-                                <p>Zoom:  
-                                    {Object.keys(scales).map(key => <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label>)}
+                                <p>Zoom:  <br />
+                                    {
+                                        
+                                        Object.keys(scales).map(key => <> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> <br /> </>)
+                                        
+                                    }
                                 </p>
                                 <div className='tree-container' style={{zoom: scales[scaleCurrent.scale]}} ref={treeContainerRef}>
                                     <Tree
@@ -185,14 +168,26 @@ export const ReferralsPage = () => {
                                     >
                                     {
                                         userReferralsYear.map((referred, index) => (
-                                            
-                                            <TreeNode key={index} label={
+                                            <TreeNode key={referred.refferal_wp_uid} label={
                                                 <div className='second-level-tree'>
-                                                    <i className="fas fa-user referral-icon-sl" style={{color: '#895ced', fontSize: "2em"}}></i>
+                                                    <i className="fas fa-user referral-icon-sl" style={{color: changeRankColor(referred.rank_id), fontSize: "2em"}}></i>
                                                     <br></br>
-                                                    {referred}
+                                                    {referred.refferal_wp_uid}
                                                 </div>
-                                            }></TreeNode>
+                                            }>
+                                                {referred.referredReferredSales.map((referredReferred, index) => (
+                                                    <TreeNode key={referredReferred.refferal_wp_uid} label={
+                                                        <div className='second-level-tree'>
+                                                            <i className="fas fa-user referral-icon-sl" style={{color: changeRankColor(referredReferred.rank_id), fontSize: "2em"}}></i>
+                                                            <br></br>
+                                                            {referredReferred.refferal_wp_uid}
+                                                        </div>
+                                                    }>
+                                                    </TreeNode>
+                                                
+                                                ))}
+
+                                            </TreeNode>
                                             
                                         ))
                                     }
