@@ -246,23 +246,36 @@ export const DashboardPage = () => {
                                     <div className='col-sm-6'>
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
-                                                <div className='col-sm-4'>
-                                                    <h6 className='upper-h-6'>Objetivo Mensual</h6> 
+                                                <span className='upper-h-6' style={{fontWeight:'bold'}}> Objetivo Mensual: </span> 
+                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${objective_month.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
+                                                <div className='col-lg-12' style={{display:'flex', flexDirection:'row-reverse'}}>
+                                                    <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
                                                 </div>
-                                                <div className='col-lg-12'>
-                                                    <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} <i className="fas fa-arrow-right ms-3 me-3" style={{color: '#2165ff'}}></i> ${`${objective_month.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
-                                                </div>
-
                                                 <div className='progress-bar-parent'>
                                                     <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${objective_month}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_month}`))+'%' }}>
-                                                        <span className='progress-text'>{((`${userData.salesTotal}`*100)/`${objective_month}`) >= 100 ? '100':  ((`${userData.salesTotal}` * 100)/`${objective_month}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                        <span className='progress-text'>{((`${userData.salesTotal}` * 100)/`${objective_month}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div className='col-sm-6'>                    
+                                    <div className='col-sm-6'>
+                                        <div className='card card-progress-bar'>
+                                            <div className='card-body ms-2 me-2'>
+                                                <span className='upper-h-6' style={{fontWeight:'bold'}}> Objetivo Anual: </span> 
+                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${objective_year.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
+                                                <div className='col-lg-12' style={{display:'flex', flexDirection:'row-reverse'}}>
+                                                    <h2 className='style-h-2'> ${`${userYearTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
+                                                </div>
+                                                <div className='progress-bar-parent'>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${objective_year}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${objective_year}`))+'%' }}>
+                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${objective_year}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className='col-sm-6'>                    
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
                                                 <div className='col-sm-4'>
@@ -274,12 +287,12 @@ export const DashboardPage = () => {
 
                                                 <div className='progress-bar-parent'>
                                                     <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${objective_year}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${objective_year}`))+'%' }}>
-                                                        <span className='progress-text'>{((`${userYearTotal}`*100)/`${objective_year}`) >= 100 ? '100':  ((`${userYearTotal}` * 100)/`${objective_year}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${objective_year}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className='row'>

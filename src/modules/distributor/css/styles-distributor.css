@@ -114,3 +114,49 @@ h2, h3, h4, h5, h6{
     border: none;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
+.zoom-button {
+    width: 40px;
+    height: 40px;
+    display: block !important;
+    margin: 8px;
+}
+
+.tree-container{
+    width: 100%;
+    overflow-x: scroll;
+    /*height: 400px;*/
+}
+
+.tree-container .first-level-tree{
+    color: #8f8f8f;
+}
+
+.tree-container .first-level-tree .crown-icon-div{
+    display: none;
+    border: 3px solid #e06473;
+    border-radius: 50%;
+    position: absolute;
+    left: 49%;
+    height: 60px;
+    width: 60px;
+    margin: 0px 35px;
+    z-index: -1;
+   
+}
+.tree-container .first-level-tree .crown-icon{
+    padding: 13px 0px;
+   
+}
+.tree-container .second-level-tree{
+    color: #8f8f8f;
+    padding: 5px;
+    width: 250px;
+    height: auto;
+}
+
+.tree-container .second-level-tree .referral-icon-sl{
+    border: 3px solid #7b7f7e;
+    border-radius: 50%;
+    padding: 8px;
+}

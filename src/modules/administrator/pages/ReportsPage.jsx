@@ -172,14 +172,14 @@ export const ReportsPage = () => {
                                             <h6 className='upper-h-6'>Ganancias</h6>
                                             <h2 className='style-h-2'>
                                                 $ {totalCommission.toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})}
-                                                <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span>
+                                                {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                         <div className='detailContent'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
                                             <h2 className='style-h-2'>
                                                 $ {(735000 * users.length).toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})}
-                                                <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
+                                                {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                     </div>
