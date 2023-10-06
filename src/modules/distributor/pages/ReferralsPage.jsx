@@ -88,20 +88,19 @@ export const ReferralsPage = () => {
     }
 
     const treeContainerRef = React.createRef();
-    const crownDivRef = React.createRef();
-    const [checkedInput, setCheckedInput] = useState("Extra Chico");
+    const [checkedInput, setCheckedInput] = useState("15%");
 
     const initialState = {
-        scale: "Extra Chico"
+        scale: "15%"
     }
     let scaleCurrent = initialState;
  
     const scales = {
-        "Extra Chico": 0.15,
-        "Chico": 0.5,
-        "Mediano": 1.0,
-        "Largo": 1.5,
-        "Extra Largo": 2
+        "15%": 0.15,
+        "50%": 0.5,
+        "100%": 1.0,
+        "150%": 1.5,
+        "200%": 2
     }  
 
     const setScale = (key) => {
@@ -109,11 +108,6 @@ export const ReferralsPage = () => {
             scale: key
         };
 
-        if(scaleCurrent.scale === 'Extra Chico'){
-            crownDivRef.current.style.display = 'none';
-        }else{
-            crownDivRef.current.style.display = 'block'
-        }
         treeContainerRef.current.style.zoom = scales[scaleCurrent.scale];
         setCheckedInput(scaleCurrent.scale);
     };
@@ -142,15 +136,18 @@ export const ReferralsPage = () => {
                 <>
                     {
                         (userData &&  userReferralsYear) ? (
-                            <>                              
-                                <h3>Árbol Referidos</h3>
-                                <p>Zoom:  <br />
-                                    {
-                                        
-                                        Object.keys(scales).map(key => <> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> <br /> </>)
-                                        
-                                    }
-                                </p>
+                            <>  
+                                <div className='zoom-div-container'>                            
+                                    <h3>Árbol Referidos</h3>
+                                    <p>Escalas para el Zoom del árbol: </p>
+                                    <div className='zoom-options mb-3'>
+                                        {
+
+                                            Object.keys(scales).map(key => <div className='zoom-input'> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> </div>)
+
+                                        }
+                                    </div>
+                                </div>
                                 <div className='tree-container' style={{zoom: scales[scaleCurrent.scale]}} ref={treeContainerRef}>
                                     <Tree
                                         lineWidth={"2px"}
@@ -158,10 +155,7 @@ export const ReferralsPage = () => {
                                         lineBorderRadius={"12px"}
                                         label={
                                         <div className='first-level-tree'>
-                                            <div className='crown-icon-div' ref={crownDivRef}>   
-                                            </div>
-                                            <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "2em"}}></i>
-                                            
+                                            <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "2em"}}></i>  
                                             {userData.display_name}
                                         </div>
                                         }
@@ -170,7 +164,7 @@ export const ReferralsPage = () => {
                                         userReferralsYear.map((referred, index) => (
                                             <TreeNode key={referred.refferal_wp_uid} label={
                                                 <div className='second-level-tree'>
-                                                    <i className="fas fa-user referral-icon-sl" style={{color: changeRankColor(referred.rank_id), fontSize: "2em"}}></i>
+                                                    <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(referred.rank_id), fontSize: "2em"}}></i>
                                                     <br></br>
                                                     {referred.refferal_wp_uid}
                                                 </div>
@@ -178,7 +172,7 @@ export const ReferralsPage = () => {
                                                 {referred.referredReferredSales.map((referredReferred, index) => (
                                                     <TreeNode key={referredReferred.refferal_wp_uid} label={
                                                         <div className='second-level-tree'>
-                                                            <i className="fas fa-user referral-icon-sl" style={{color: changeRankColor(referredReferred.rank_id), fontSize: "2em"}}></i>
+                                                            <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(referredReferred.rank_id), fontSize: "2em"}}></i>
                                                             <br></br>
                                                             {referredReferred.refferal_wp_uid}
                                                         </div>
