@@ -5,6 +5,10 @@ export const YearBarGraph = ({dataGraph}) => {
     
 
     const option = {
+        title: {
+          left: 'center',
+          text: 'Acumulado anual',
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {

@@ -4,9 +4,10 @@ import { Outlet , Link, useNavigate} from "react-router-dom";
 import icono from "../../assets/Vithani.svg";
 
 import DashboardImg  from "../../assets/dashboard.svg";
-import reporte from "../../assets/Grupo_1_hover.png";
 import referidos from "../../assets/Grupo.png"
 import logoutImg from "../../assets/logout.png"
+import media_kit from "../../assets/image-gallery-line1.png"
+import legales from "../../assets/documents-outline1.png"
 
 import "../../styles.css" ;
 
@@ -65,6 +66,18 @@ export const NavbarDistributor = () => {
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={referidos}/>
                                     <p>Referidos</p>
+                                </div>
+                            </Link>
+                            <Link to="https://mexico.vithaniglobal.com/materiales/" target="_blank">
+                                <div className="nav-item" onClick={onSetActiveMenuItem}>
+                                    <img className="imgEnlace1" src={media_kit}/>
+                                    <p>Media Kit</p>
+                                </div>
+                            </Link>
+                            <Link to="https://mexico.vithaniglobal.com/legales/" target="_blank">
+                                <div className="nav-item" onClick={onSetActiveMenuItem}>
+                                    <img className="imgEnlace1" src={legales}/>
+                                    <p>Legales</p>
                                 </div>
                             </Link>
                             <button onClick={onLogout} style={{border: "none", background: 'none'}}>

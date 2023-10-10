@@ -17,12 +17,12 @@ export const ReferralsPage = () => {
     
     const [userData, setUserData] = useState();
 
-    const [userReferralsYear, setUserReferralsYear] = useState();
+    const [userRelations, setUserRelations] = useState();
 
     const firstDay = new Date();
     const lastDay = new Date();
 
-    const loadYearData = () => {
+    const loadDistributorsRelations = () => {
         
         const requestOptions = {
             method: 'POST',
@@ -30,13 +30,11 @@ export const ReferralsPage = () => {
             body: JSON.stringify({ user_id: user_id })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/distributorsRelations", requestOptions)
         .then(response => response.json())
         .then(json => {
-                // setUserYearData(json.data.yearSales);
-                // setUserYearTotal(json.data.yearTotal);
-                setUserReferralsYear(json.data.yearReferrals);
+                setUserRelations(json.data.relations);
             }
         )
     }
@@ -83,25 +81,25 @@ export const ReferralsPage = () => {
             return '#000000';
         }
         else{
-            return '#FFFFFF';
+            return '#989898';
         }
     }
 
     const treeContainerRef = React.createRef();
-    const crownDivRef = React.createRef();
-    const [checkedInput, setCheckedInput] = useState("Extra Chico");
+    const [checkedInput, setCheckedInput] = useState("15%");
 
     const initialState = {
-        scale: "Extra Chico"
+        scale: "15%"
     }
+
     let scaleCurrent = initialState;
  
     const scales = {
-        "Extra Chico": 0.15,
-        "Chico": 0.5,
-        "Mediano": 1.0,
-        "Largo": 1.5,
-        "Extra Largo": 2
+        "15%": 0.15,
+        "50%": 0.5,
+        "100%": 1.0,
+        "150%": 1.5,
+        "200%": 2
     }  
 
     const setScale = (key) => {
@@ -109,11 +107,6 @@ export const ReferralsPage = () => {
             scale: key
         };
 
-        if(scaleCurrent.scale === 'Extra Chico'){
-            crownDivRef.current.style.display = 'none';
-        }else{
-            crownDivRef.current.style.display = 'block'
-        }
         treeContainerRef.current.style.zoom = scales[scaleCurrent.scale];
         setCheckedInput(scaleCurrent.scale);
     };
@@ -126,9 +119,26 @@ export const ReferralsPage = () => {
     useEffect(() => {
         setLoading(true);
         loadData(dateStart, dateEnd);
-        loadYearData();
+        loadDistributorsRelations();
         setLoading(false);
     }, [])
+
+    const printTree = (relations) => {
+
+        return (relations.map((relation, index) => (
+            <TreeNode key={relation.refferal_wp_uid} label={
+                <div className='second-level-tree'>
+                    <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(relation.rank_id), fontSize: "2em"}}></i>
+                    <br></br>
+                    {relation.refferal_wp_uid}
+                </div>
+            }>
+                {
+                    printTree(relation.relations)
+                }
+            </TreeNode>
+        )))
+    }
 
     return (
         <>  
@@ -141,16 +151,18 @@ export const ReferralsPage = () => {
             ) : (
                 <>
                     {
-                        (userData &&  userReferralsYear) ? (
-                            <>                              
-                                <h3>Árbol Referidos</h3>
-                                <p>Zoom:  <br />
-                                    {
-                                        
-                                        Object.keys(scales).map(key => <> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> <br /> </>)
-                                        
-                                    }
-                                </p>
+                        (userData &&  userRelations) ? (
+                            <>  
+                                <div className='zoom-div-container'>                            
+                                    <p>Escalas para el Zoom del árbol: </p>
+                                    <div className='zoom-options mb-3'>
+                                        {
+
+                                            Object.keys(scales).map(key => <div key={key} className='zoom-input'> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> </div>)
+
+                                        }
+                                    </div>
+                                </div>
                                 <div className='tree-container' style={{zoom: scales[scaleCurrent.scale]}} ref={treeContainerRef}>
                                     <Tree
                                         lineWidth={"2px"}
@@ -158,38 +170,13 @@ export const ReferralsPage = () => {
                                         lineBorderRadius={"12px"}
                                         label={
                                         <div className='first-level-tree'>
-                                            <div className='crown-icon-div' ref={crownDivRef}>   
-                                            </div>
-                                            <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "2em"}}></i>
-                                            
+                                            <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "2em"}}></i>  
                                             {userData.display_name}
                                         </div>
                                         }
                                     >
                                     {
-                                        userReferralsYear.map((referred, index) => (
-                                            <TreeNode key={referred.refferal_wp_uid} label={
-                                                <div className='second-level-tree'>
-                                                    <i className="fas fa-user referral-icon-sl" style={{color: changeRankColor(referred.rank_id), fontSize: "2em"}}></i>
-                                                    <br></br>
-                                                    {referred.refferal_wp_uid}
-                                                </div>
-                                            }>
-                                                {referred.referredReferredSales.map((referredReferred, index) => (
-                                                    <TreeNode key={referredReferred.refferal_wp_uid} label={
-                                                        <div className='second-level-tree'>
-                                                            <i className="fas fa-user referral-icon-sl" style={{color: changeRankColor(referredReferred.rank_id), fontSize: "2em"}}></i>
-                                                            <br></br>
-                                                            {referredReferred.refferal_wp_uid}
-                                                        </div>
-                                                    }>
-                                                    </TreeNode>
-                                                
-                                                ))}
-
-                                            </TreeNode>
-                                            
-                                        ))
+                                        printTree(userRelations)
                                     }
                                     </Tree>
                                 </div>
