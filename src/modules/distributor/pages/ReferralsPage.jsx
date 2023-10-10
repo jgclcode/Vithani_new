@@ -17,12 +17,12 @@ export const ReferralsPage = () => {
     
     const [userData, setUserData] = useState();
 
-    const [userReferralsYear, setUserReferralsYear] = useState();
+    const [userRelations, setUserRelations] = useState();
 
     const firstDay = new Date();
     const lastDay = new Date();
 
-    const loadYearData = () => {
+    const loadDistributorsRelations = () => {
         
         const requestOptions = {
             method: 'POST',
@@ -30,13 +30,11 @@ export const ReferralsPage = () => {
             body: JSON.stringify({ user_id: user_id })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/distributorsRelations", requestOptions)
         .then(response => response.json())
         .then(json => {
-                // setUserYearData(json.data.yearSales);
-                // setUserYearTotal(json.data.yearTotal);
-                setUserReferralsYear(json.data.yearReferrals);
+                setUserRelations(json.data.relations);
             }
         )
     }
@@ -83,7 +81,7 @@ export const ReferralsPage = () => {
             return '#000000';
         }
         else{
-            return '#FFFFFF';
+            return '#989898';
         }
     }
 
@@ -93,6 +91,7 @@ export const ReferralsPage = () => {
     const initialState = {
         scale: "15%"
     }
+
     let scaleCurrent = initialState;
  
     const scales = {
@@ -120,9 +119,26 @@ export const ReferralsPage = () => {
     useEffect(() => {
         setLoading(true);
         loadData(dateStart, dateEnd);
-        loadYearData();
+        loadDistributorsRelations();
         setLoading(false);
     }, [])
+
+    const printTree = (relations) => {
+
+        return (relations.map((relation, index) => (
+            <TreeNode key={relation.refferal_wp_uid} label={
+                <div className='second-level-tree'>
+                    <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(relation.rank_id), fontSize: "2em"}}></i>
+                    <br></br>
+                    {relation.refferal_wp_uid}
+                </div>
+            }>
+                {
+                    printTree(relation.relations)
+                }
+            </TreeNode>
+        )))
+    }
 
     return (
         <>  
@@ -135,15 +151,14 @@ export const ReferralsPage = () => {
             ) : (
                 <>
                     {
-                        (userData &&  userReferralsYear) ? (
+                        (userData &&  userRelations) ? (
                             <>  
                                 <div className='zoom-div-container'>                            
-                                    <h3>Árbol Referidos</h3>
                                     <p>Escalas para el Zoom del árbol: </p>
                                     <div className='zoom-options mb-3'>
                                         {
 
-                                            Object.keys(scales).map(key => <div className='zoom-input'> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> </div>)
+                                            Object.keys(scales).map(key => <div key={key} className='zoom-input'> <label key={key}><input name="scale" type="radio" value={key} checked={checkedInput === key} onChange={() => setScale(key) } />{key}</label> </div>)
 
                                         }
                                     </div>
@@ -161,29 +176,7 @@ export const ReferralsPage = () => {
                                         }
                                     >
                                     {
-                                        userReferralsYear.map((referred, index) => (
-                                            <TreeNode key={referred.refferal_wp_uid} label={
-                                                <div className='second-level-tree'>
-                                                    <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(referred.rank_id), fontSize: "2em"}}></i>
-                                                    <br></br>
-                                                    {referred.refferal_wp_uid}
-                                                </div>
-                                            }>
-                                                {referred.referredReferredSales.map((referredReferred, index) => (
-                                                    <TreeNode key={referredReferred.refferal_wp_uid} label={
-                                                        <div className='second-level-tree'>
-                                                            <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(referredReferred.rank_id), fontSize: "2em"}}></i>
-                                                            <br></br>
-                                                            {referredReferred.refferal_wp_uid}
-                                                        </div>
-                                                    }>
-                                                    </TreeNode>
-                                                
-                                                ))}
-
-                                            </TreeNode>
-                                            
-                                        ))
+                                        printTree(userRelations)
                                     }
                                     </Tree>
                                 </div>

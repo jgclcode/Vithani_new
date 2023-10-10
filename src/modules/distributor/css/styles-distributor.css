@@ -212,11 +212,16 @@ h2, h3, h4, h5, h6{
     color: #8f8f8f;
     padding: 5px;
     height: auto;
-    min-width: 250px;
+    min-width: 90px;
 }
 
 .tree-container .second-level-tree .referral-icon-sl{
     border: 3px solid #7b7f7e;
     border-radius: 50%;
     padding: 8px;
+    height: 60px;
+}
+
+.card-body-profile-info-dist {
+    padding-bottom: 35px;
 }

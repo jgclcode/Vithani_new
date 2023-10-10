@@ -8,7 +8,8 @@ import "./Popup.css";
 import "../../../styles.css" ;
 import { AuthContext } from "../../../auth/context/AuthContext";
 import logoutImg from "../../../assets/logout.png"
-
+import media_kit from "../../../assets/image-gallery-line1.png"
+import legales from "../../../assets/documents-outline1.png"
 
 export const Popup = ({ closePopup }) => {
     const navigate = useNavigate();
@@ -55,6 +56,18 @@ export const Popup = ({ closePopup }) => {
                             <Link to="/distributor/referrals" onClick={closePopup}>
                                 <img className="imgEnlace1 pt-1 pb-1" src={referidos}/>
                                 <p>Referidos</p>
+                            </Link>
+                        </div>
+                        <div className="nav-item mb-3">
+                            <Link to="https://mexico.vithaniglobal.com/materiales/" target="_blank" onClick={closePopup}>
+                                <img className="imgEnlace1" src={media_kit}/>
+                                <p>Media Kit</p>
+                            </Link>
+                        </div>
+                        <div className="nav-item mb-3">
+                            <Link to="https://mexico.vithaniglobal.com/legales/" target="_blank" onClick={closePopup}>
+                                <img className="imgEnlace1" src={legales}/>
+                                <p>Legales</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3" onClick={onLogout}>

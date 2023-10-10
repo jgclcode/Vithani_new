@@ -11,8 +11,6 @@ import { YearBarGraph } from '../components/graphs/YearBarGraph';
 
 export const DashboardPage = () => {
     
-    const objective_month = 2997;
-    const objective_year = 35964;
     const {user} = useContext(AuthContext);
     const user_id = user.id.toString();
     
@@ -24,6 +22,35 @@ export const DashboardPage = () => {
     const firstDay = new Date();
     const lastDay = new Date();
 
+    const changeRankColor = (idRank) => {
+        //Distribuidor Asociado
+        if(idRank === 1){
+            return '#5c67ed';
+        }
+        //Distribuidor Autorizado
+        if(idRank === 2){
+            return '#5c94ed';
+        }
+        //Director Junior
+        if(idRank === 21){
+            return '#5cb5ed';
+        }
+        //Director Regional
+        if(idRank === 23){
+            return '#000000';
+        }
+        //Director Senior
+        if(idRank === 22){
+            return '#895ced';
+        }
+        //Director Master
+        if(idRank === 24){
+            return '#000000';
+        }
+        else{
+            return '#FFFFFF';
+        }
+    }
     const loadYearData = () => {
         
         const requestOptions = {
@@ -54,7 +81,7 @@ export const DashboardPage = () => {
         // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => {
-            setUserData(json.data)
+            setUserData(json.data);
         })
     }
 
@@ -119,40 +146,9 @@ export const DashboardPage = () => {
         setLoading(false);
     }, [])
 
-    
-    const dateBeginSet = (date) => {
-        setLoading(true);
-        setDateStart(date);
-        loadData(date, dateEnd)
-    };
-
-    const dateEndSet = (date) => {
-        setLoading(true);
-        setDateEnd(date);
-        loadData(dateStart, date)
-    };
-
-
     return (
         <>  
             <DashboardHead/>
-
-            {/* <div className="row marginRow">
-                <div className="col-md justifyElements">
-                    <DatePicker
-                        selected={dateStart}
-                        onChange={(date) => dateBeginSet(date)}
-                        inline
-                    />
-                </div>
-                <div className="col-md justifyElements">
-                    <DatePicker
-                        selected={dateEnd}
-                        onChange={(date) => dateEndSet(date)}
-                        inline
-                    />
-                </div>
-            </div> */}
 
             <div className="row" style={{marginBottom: '50px'}}>
                 <div className="col-md justifyElements">
@@ -173,8 +169,23 @@ export const DashboardPage = () => {
             ) : (
                 <>
                     {
-                        (userData ) ? (
+                        (userData) ? (
                             <>
+
+                                <div className='card-body'>
+                                    <div className='row card-body-profile-info-dist'>
+                                        <div className='col-sm-12'>
+                                            <div className='profile-user'>
+                                                <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "3.5em"}}></i>
+                                            </div>
+                                            <div>
+                                                <br />
+                                                <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>{userData.rank}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <YearBarGraph dataGraph={userYearData}/>
 
                               {/*
@@ -247,13 +258,13 @@ export const DashboardPage = () => {
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
                                                 <span className='upper-h-6' style={{fontWeight:'bold'}}> Objetivo Mensual: </span> 
-                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${objective_month.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
+                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${userData.ranksGoal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
                                                 <div className='col-lg-12' style={{display:'flex', flexDirection:'row-reverse'}}>
                                                     <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
                                                 </div>
                                                 <div className='progress-bar-parent'>
-                                                    <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${objective_month}`) >= 100 ? 100:  ((`${userData.salesTotal}` * 100)/`${objective_month}`))+'%' }}>
-                                                        <span className='progress-text'>{((`${userData.salesTotal}` * 100)/`${objective_month}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${userData.ranksGoal}`) >= 100 ? 100: ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`) > 5 ? ((`${userData.salesTotal}` * 100)/`${userData.ranksGoal}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
+                                                        <span className='progress-text'>{((`${userData.salesTotal}` * 100)/`${userData.ranksGoal}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -263,13 +274,13 @@ export const DashboardPage = () => {
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
                                                 <span className='upper-h-6' style={{fontWeight:'bold'}}> Objetivo Anual: </span> 
-                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${objective_year.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
+                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${(userData.ranksGoal * 12).toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
                                                 <div className='col-lg-12' style={{display:'flex', flexDirection:'row-reverse'}}>
                                                     <h2 className='style-h-2'> ${`${userYearTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
                                                 </div>
                                                 <div className='progress-bar-parent'>
-                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${objective_year}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${objective_year}`))+'%' }}>
-                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${objective_year}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${(userData.ranksGoal * 12)}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`) > 5 ? ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
+                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>
