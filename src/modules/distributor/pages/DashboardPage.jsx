@@ -180,6 +180,11 @@ export const DashboardPage = () => {
         );
     }
 
+    const handleCopy = (e) => {
+        e.preventDefault()
+        e.clipboardData.setData("Text", userData.affiliate_id)
+    } 
+
     const [loading, setLoading] = useState(false)
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
@@ -234,6 +239,7 @@ export const DashboardPage = () => {
                                             <div className='profile-user'>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>Link de asociado:</p>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "1.8em"}}>https://mexico.vithaniglobal.com/?dist={userData.affiliate_id}</p>
+                                                <button onClick={(e) => handleCopy(e)}>Copiar Link</button>
                                             </div>
                                         </div>
                                     </div>
