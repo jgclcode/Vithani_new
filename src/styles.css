@@ -413,7 +413,8 @@ code {
 }
 
 .buttonMiembros{
-  background-color: rgb(28, 152, 224);
+  /*background-color: rgb(28, 152, 224);*/
+  /*background-color: rgb(92, 103, 237);*/
   color: aliceblue;
 
   width: 100%;
@@ -431,7 +432,8 @@ code {
 }
 
 .buttonMiembros:hover{
-  background-color: rgb(70, 166, 221);
+  /*background-color: rgb(70, 166, 221);*/
+  background-color: rgb(133, 143, 246);
   font-weight: bold;
 }
 
@@ -638,7 +640,9 @@ code {
 
 .marginRowObjectives {
   margin-left: 0%;
-  margin-bottom: 4%;
+  /*margin-bottom: 4%;*/
+  min-height: 66px;
+  margin-bottom: 10px;
 }
 
 .centerCol {

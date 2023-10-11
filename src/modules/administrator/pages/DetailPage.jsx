@@ -15,6 +15,9 @@ export const DetailPage = () => {
     
     const [user, setUser] = useState();
 
+    const [currentPage, setCurrentPage] = useState(0);
+    const [search, setSearch] = useState('');
+
     const firstDay = new Date();
     const lastDay = new Date();
 
@@ -69,6 +72,77 @@ export const DetailPage = () => {
         );
     }
 
+    const changeRankColor = (idRank) => {
+        //Distribuidor Asociado
+        if(idRank === 1){
+            return '#5c67ed';
+        }
+        //Distribuidor Autorizado
+        if(idRank === 2){
+            return '#5c94ed';
+        }
+        //Director Junior
+        if(idRank === 21){
+            return '#5cb5ed';
+        }
+        //Director Regional
+        if(idRank === 23){
+            return '#000000';
+        }
+        //Director Senior
+        if(idRank === 22){
+            return '#895ced';
+        }
+        //Director Master
+        if(idRank === 24){
+            return '#000000';
+        }
+        else{
+            return '#FFFFFF';
+        }
+    }
+
+    let arrRefferedSales = [];
+    
+    const arrUserRefferedSales = (userD) => {
+ 
+        userD.refferedSales.map((sale, index) => {
+            let arrRef = {
+                "id": sale.sale_id,
+                "index": index + 1,
+                "reference": sale.reference,
+                "date": sale.date,
+                "refferal_wp_uid": sale.refferal_wp_uid,
+                "order_total": sale._order_total,
+                "commission": sale.commission
+            };
+            arrRefferedSales[index] = arrRef;
+        });  
+    }
+
+    const filteredTable = () => {
+        if (search.length === 0){
+            return arrRefferedSales.slice(currentPage, currentPage + 10);
+        }
+        const filtered = arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase()));
+        return filtered.slice(currentPage, currentPage + 10);
+    }
+
+    const nextPage = () => {
+        if(arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage + 10)
+            setCurrentPage( currentPage + 10);
+    }
+
+    const prevPage = () => {
+        if( currentPage > 0 )
+            setCurrentPage( currentPage - 10);
+    }
+
+    const onSearchChange = (event) => {
+        setCurrentPage(0);
+        setSearch(event.target.value);
+    }
+
     const [loading, setLoading] = useState(false)
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
@@ -81,15 +155,19 @@ export const DetailPage = () => {
 
     
     const dateBeginSet = (date) => {
-        setLoading(true);
-        setDateStart(date);
-        loadData(date, dateEnd)
+        if (date < dateEnd) {
+            setLoading(true);
+            setDateStart(date);
+            loadData(date, dateEnd)
+        };
     };
 
     const dateEndSet = (date) => {
-        setLoading(true);
-        setDateEnd(date);
-        loadData(dateStart, date)
+        if (date > dateStart) {
+            setLoading(true);
+            setDateEnd(date);
+            loadData(dateStart, date);
+        };
     };
 
 
@@ -117,7 +195,11 @@ export const DetailPage = () => {
                                         <div className='row card-body-profile-info'>
                                             <div className='col-sm-4'>
                                                 <div className='profile-user'>
-                                                    <img src={crown} className='img-thumbnail'/>
+                                                    {/*<img src={crown} className='img-thumbnail'/>*/}
+                                                    <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "3.5em"}}></i>
+                                                </div>
+                                                <div>
+                                                    <p style={{marginBottom: '0',textAlign: 'center', color: '#979797'}}>{user.rank}</p>
                                                 </div>
                                             </div>
                                             <div className='col-sm-8'>
@@ -220,6 +302,7 @@ export const DetailPage = () => {
                     {
                         (user) ? (
                             <>  
+                                {arrUserRefferedSales(user)}
                                 <div className="containerCities backgroundColorWhite">
 
                                     {/*<div style={{marginBottom: '50px'}}>
@@ -259,34 +342,57 @@ export const DetailPage = () => {
                                 </div>
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>No. </th>
-                                                <th>Referencia</th>
-                                                <th>Fecha</th>
-                                                <th>Referido</th>
-                                                <th>Compra</th>
-                                                <th>Comisión</th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                user.refferedSales.map((sale, index) => (
-                                                    <tr key={sale.sale_id}>
-                                                        <td>{index +1 }</td>
-                                                        <td>{sale.reference}</td>
-                                                        <td>{sale.date}</td>
-                                                        <td>{sale.refferal_wp_uid}</td>
-                                                        <td>{sale._order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
-                                                        <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
-                                                        
+                                    <div className='row mx-0'>
+                                        <div className='col-xl-6 col-md-12 col-lg-12 px-0' style={{position: 'relative'}}>
+                                            <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
+                                            <span id='table-search-icon'>
+                                                <i className="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className='row mx-0' style={{overflow: 'auto'}}>
+                                        <div className='col-12 px-0'>
+                                            <table className='table'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>No. </th>
+                                                        <th>Referencia</th>
+                                                        <th>Fecha</th>
+                                                        <th>Referido</th>
+                                                        <th>Compra</th>
+                                                        <th>Comisión</th>
+
                                                     </tr>
-                                                ))
-                                            }
-                                        </tbody>
-                                    </table>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        filteredTable().map(sale => (
+                                                            <tr key={sale.id}>
+                                                                <td>{sale.index }</td>
+                                                                <td>{sale.reference}</td>
+                                                                <td>{sale.date}</td>
+                                                                <td>{sale.refferal_wp_uid}</td>
+                                                                <td>{sale.order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+                                                                <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div className='row me-0'>
+                                        <div className='col-12 buttons-table'>
+                                            <h6 className='me-3 mb-0'> { arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
+                                            <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
+                                                <i className="fas fa-angle-double-left"></i>
+                                            </button>
+                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage + 10}>
+                                                <i className="fas fa-angle-double-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                             </>
