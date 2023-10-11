@@ -219,13 +219,21 @@ export const DashboardPage = () => {
                                 {arrUserDataRefferedSales(userData)}
                                 <div className='card-body'>
                                     <div className='row card-body-profile-info-dist'>
-                                        <div className='col-sm-12'>
+                                        <div className='col-sm-4'>
                                             <div className='profile-user'>
                                                 <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "3.5em"}}></i>
                                             </div>
                                             <div>
                                                 <br />
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>{userData.rank}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className='col-sm-8'>
+                                            <h2 className='style-h-2 mb-3'>{user.display_name}</h2>
+                                            <div className='profile-user'>
+                                                <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>Link de asociado:</p>
+                                                <p style={{marginBottom: '0',textAlign: 'center', fontSize: "1.8em"}}>https://mexico.vithaniglobal.com/?dist={userData.affiliate_id}</p>
                                             </div>
                                         </div>
                                     </div>
