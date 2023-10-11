@@ -21,7 +21,51 @@ export const ReportsPage = () => {
     const [dateStart, setDateStart] = useState(new Date(firstDay.getFullYear(), firstDay.getMonth(), 1));
     const [dateEnd, setDateEnd] = useState(new Date(lastDay.getFullYear(), lastDay.getMonth()+1, 0));
 
+    const [currentPage, setCurrentPage] = useState(0);
+    const [search, setSearch] = useState('');
+
     let salesData = [];
+    let arrSales = [];
+
+    const arrUserSales = (usersSales) => {
+ 
+        usersSales.map((sale, index) => {
+            let arrS = {
+                "id": sale.sale_id,
+                "index": index +1,
+                "reference": sale.reference,
+                "date": sale.date,
+                "refferal_wp_uid": sale.refferal_wp_uid,
+                "order_total": sale._order_total,
+                "commission": sale.commission,
+                "display_name": sale.display_name
+            };
+            arrSales[index] = arrS;
+        });  
+    }
+
+    const filteredTable = () => {
+        if (search.length === 0){
+            return arrSales.slice(currentPage, currentPage + 10);
+        }
+        const filtered = arrSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase()));
+        return filtered.slice(currentPage, currentPage + 10);
+    }
+
+    const nextPage = () => {
+        if(arrSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage + 10)
+            setCurrentPage( currentPage + 10);
+    }
+
+    const prevPage = () => {
+        if( currentPage > 0 )
+            setCurrentPage( currentPage - 10);
+    }
+
+    const onSearchChange = (event) => {
+        setCurrentPage(0);
+        setSearch(event.target.value);
+    }
 
     const loadData = (firstDay, lastDay) => {
         
@@ -161,6 +205,7 @@ export const ReportsPage = () => {
                     {
                         (users) ? (
                             <>  
+                                {arrUserSales(sales)}
                                 <div className="containerCities backgroundColorWhite">
                                     
                                     <div className='detailContainer reports'>
@@ -199,6 +244,14 @@ export const ReportsPage = () => {
                                 </div>
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
+                                    <div className='row'>
+                                        <div className='col-xl-6 col-md-12 col-lg-12' style={{position: 'relative'}}>
+                                            <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
+                                            <span id='table-search-icon'>
+                                                <i className="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <table className='table'>
                                         <thead>
                                             <tr>
@@ -214,13 +267,13 @@ export const ReportsPage = () => {
                                         </thead>
                                             <tbody>
                                             {   
-                                                sales.map((sale, index) => (
-                                                    <tr key={sale.sale_id}>
-                                                        <td>{index + 1 }</td>
+                                                filteredTable().map(sale => (
+                                                    <tr key={sale.id}>
+                                                        <td>{sale.index }</td>
                                                         <td>{sale.reference}</td>
                                                         <td>{sale.date}</td>
                                                         <td>{sale.refferal_wp_uid}</td>
-                                                        <td>{sale._order_total.toLocaleString("en-US")}</td>
+                                                        <td>{sale.order_total.toLocaleString("en-US")}</td>
                                                         <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
                                                         <td>{sale.display_name}</td>
                                                     </tr>
@@ -228,6 +281,17 @@ export const ReportsPage = () => {
                                             }
                                             </tbody>
                                     </table>
+                                    <div className='row'>
+                                        <div className='col-12 buttons-table'>
+                                            <h6 className='me-3 mb-0'> { arrSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
+                                            <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
+                                                <i className="fas fa-angle-double-left"></i>
+                                            </button>
+                                            <button className='btn-table' onClick={nextPage} disabled={arrSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage + 10}>
+                                                <i className="fas fa-angle-double-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                             </>

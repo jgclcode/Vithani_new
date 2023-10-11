@@ -62,7 +62,7 @@ export const DashboardPage = () => {
         userD.refferedSales.map((sale, index) => {
             let arrRef = {
                 "id": sale.sale_id,
-                "index": index +1,
+                "index": index + 1,
                 "reference": sale.reference,
                 "date": sale.date,
                 "refferal_wp_uid": sale.refferal_wp_uid,
@@ -75,20 +75,20 @@ export const DashboardPage = () => {
 
     const filteredTable = () => {
         if (search.length === 0){
-            return arrRefferedSales.slice(currentPage, currentPage + 5);
+            return arrRefferedSales.slice(currentPage, currentPage + 10);
         }
         const filtered = arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase()));
-        return filtered.slice(currentPage, currentPage + 5);
+        return filtered.slice(currentPage, currentPage + 10);
     }
 
     const nextPage = () => {
-        if(arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage +5)
-            setCurrentPage( currentPage + 5);
+        if(arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage + 10)
+            setCurrentPage( currentPage + 10);
     }
 
     const prevPage = () => {
         if( currentPage > 0 )
-            setCurrentPage( currentPage - 5);
+            setCurrentPage( currentPage - 10);
     }
 
     const onSearchChange = (event) => {
@@ -463,7 +463,7 @@ export const DashboardPage = () => {
                                             <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
                                                 <i className="fas fa-angle-double-left"></i>
                                             </button>
-                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage +5}>
+                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage + 10}>
                                                 <i className="fas fa-angle-double-right"></i>
                                             </button>
                                         </div>
