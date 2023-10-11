@@ -62,7 +62,7 @@ export const DashboardPage = () => {
         userD.refferedSales.map((sale, index) => {
             let arrRef = {
                 "id": sale.sale_id,
-                "index": index +1,
+                "index": index + 1,
                 "reference": sale.reference,
                 "date": sale.date,
                 "refferal_wp_uid": sale.refferal_wp_uid,
@@ -75,20 +75,20 @@ export const DashboardPage = () => {
 
     const filteredTable = () => {
         if (search.length === 0){
-            return arrRefferedSales.slice(currentPage, currentPage + 5);
+            return arrRefferedSales.slice(currentPage, currentPage + 10);
         }
         const filtered = arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase()));
-        return filtered.slice(currentPage, currentPage + 5);
+        return filtered.slice(currentPage, currentPage + 10);
     }
 
     const nextPage = () => {
-        if(arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage +5)
-            setCurrentPage( currentPage + 5);
+        if(arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage + 10)
+            setCurrentPage( currentPage + 10);
     }
 
     const prevPage = () => {
         if( currentPage > 0 )
-            setCurrentPage( currentPage - 5);
+            setCurrentPage( currentPage - 10);
     }
 
     const onSearchChange = (event) => {
@@ -200,7 +200,7 @@ export const DashboardPage = () => {
         <>  
             <DashboardHead/>
 
-            <div className="row" style={{marginBottom: '50px'}}>
+            <div className="row mx-0" style={{marginBottom: '50px'}}>
                 <div className="col-md justifyElements">
                     <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
                 </div>
@@ -223,7 +223,7 @@ export const DashboardPage = () => {
                             <>
                                 {arrUserDataRefferedSales(userData)}
                                 <div className='card-body'>
-                                    <div className='row card-body-profile-info-dist'>
+                                    <div className='row card-body-profile-info-dist mx-0'>
                                         <div className='col-sm-4'>
                                             <div className='profile-user'>
                                                 <i className="fas fa-crown crown-icon" style={{color: changeRankColor(userData.rank_id), fontSize: "3.5em"}}></i>
@@ -286,7 +286,7 @@ export const DashboardPage = () => {
                                     </div>
                                 </div> */}
 
-                                <div className='row distributor-sales-table mb-3'>
+                                <div className='row distributor-sales-table mb-3 mx-0'>
                                     <div className='col-xl-6 col-md-12 col-lg-12'>
                                         <div className='detailContainer'>
                                             {/* <div className='detailContent'>
@@ -312,7 +312,7 @@ export const DashboardPage = () => {
                                     </div>
                                 </div>
                                 
-                                <div className='row mb-3'>
+                                <div className='row mb-3 mx-0'>
                                     <div className='col-sm-6'>
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
@@ -365,7 +365,7 @@ export const DashboardPage = () => {
                                     </div> */}
                                 </div>
 
-                                <div className='row'>
+                                <div className='row mx-0'>
                                     {/* <div className='col-xl-5 col-md-12 col-lg-12 distributor-bonus-table'>
                                         <div className='card'>
                                             <div className='card-body ms-2 me-2'>
@@ -404,8 +404,8 @@ export const DashboardPage = () => {
 
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
-                                    <div className='row'>
-                                        <div className='col-xl-6 col-md-12 col-lg-12' style={{position: 'relative'}}>
+                                    <div className='row mx-0'>
+                                        <div className='col-xl-6 col-md-12 col-lg-12 px-0' style={{position: 'relative'}}>
                                             <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
                                             <span id='table-search-icon'>
                                                 <i className="fas fa-search"></i>
@@ -421,55 +421,59 @@ export const DashboardPage = () => {
                                             </button>
                                         </div>*/}
                                     </div>
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>No. </th>
-                                                <th>Referencia</th>
-                                                <th>Fecha</th>
-                                                <th>Referido</th>
-                                                <th>Compra</th>
-                                                <th>Comisión</th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {/*
-                                                userData.refferedSales.map((sale, index) => (
-                                                    <tr key={sale.sale_id}>
-                                                        <td>{index +1 }</td>
-                                                        <td>{sale.reference}</td>
-                                                        <td>{sale.date}</td>
-                                                        <td>{sale.refferal_wp_uid}</td>
-                                                        <td>{sale._order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
-                                                        <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
-                                                        
+                                    <div className='row mx-0' style={{overflow: 'auto'}}>
+                                        <div className='col-12 px-0'>
+                                            <table className='table'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>No. </th>
+                                                        <th>Referencia</th>
+                                                        <th>Fecha</th>
+                                                        <th>Referido</th>
+                                                        <th>Compra</th>
+                                                        <th>Comisión</th>
+
                                                     </tr>
-                                                ))
-                                            */}
-                                            {
-                                                filteredTable().map(sale  => (
-                                                    <tr key={sale.id}>
-                                                        <td>{sale.index }</td>
-                                                        <td>{sale.reference}</td>
-                                                        <td>{sale.date}</td>
-                                                        <td>{sale.refferal_wp_uid}</td>
-                                                        <td>{sale.order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
-                                                        <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
-                                                        
-                                                    </tr>
-                                                ))
-                                            }
-                                            
-                                        </tbody>
-                                    </table>
-                                    <div className='row'>
+                                                </thead>
+                                                <tbody>
+                                                    {/*
+                                                        userData.refferedSales.map((sale, index) => (
+                                                            <tr key={sale.sale_id}>
+                                                                <td>{index +1 }</td>
+                                                                <td>{sale.reference}</td>
+                                                                <td>{sale.date}</td>
+                                                                <td>{sale.refferal_wp_uid}</td>
+                                                                <td>{sale._order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+                                                                <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+
+                                                            </tr>
+                                                        ))
+                                                    */}
+                                                    {
+                                                        filteredTable().map(sale  => (
+                                                            <tr key={sale.id}>
+                                                                <td>{sale.index }</td>
+                                                                <td>{sale.reference}</td>
+                                                                <td>{sale.date}</td>
+                                                                <td>{sale.refferal_wp_uid}</td>
+                                                                <td>{sale.order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+                                                                <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+
+                                                            </tr>
+                                                        ))
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div className='row me-0'>
                                         <div className='col-12 buttons-table'>
                                             <h6 className='me-3 mb-0'> { arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
                                             <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
                                                 <i className="fas fa-angle-double-left"></i>
                                             </button>
-                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage +5}>
+                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage + 10}>
                                                 <i className="fas fa-angle-double-right"></i>
                                             </button>
                                         </div>
