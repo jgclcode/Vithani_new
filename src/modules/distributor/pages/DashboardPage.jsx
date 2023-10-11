@@ -19,6 +19,9 @@ export const DashboardPage = () => {
     const [userYearData, setUserYearData] = useState();
     const [userYearTotal, setUserYearTotal] = useState(0);
 
+    const [currentPage, setCurrentPage] = useState(0);
+    const [search, setSearch] = useState('');
+
     const firstDay = new Date();
     const lastDay = new Date();
 
@@ -51,6 +54,48 @@ export const DashboardPage = () => {
             return '#FFFFFF';
         }
     }
+    
+    let arrRefferedSales = [];
+    
+    const arrUserDataRefferedSales = (userD) => {
+ 
+        userD.refferedSales.map((sale, index) => {
+            let arrRef = {
+                "id": sale.sale_id,
+                "index": index +1,
+                "reference": sale.reference,
+                "date": sale.date,
+                "refferal_wp_uid": sale.refferal_wp_uid,
+                "order_total": sale._order_total,
+                "commission": sale.commission
+            };
+            arrRefferedSales[index] = arrRef;
+        });  
+    }
+
+    const filteredTable = () => {
+        if (search.length === 0){
+            return arrRefferedSales.slice(currentPage, currentPage + 5);
+        }
+        const filtered = arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase()));
+        return filtered.slice(currentPage, currentPage + 5);
+    }
+
+    const nextPage = () => {
+        if(arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length > currentPage +5)
+            setCurrentPage( currentPage + 5);
+    }
+
+    const prevPage = () => {
+        if( currentPage > 0 )
+            setCurrentPage( currentPage - 5);
+    }
+
+    const onSearchChange = (event) => {
+        setCurrentPage(0);
+        setSearch(event.target.value);
+    }
+ 
     const loadYearData = () => {
         
         const requestOptions = {
@@ -171,7 +216,7 @@ export const DashboardPage = () => {
                     {
                         (userData) ? (
                             <>
-
+                                {arrUserDataRefferedSales(userData)}
                                 <div className='card-body'>
                                     <div className='row card-body-profile-info-dist'>
                                         <div className='col-sm-12'>
@@ -345,6 +390,23 @@ export const DashboardPage = () => {
 
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
+                                    <div className='row'>
+                                        <div className='col-xl-6 col-md-12 col-lg-12' style={{position: 'relative'}}>
+                                            <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
+                                            <span id='table-search-icon'>
+                                                <i className="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        {/*<div className='col-xl-6 col-md-12 col-lg-12 mb-2 buttons-table'>
+                                            <h6 className='me-3 mb-0'> { arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
+                                            <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
+                                                <i className="fas fa-angle-double-left"></i>
+                                            </button>
+                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage +5}>
+                                                <i className="fas fa-angle-double-right"></i>
+                                            </button>
+                                        </div>*/}
+                                    </div>
                                     <table className='table'>
                                         <thead>
                                             <tr>
@@ -358,7 +420,7 @@ export const DashboardPage = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {
+                                            {/*
                                                 userData.refferedSales.map((sale, index) => (
                                                     <tr key={sale.sale_id}>
                                                         <td>{index +1 }</td>
@@ -370,9 +432,34 @@ export const DashboardPage = () => {
                                                         
                                                     </tr>
                                                 ))
+                                            */}
+                                            {
+                                                filteredTable().map(sale  => (
+                                                    <tr key={sale.id}>
+                                                        <td>{sale.index }</td>
+                                                        <td>{sale.reference}</td>
+                                                        <td>{sale.date}</td>
+                                                        <td>{sale.refferal_wp_uid}</td>
+                                                        <td>{sale.order_total.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+                                                        <td>{sale.commission.toLocaleString("en-US",{maximumFractionDigits: 2})}</td>
+                                                        
+                                                    </tr>
+                                                ))
                                             }
+                                            
                                         </tbody>
                                     </table>
+                                    <div className='row'>
+                                        <div className='col-12 buttons-table'>
+                                            <h6 className='me-3 mb-0'> { arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
+                                            <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
+                                                <i className="fas fa-angle-double-left"></i>
+                                            </button>
+                                            <button className='btn-table' onClick={nextPage} disabled={arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.includes(search)).length < currentPage +5}>
+                                                <i className="fas fa-angle-double-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                             </>

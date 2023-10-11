@@ -225,3 +225,42 @@ h2, h3, h4, h5, h6{
 .card-body-profile-info-dist {
     padding-bottom: 35px;
 }
+
+#table-search-icon{
+    position: absolute;
+    display: block;
+    bottom: .9rem;
+    right: 1.5rem;
+    color: #03297f;
+}
+
+.buttons-table{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.btn-table{
+    padding: 0;
+    margin: 0 3px;
+    border-radius: 50%!important;
+    color: #03297f;
+    background-color: #f8f9fa;
+    border: 1px solid #e6e6e6;
+    width: 36px;
+    height: 36px;
+    font-size: .875rem;
+    box-shadow: 0px 0px 6px 0px #03297f; 
+}
+.btn-table:hover{
+    text-decoration: none;
+    background-color: #e6e6e6;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px;
+}
+.btn-table:disabled, .btn-table:disabled:hover{
+    /*cursor: not-allowed;*/
+    cursor: auto;
+    background-color: transparent;
+    box-shadow: none;
+    
+}
