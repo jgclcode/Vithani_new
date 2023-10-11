@@ -244,44 +244,48 @@ export const ReportsPage = () => {
                                 </div>
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
-                                    <div className='row'>
-                                        <div className='col-xl-6 col-md-12 col-lg-12' style={{position: 'relative'}}>
+                                    <div className='row mx-0'>
+                                        <div className='col-xl-6 col-md-12 col-lg-12 px-0' style={{position: 'relative'}}>
                                             <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
                                             <span id='table-search-icon'>
                                                 <i className="fas fa-search"></i>
                                             </span>
                                         </div>
                                     </div>
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>No. </th>
-                                                <th>Referencia</th>
-                                                <th>Fecha</th>
-                                                <th>Referido</th>
-                                                <th>Compra</th>
-                                                <th>Comisión</th>
-                                                <th>Distribuidor</th>
+                                    <div className='row mx-0' style={{overflow: 'auto'}}>
+                                        <div className='col-12 px-0'>
+                                            <table className='table'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>No. </th>
+                                                        <th>Referencia</th>
+                                                        <th>Fecha</th>
+                                                        <th>Referido</th>
+                                                        <th>Compra</th>
+                                                        <th>Comisión</th>
+                                                        <th>Distribuidor</th>
 
-                                            </tr>
-                                        </thead>
-                                            <tbody>
-                                            {   
-                                                filteredTable().map(sale => (
-                                                    <tr key={sale.id}>
-                                                        <td>{sale.index }</td>
-                                                        <td>{sale.reference}</td>
-                                                        <td>{sale.date}</td>
-                                                        <td>{sale.refferal_wp_uid}</td>
-                                                        <td>{sale.order_total.toLocaleString("en-US")}</td>
-                                                        <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
-                                                        <td>{sale.display_name}</td>
                                                     </tr>
-                                                ))
-                                            }
-                                            </tbody>
-                                    </table>
-                                    <div className='row'>
+                                                </thead>
+                                                    <tbody>
+                                                    {   
+                                                        filteredTable().map(sale => (
+                                                            <tr key={sale.id}>
+                                                                <td>{sale.index }</td>
+                                                                <td>{sale.reference}</td>
+                                                                <td>{sale.date}</td>
+                                                                <td>{sale.refferal_wp_uid}</td>
+                                                                <td>{sale.order_total.toLocaleString("en-US")}</td>
+                                                                <td>{sale.commission.toFixed(2).toLocaleString("en-US")}</td>
+                                                                <td>{sale.display_name}</td>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div className='row me-0'>
                                         <div className='col-12 buttons-table'>
                                             <h6 className='me-3 mb-0'> { arrSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
                                             <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
