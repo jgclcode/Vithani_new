@@ -8,6 +8,7 @@ import '../css/styles-distributor.css'
 import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
 import { YearBarGraph } from '../components/graphs/YearBarGraph';
+// import { resolvePackageEntry } from 'vite';
 
 export const DashboardPage = () => {
     
@@ -18,6 +19,8 @@ export const DashboardPage = () => {
 
     const [userYearData, setUserYearData] = useState();
     const [userYearTotal, setUserYearTotal] = useState(0);
+
+    const [userYearGoal, setUserYearGoal] = useState(0);
 
     const [currentPage, setCurrentPage] = useState(0);
     const [search, setSearch] = useState('');
@@ -110,6 +113,7 @@ export const DashboardPage = () => {
         .then(json => {
                 setUserYearData(json.data.yearSales);
                 setUserYearTotal(json.data.yearTotal);
+                setUserYearGoal(json.data.goalYear);
             }
         )
     }
@@ -182,7 +186,7 @@ export const DashboardPage = () => {
 
     const handleCopy = (e) => {
         e.preventDefault()
-        e.clipboardData.setData("Text", userData.affiliate_id)
+        navigator.clipboard.writeText("https://mexico.vithaniglobal.com/?dist="+userData.affiliate_id)
     } 
 
     const [loading, setLoading] = useState(false)
@@ -236,10 +240,10 @@ export const DashboardPage = () => {
 
                                         <div className='col-sm-8'>
                                             <h2 className='style-h-2 mb-3'>{user.display_name}</h2>
-                                            <div className='profile-user'>
+                                            <div className='profile-user text-center'>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>Link de asociado:</p>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "1.8em"}}>https://mexico.vithaniglobal.com/?dist={userData.affiliate_id}</p>
-                                                <button onClick={(e) => handleCopy(e)}>Copiar Link</button>
+                                                <button className='btn btn-info' onClick={(e) => handleCopy(e)}>Copiar Link</button>
                                             </div>
                                         </div>
                                     </div>
@@ -333,13 +337,13 @@ export const DashboardPage = () => {
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
                                                 <span className='upper-h-6' style={{fontWeight:'bold'}}> Objetivo Anual: </span> 
-                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${(userData.ranksGoal * 12).toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
+                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${(userYearGoal).toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
                                                 <div className='col-lg-12' style={{display:'flex', flexDirection:'row-reverse'}}>
                                                     <h2 className='style-h-2'> ${`${userYearTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
                                                 </div>
                                                 <div className='progress-bar-parent'>
-                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${(userData.ranksGoal * 12)}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`) > 5 ? ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
-                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${(userYearGoal)}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${(userYearGoal)}`) > 5 ? ((`${userYearTotal}` * 100)/`${(userYearGoal)}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
+                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${(userYearGoal)}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -30,8 +30,9 @@ export const ReferralsPage = () => {
             body: JSON.stringify({ user_id: user_id })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
+        // fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
         // fetch("http://127.0.0.1:8000/api/distributorsRelations", requestOptions)
+        fetch("http://127.0.0.1:8000/api/distributorsRelationsReferrals", requestOptions)
         .then(response => response.json())
         .then(json => {
                 setUserRelations(json.data.relations);
@@ -126,11 +127,11 @@ export const ReferralsPage = () => {
     const printTree = (relations) => {
 
         return (relations.map((relation, index) => (
-            <TreeNode key={relation.refferal_wp_uid} label={
+            <TreeNode key={relation.display_name} label={
                 <div className='second-level-tree'>
                     <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(relation.rank_id), fontSize: "2em"}}></i>
                     <br></br>
-                    {relation.refferal_wp_uid}
+                    {relation.display_name}
                 </div>
             }>
                 {
