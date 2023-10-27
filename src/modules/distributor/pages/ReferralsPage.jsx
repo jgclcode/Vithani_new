@@ -32,7 +32,8 @@ export const ReferralsPage = () => {
 
         // fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
         // fetch("http://127.0.0.1:8000/api/distributorsRelations", requestOptions)
-        fetch("http://127.0.0.1:8000/api/distributorsRelationsReferrals", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/distributorsRelationsReferrals", requestOptions)
+        // fetch("http://127.0.0.1:8000/api/distributorsRelationsReferrals", requestOptions)
         .then(response => response.json())
         .then(json => {
                 setUserRelations(json.data.relations);

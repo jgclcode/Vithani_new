@@ -3,12 +3,17 @@ import { DashboardHead } from '../components/DashboardHead';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 import '../../../styles.css'
 import '../css/styles-distributor.css'
+
 import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
 import { YearBarGraph } from '../components/graphs/YearBarGraph';
-// import { resolvePackageEntry } from 'vite';
+
+import notificationPopup  from "../../../assets/manita.png"
 
 export const DashboardPage = () => {
     
@@ -27,6 +32,9 @@ export const DashboardPage = () => {
 
     const firstDay = new Date();
     const lastDay = new Date();
+
+    const [open, setOpen] = useState(true);
+    const closeModal = () => setOpen(false);
 
     const changeRankColor = (idRank) => {
         //Distribuidor Asociado
@@ -226,6 +234,25 @@ export const DashboardPage = () => {
                         (userData) ? (
                             <>
                                 {arrUserDataRefferedSales(userData)}
+
+                                <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                                    <div className="modalNotification">
+                                        <a className="close" onClick={closeModal}>
+                                            &times;
+                                        </a>
+
+                                        <div className="content">
+                                            <img src={notificationPopup}/>
+                                        </div>
+
+                                        <div className="header"> ¡Haz pasado de nivel! </div>
+                                        <div className="content">
+                                            ¡Felicidades por haber superado tu objetivo!
+                                        </div>
+                                        
+                                    </div>
+                                </Popup>
+
                                 <div className='card-body'>
                                     <div className='row card-body-profile-info-dist mx-0'>
                                         <div className='col-sm-4'>
