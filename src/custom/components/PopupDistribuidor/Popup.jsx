@@ -10,6 +10,7 @@ import { AuthContext } from "../../../auth/context/AuthContext";
 import logoutImg from "../../../assets/logout.png"
 import media_kit from "../../../assets/image-gallery-line1.png"
 import legales from "../../../assets/documents-outline1.png"
+import trackSellingLink from "../../../assets/track-selling-link.png"
 
 export const Popup = ({ closePopup }) => {
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ export const Popup = ({ closePopup }) => {
                         <div className="nav-item mb-3">
                             <Link to="/distributor/referrals" onClick={closePopup}>
                                 <img className="imgEnlace1 pt-1 pb-1" src={referidos}/>
-                                <p>Referidos</p>
+                                <p>Mi Red</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3">
@@ -68,6 +69,12 @@ export const Popup = ({ closePopup }) => {
                             <Link to="https://mexico.vithaniglobal.com/legales/" target="_blank" onClick={closePopup}>
                                 <img className="imgEnlace1" src={legales}/>
                                 <p>Legales</p>
+                            </Link>
+                        </div>
+                        <div className="nav-item mb-3">
+                            <Link to="https://mexico.vithaniglobal.com/trackselling/" target="_blank" onClick={closePopup}>
+                                <img className="imgEnlace1" src={trackSellingLink}/>
+                                <p>Track Selling Link</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3" onClick={onLogout}>
