@@ -16,9 +16,7 @@ export const DashboardHead = () => {
                         {/* <img src={perfil}/> */}
 
                         <Link to="https://mexico.vithaniglobal.com/dashboard-distribuidor/?uap_aff_subtab=edit_account" target="_blank">
-                            <div className="nav-item" onClick={onSetActiveMenuItem}>
-                                <p>Perfil</p>
-                            </div>
+                            <p>Perfil</p>
                         </Link>
 
                         <p style={{marginLeft:'20px'}}>{ user?.name}</p>

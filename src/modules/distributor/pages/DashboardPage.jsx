@@ -235,23 +235,30 @@ export const DashboardPage = () => {
                             <>
                                 {arrUserDataRefferedSales(userData)}
 
-                                <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-                                    <div className="modalNotification">
-                                        <a className="close" onClick={closeModal}>
-                                            &times;
-                                        </a>
+                                { 
+                                
+                                    userData.ranksGoal >= 5000 ?  
+                                
+                                    <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                                        <div className="modalNotification">
+                                            <a className="close" onClick={closeModal}>
+                                                &times;
+                                            </a>
 
-                                        <div className="content">
-                                            <img src={notificationPopup}/>
-                                        </div>
+                                            <div className="content">
+                                                <img src={notificationPopup}/>
+                                            </div>
 
-                                        <div className="header"> ¡Haz pasado de nivel! </div>
-                                        <div className="content">
-                                            ¡Felicidades por haber superado tu objetivo!
+                                            <div className="header"> ¡Haz pasado de nivel! </div>
+                                            <div className="content">
+                                                ¡Felicidades por haber superado tu objetivo!
+                                            </div>
+                                            
                                         </div>
-                                        
-                                    </div>
-                                </Popup>
+                                    </Popup>
+
+                                    : <></>
+                                }
 
                                 <div className='card-body'>
                                     <div className='row card-body-profile-info-dist mx-0'>
