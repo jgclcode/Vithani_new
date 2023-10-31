@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../../../auth/context/AuthContext';
+import { Link } from "react-router-dom";
 
 export const DashboardHead = () => {
 
@@ -13,7 +14,14 @@ export const DashboardHead = () => {
                     </div>
                     <div className="coponentTwo col-md justifyElements" style={{marginTop: '15px'}}>
                         {/* <img src={perfil}/> */}
-                        <p>{ user?.name}</p>
+
+                        <Link to="https://mexico.vithaniglobal.com/dashboard-distribuidor/?uap_aff_subtab=edit_account" target="_blank">
+                            <div className="nav-item" onClick={onSetActiveMenuItem}>
+                                <p>Perfil</p>
+                            </div>
+                        </Link>
+
+                        <p style={{marginLeft:'20px'}}>{ user?.name}</p>
                     </div>
                 </div>
 
