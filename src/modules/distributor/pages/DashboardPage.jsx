@@ -263,6 +263,12 @@ export const DashboardPage = () => {
                                                 <br />
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>{userData.rank}</p>
                                             </div>
+                                            <div className="containerCities backgroundColorWhite" style={{textAlign: 'center'}}>
+
+                                                <h3 className='style-h-3'> Email: <span className='font-weight-light'>{userData.user_email}</span></h3>
+                                                                                        
+                                                <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {userData.account} </span></h3>
+                                            </div>
                                         </div>
 
                                         <div className='col-sm-8'>
@@ -316,32 +322,6 @@ export const DashboardPage = () => {
                                         </div>
                                     </div>
                                 </div> */}
-
-                                <div className='row distributor-sales-table mb-3 mx-0'>
-                                    <div className='col-xl-6 col-md-12 col-lg-12'>
-                                        <div className='detailContainer'>
-                                            {/* <div className='detailContent'>
-                                                <h6 className='upper-h-6'>Ventas Totales</h6> 
-                                                <h6 className='upper-h-6'>Compras Totales</h6>
-                                                <h2 className='style-h-2'>$ {userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}
-                                                    <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span>
-                                                </h2>  
-                                            </div>
-                                            <div className='detailContent'>
-                                                <h6 className='upper-h-6'>Compras Totales</h6> 
-                                                <h2 className='style-h-2'>$450
-                                                    <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
-                                                </h2>  
-                                            </div>
-                                            <div className='detailContent'>
-                                                <h6 className='upper-h-6'>Utilidad</h6> 
-                                                <h2 className='style-h-2'>$450
-                                                    <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
-                                                </h2>  
-                                            </div> */}
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 <div className='row mb-3 mx-0'>
                                     <div className='col-sm-6'>
@@ -435,13 +415,32 @@ export const DashboardPage = () => {
 
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
-                                    <div className='row mx-0'>
+                                    <div className='row mx-0' style={{alignItems: 'center'}}>
                                         <div className='col-xl-6 col-md-12 col-lg-12 px-0' style={{position: 'relative'}}>
                                             <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
                                             <span id='table-search-icon'>
                                                 <i className="fas fa-search"></i>
                                             </span>
                                         </div>
+
+                                        {/* <div className='row distributor-sales-table mb-3 mx-0'> */}
+                                            <div className='col-xl-6 col-md-12 col-lg-12 px-0'>
+                                                <div className='detailContainer' style={{display:'flex', justifyContent:'space-evenly'}}>
+                                                    <div className='detailContent'  style={{marginLeft:'10%', width:'100%'}}>
+                                                        <h6 className='upper-h-6'>Ventas por afiliado</h6> 
+                                                        <h2 className='style-h-2'>$ {userData.affiliatesSales.toLocaleString("en-US",{ maximumFractionDigits: 2 })}
+                                                            {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
+                                                        </h2>  
+                                                    </div>
+                                                    <div className='detailContent' style={{marginLeft:'10%', width:'100%'}}>
+                                                        <h6 className='upper-h-6'>Ventas al público</h6> 
+                                                        <h2 className='style-h-2'>$ {userData.publicSales.toLocaleString("en-US",{ maximumFractionDigits: 2 })} 
+                                                            {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
+                                                        </h2>  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {/* </div> */}
                                         {/*<div className='col-xl-6 col-md-12 col-lg-12 mb-2 buttons-table'>
                                             <h6 className='me-3 mb-0'> { arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
                                             <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
