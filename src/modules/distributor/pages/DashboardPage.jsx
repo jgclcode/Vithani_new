@@ -192,6 +192,26 @@ export const DashboardPage = () => {
         );
     }
 
+    const dateBeginSet = (date) => {
+        if (date < dateEnd) {
+            setLoading(true);
+            setDateStart(date);
+            loadData(date, dateEnd)
+            loadYearData();
+            setLoading(false);
+        };
+    };
+
+    const dateEndSet = (date) => {
+        if (date > dateStart) {
+            setLoading(true);
+            setDateEnd(date);
+            loadData(dateStart, date);
+            loadYearData();
+            setLoading(false);
+        };
+    };
+
     const handleCopy = (e) => {
         e.preventDefault()
         navigator.clipboard.writeText("https://mexico.vithaniglobal.com/?dist="+userData.affiliate_id)
@@ -211,8 +231,29 @@ export const DashboardPage = () => {
     return (
         <>  
             <DashboardHead/>
+            <div className="row marginRow">
 
+                <div className="col-md justifyElements">
+                    <DatePicker
+                        selected={dateStart}
+                        onChange={(date) => dateBeginSet(date)}
+                        className="datepicker-input"
+                        // inline
+                    />
+                </div>
+                <div className="col-md justifyElements">
+                    <DatePicker
+                        selected={dateEnd}
+                        onChange={(date) => dateEndSet(date)}
+                        className="datepicker-input"
+                        // inline
+                    />
+                </div>
+            </div>
             <div className="row mx-0" style={{marginBottom: '50px'}}>
+
+               
+
                 <div className="col-md justifyElements">
                     <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
                 </div>

@@ -4,6 +4,7 @@ import { NavbarAdministrator } from "../../../custom";
 import { DashboardPage } from "../pages/DashboardPage"
 import { ReportsPage } from "../pages/ReportsPage"
 import { DetailPage } from "../pages/DetailPage"
+import { GraphsPage } from "../pages/GraphsPage"
 
 export const AdministratorRoutes = () => {
     return (
@@ -12,6 +13,7 @@ export const AdministratorRoutes = () => {
                 <Route element={<NavbarAdministrator/>}>
                     <Route path="/dashboard" element={<DashboardPage />} />
                     <Route path="/reports" element={<ReportsPage />} />
+                    <Route path="/graphs" element={<GraphsPage />} />
                     <Route path="/detail/:user_id" element={<DetailPage />} />
                     <Route path="/*" element={<Navigate to="/administrator/dashboard"/>} />
                 </Route>
