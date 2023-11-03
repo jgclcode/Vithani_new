@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactEcharts from "echarts-for-react";
 
-export const YearBarGraph = ({dataGraph}) => {
+export const TotalSalesBarGraph = ({dataGraph}) => {
     
 
     const option = {
         title: {
           left: 'center',
-          text: 'Acumulado anual',
+          text: 'Total de Ventas',
         },
+        color: ["#346BC1"],
         tooltip: {
             trigger: 'axis',
             axisPointer: {
