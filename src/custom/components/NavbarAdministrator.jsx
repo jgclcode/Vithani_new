@@ -5,6 +5,7 @@ import icono from "../../assets/Vithani.svg";
 
 import DashboardImg  from "../../assets/dashboard.svg";
 import reporte from "../../assets/Grupo_1_hover.png";
+import grafica from "../../assets/diagram.png";
 import logoutImg from "../../assets/logout.png"
 
 import "../../styles.css" ;
@@ -64,6 +65,12 @@ export const NavbarAdministrator = () => {
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={reporte}/>
                                     <p>Reporte</p>
+                                </div>
+                            </Link>
+                            <Link to="/administrator/graphs">
+                                <div className="nav-item" onClick={onSetActiveMenuItem}>
+                                    <img className="imgEnlace1" src={grafica}/>
+                                    <p>Gráficas</p>
                                 </div>
                             </Link>
                             <button onClick={onLogout} style={{border: "none", background: 'none'}}>

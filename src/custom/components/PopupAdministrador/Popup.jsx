@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom"
 import DashboardImg  from "../../../assets/dashboard.svg";
 import reporte from "../../../assets/Grupo_1_hover.png";
 import icono from "../../../assets/Vithani.svg";
+import grafica from "../../../assets/diagram.png";
 import "./Popup.css";
 import "../../../styles.css" ;
 import { AuthContext } from "../../../auth/context/AuthContext";
@@ -54,6 +55,12 @@ export const Popup = ({ closePopup }) => {
                             <Link to="/administrator/reports" onClick={closePopup}>
                                 <img className="imgEnlace1" src={reporte}/>
                                 <p>Reporte</p>
+                            </Link>
+                        </div>
+                        <div className="nav-item mb-3">
+                            <Link to="/administrator/graphs" onClick={closePopup}>
+                                <img className="imgEnlace1" src={grafica}/>
+                                <p>Gráficas</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3" onClick={onLogout}>
