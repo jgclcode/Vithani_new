@@ -12,7 +12,7 @@ export const GraphsHead = () => {
         <>
             <div className="row marginRow">
                 <div className="coponentOne col-md justifyElements" style={{marginTop: '15px'}}>
-                    <h2>Graphs</h2>
+                    <h2>Gráficas</h2>
                 </div>
                 <div className="coponentTwo col-md justifyElements" style={{marginTop: '15px'}}>
                     {/* <img src={perfil}/> */}

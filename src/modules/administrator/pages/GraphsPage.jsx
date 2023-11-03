@@ -9,25 +9,22 @@ import { YearBarGraph } from '../components/graphs/YearBarGraph';
 export const GraphsPage = () => {
 
 
-    const [userYearData, setUserYearData] = useState();
+    const [yearTotalSales, setYearTotalSales] = useState();
+    const [yearAffiliatedSales, setYearAffiliatedSales] = useState();
+    const [yearPublicSales, setYearPublicSales] = useState();
     const firstDay = new Date();
     const lastDay = new Date();
 
-    const loadYearData = () => {
-        
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: "24" })
-        };
+    const loadGeneralYearData = () => {
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
+        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByYear")
+        // fetch("http://127.0.0.1:8000/api/referredSalesByYear", requestOptions)
         .then(response => response.json())
         .then(json => {
-                setUserYearData(json.data.yearSales);
-            }
-        )
+            setYearTotalSales(json.yearTotalSales);
+            setYearAffiliatedSales(json.yearAffiliatedSales);
+            setYearPublicSales(json.yearPublicSales);
+        })
     }
 
     const loadData = (firstDay, lastDay) => {
@@ -55,7 +52,7 @@ export const GraphsPage = () => {
     useEffect(() => {
         setLoading(true);
         loadData(dateStart, dateEnd);
-        loadYearData();
+        loadGeneralYearData();
         setLoading(false);
     }, [])
 
@@ -71,7 +68,19 @@ export const GraphsPage = () => {
                 <>
                     <div className="row marginRow">
                         <div className="col-lg-12">
-                            <YearBarGraph dataGraph={userYearData}/>
+                            <YearBarGraph dataGraph={yearTotalSales} name = {'Acumulado anual'} color = {'#007fff'}/>
+                        </div>
+                    </div>
+
+                    <div className="row marginRow">
+                        <div className="col-lg-12">
+                            <YearBarGraph dataGraph={yearAffiliatedSales} name = {'Ventas de distribuidores'} color = {'#198bfb'}/>
+                        </div>
+                    </div>
+
+                    <div className="row marginRow">
+                        <div className="col-lg-12">
+                            <YearBarGraph dataGraph={yearPublicSales} name =  {'Ventas al público'}  color = {'#194afb'}/>
                         </div>
                     </div>
                 </>
