@@ -3,11 +3,17 @@ import { DashboardHead } from '../components/DashboardHead';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 import '../../../styles.css'
 import '../css/styles-distributor.css'
+
 import { AuthContext } from '../../../auth/context/AuthContext';
 import { statesMX } from '../../../constants/statesConst';
 import { YearBarGraph } from '../components/graphs/YearBarGraph';
+
+import notificationPopup  from "../../../assets/manita.png"
 
 export const DashboardPage = () => {
     
@@ -19,11 +25,16 @@ export const DashboardPage = () => {
     const [userYearData, setUserYearData] = useState();
     const [userYearTotal, setUserYearTotal] = useState(0);
 
+    const [userYearGoal, setUserYearGoal] = useState(0);
+
     const [currentPage, setCurrentPage] = useState(0);
     const [search, setSearch] = useState('');
 
     const firstDay = new Date();
     const lastDay = new Date();
+
+    const [open, setOpen] = useState(true);
+    const closeModal = () => setOpen(false);
 
     const changeRankColor = (idRank) => {
         //Distribuidor Asociado
@@ -110,6 +121,7 @@ export const DashboardPage = () => {
         .then(json => {
                 setUserYearData(json.data.yearSales);
                 setUserYearTotal(json.data.yearTotal);
+                setUserYearGoal(json.data.goalYear);
             }
         )
     }
@@ -182,7 +194,7 @@ export const DashboardPage = () => {
 
     const handleCopy = (e) => {
         e.preventDefault()
-        e.clipboardData.setData("Text", userData.affiliate_id)
+        navigator.clipboard.writeText("https://mexico.vithaniglobal.com/?dist="+userData.affiliate_id)
     } 
 
     const [loading, setLoading] = useState(false)
@@ -222,6 +234,32 @@ export const DashboardPage = () => {
                         (userData) ? (
                             <>
                                 {arrUserDataRefferedSales(userData)}
+
+                                { 
+                                
+                                    userData.ranksGoal >= 5000 ?  
+                                
+                                    <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                                        <div className="modalNotification">
+                                            <a className="close" onClick={closeModal}>
+                                                &times;
+                                            </a>
+
+                                            <div className="content">
+                                                <img src={notificationPopup}/>
+                                            </div>
+
+                                            <div className="header"> ¡Haz pasado de nivel! </div>
+                                            <div className="content">
+                                                ¡Felicidades por haber superado tu objetivo!
+                                            </div>
+                                            
+                                        </div>
+                                    </Popup>
+
+                                    : <></>
+                                }
+
                                 <div className='card-body'>
                                     <div className='row card-body-profile-info-dist mx-0'>
                                         <div className='col-sm-4'>
@@ -232,14 +270,20 @@ export const DashboardPage = () => {
                                                 <br />
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>{userData.rank}</p>
                                             </div>
+                                            <div className="containerCities backgroundColorWhite" style={{textAlign: 'center'}}>
+
+                                                <h3 className='style-h-3'> Email: <span className='font-weight-light'>{userData.user_email}</span></h3>
+                                                                                        
+                                                <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {userData.account} </span></h3>
+                                            </div>
                                         </div>
 
                                         <div className='col-sm-8'>
                                             <h2 className='style-h-2 mb-3'>{user.display_name}</h2>
-                                            <div className='profile-user'>
+                                            <div className='profile-user text-center'>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>Link de asociado:</p>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "1.8em"}}>https://mexico.vithaniglobal.com/?dist={userData.affiliate_id}</p>
-                                                <button onClick={(e) => handleCopy(e)}>Copiar Link</button>
+                                                <button className='btn btn-info' onClick={(e) => handleCopy(e)}>Copiar Link</button>
                                             </div>
                                         </div>
                                     </div>
@@ -285,32 +329,6 @@ export const DashboardPage = () => {
                                         </div>
                                     </div>
                                 </div> */}
-
-                                <div className='row distributor-sales-table mb-3 mx-0'>
-                                    <div className='col-xl-6 col-md-12 col-lg-12'>
-                                        <div className='detailContainer'>
-                                            {/* <div className='detailContent'>
-                                                <h6 className='upper-h-6'>Ventas Totales</h6> 
-                                                <h6 className='upper-h-6'>Compras Totales</h6>
-                                                <h2 className='style-h-2'>$ {userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}
-                                                    <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span>
-                                                </h2>  
-                                            </div>
-                                            <div className='detailContent'>
-                                                <h6 className='upper-h-6'>Compras Totales</h6> 
-                                                <h2 className='style-h-2'>$450
-                                                    <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
-                                                </h2>  
-                                            </div>
-                                            <div className='detailContent'>
-                                                <h6 className='upper-h-6'>Utilidad</h6> 
-                                                <h2 className='style-h-2'>$450
-                                                    <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span>
-                                                </h2>  
-                                            </div> */}
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 <div className='row mb-3 mx-0'>
                                     <div className='col-sm-6'>
@@ -333,13 +351,13 @@ export const DashboardPage = () => {
                                         <div className='card card-progress-bar'>
                                             <div className='card-body ms-2 me-2'>
                                                 <span className='upper-h-6' style={{fontWeight:'bold'}}> Objetivo Anual: </span> 
-                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${(userData.ranksGoal * 12).toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
+                                                <span className='style-h-2' style={{fontWeight:'bold'}}> ${`${(userYearGoal).toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </span>
                                                 <div className='col-lg-12' style={{display:'flex', flexDirection:'row-reverse'}}>
                                                     <h2 className='style-h-2'> ${`${userYearTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
                                                 </div>
                                                 <div className='progress-bar-parent'>
-                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${(userData.ranksGoal * 12)}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`) > 5 ? ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
-                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userYearTotal}`*100)/`${(userYearGoal)}`) >= 100 ? 100:  ((`${userYearTotal}` * 100)/`${(userYearGoal)}`) > 5 ? ((`${userYearTotal}` * 100)/`${(userYearGoal)}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
+                                                        <span className='progress-text'>{((`${userYearTotal}` * 100)/`${(userYearGoal)}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,13 +422,32 @@ export const DashboardPage = () => {
 
                                 <br />
                                 <div className="containerCities backgroundColorWhite">
-                                    <div className='row mx-0'>
+                                    <div className='row mx-0' style={{alignItems: 'center'}}>
                                         <div className='col-xl-6 col-md-12 col-lg-12 px-0' style={{position: 'relative'}}>
                                             <input type='text' className='mb-2 form-control' placeholder='Buscar por nombre de Referido' value={search} onChange={ onSearchChange}/>
                                             <span id='table-search-icon'>
                                                 <i className="fas fa-search"></i>
                                             </span>
                                         </div>
+
+                                        {/* <div className='row distributor-sales-table mb-3 mx-0'> */}
+                                            <div className='col-xl-6 col-md-12 col-lg-12 px-0'>
+                                                <div className='detailContainer' style={{display:'flex', justifyContent:'space-evenly'}}>
+                                                    <div className='detailContent'  style={{marginLeft:'10%', width:'100%'}}>
+                                                        <h6 className='upper-h-6'>Ventas por afiliado</h6> 
+                                                        <h2 className='style-h-2'>$ {userData.affiliatesSales.toLocaleString("en-US",{ maximumFractionDigits: 2 })}
+                                                            {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
+                                                        </h2>  
+                                                    </div>
+                                                    <div className='detailContent' style={{marginLeft:'10%', width:'100%'}}>
+                                                        <h6 className='upper-h-6'>Ventas al público</h6> 
+                                                        <h2 className='style-h-2'>$ {userData.publicSales.toLocaleString("en-US",{ maximumFractionDigits: 2 })} 
+                                                            {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
+                                                        </h2>  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {/* </div> */}
                                         {/*<div className='col-xl-6 col-md-12 col-lg-12 mb-2 buttons-table'>
                                             <h6 className='me-3 mb-0'> { arrRefferedSales.filter(refSaleName => refSaleName.refferal_wp_uid.toLowerCase().includes(search.toLowerCase())).length } registros encontrados</h6>
                                             <button className='btn-table' onClick={prevPage} disabled={currentPage === 0}>
