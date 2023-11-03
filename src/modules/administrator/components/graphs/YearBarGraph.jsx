@@ -1,16 +1,14 @@
 import React from 'react'
 import ReactEcharts from "echarts-for-react";
 
-export const PublicSalesBarGraph = ({dataGraph}) => {
-    
+export const YearBarGraph = ({dataGraph, name, color}) => {
+
 
     const option = {
         title: {
           left: 'center',
-          text: 'Ventas al Público',
+          text: name,
         },
-        //color: ["#3398DB"],
-        color:['#62BBF7'],
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -34,6 +32,7 @@ export const PublicSalesBarGraph = ({dataGraph}) => {
             {
                 data: dataGraph,
                 type: 'bar',
+                color: color
             }
         ]
     }; 

@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react'
 import { GraphsHead } from '../components/GraphsHead';
 
-import '../../../styles.css';
-import '../css/styles-admin.css';
+import '../../../styles.css'
+import '../css/styles-admin.css'
 
-import { TotalSalesBarGraph } from '../components/graphs/TotalSalesBarGraph';
-import { DistributorSalesBarGraph } from '../components/graphs/DistributorSalesBarGraph';
-import { PublicSalesBarGraph } from '../components/graphs/PublicSalesBarGraph';
+import { YearBarGraph } from '../components/graphs/YearBarGraph';
 
 export const GraphsPage = () => {
 
@@ -29,21 +27,6 @@ export const GraphsPage = () => {
         })
     }
 
-    const loadPublicSales = () => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: "11" })
-        };
-
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSalesByIdAndYear", requestOptions)
-        .then(response => response.json())
-        .then(json => {
-                setPublicSalesData(json.data.yearSales);
-            }
-        )
-    }
     const loadData = (firstDay, lastDay) => {
         
         const requestOptions = {
@@ -84,12 +67,6 @@ export const GraphsPage = () => {
             ) : (
                 <>
                     <div className="row marginRow">
-                        <div className="col-lg-12 mb-5">
-                            <TotalSalesBarGraph dataGraph={totalSalesData}/>
-                        </div>
-                        <div className="col-lg-12 mb-5">
-                            <DistributorSalesBarGraph dataGraph={distributorSalesData}/>
-                        </div>
                         <div className="col-lg-12">
                             <YearBarGraph dataGraph={yearTotalSales} name = {'Acumulado anual'} color = {'#007fff'}/>
                         </div>
