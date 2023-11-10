@@ -18,7 +18,6 @@ export const GraphsPage = () => {
     const loadGeneralYearData = () => {
 
         fetch("https://vithaniglobal.com/wp-api/api/referredSalesByYear")
-        // fetch("http://127.0.0.1:8000/api/referredSalesByYear", requestOptions)
         .then(response => response.json())
         .then(json => {
             setYearTotalSales(json.yearTotalSales);
@@ -37,7 +36,6 @@ export const GraphsPage = () => {
 
 
         fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json => {            
             setUsers(json.data);

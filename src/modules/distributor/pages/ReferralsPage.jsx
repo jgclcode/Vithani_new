@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
 import '../css/styles-distributor.css'
 import { AuthContext } from '../../../auth/context/AuthContext';
-import { statesMX } from '../../../constants/statesConst';
-import { YearBarGraph } from '../components/graphs/YearBarGraph';
 import { ReferralsHead } from '../components/ReferralsHead';
 import { Tree, TreeNode} from 'react-organizational-chart';
 
@@ -31,9 +28,6 @@ export const ReferralsPage = () => {
         };
 
         fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/distributorsRelations", requestOptions)
-        // fetch("https://vithaniglobal.com/wp-api/api/distributorsRelationsReferrals", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/distributorsRelationsReferrals", requestOptions)
         .then(response => response.json())
         .then(json => {
                 setUserRelations(json.data.relations);
@@ -50,7 +44,6 @@ export const ReferralsPage = () => {
         };
 
         fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => {
             setUserData(json.data)
@@ -130,10 +123,8 @@ export const ReferralsPage = () => {
         return (relations.map((relation, index) => (
             <TreeNode key={relation.refferal_wp_uid} label={
                 <div className='second-level-tree'>
-                    {/* <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(relation.rank_id), fontSize: "2em"}}></i> */}
                     <i className="fas fa-crown referral-icon-sl" style={{color: changeRankColor(relation.rank_id), fontSize: "2em"}}></i>
                     <br></br>
-                    {/* {relation.display_name} */}
                     {relation.refferal_wp_uid}
                 </div>
             }>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { DetailHead } from '../components/DetailHead';
 import DatePicker from 'react-datepicker';
-import crown from "../../../assets/Crown.png";
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
@@ -30,7 +29,6 @@ export const DetailPage = () => {
         };
 
         fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => setUser(json.data))
         .finally(() => {
@@ -41,7 +39,6 @@ export const DetailPage = () => {
     const exportReportCSV = () => {
         
         fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -58,7 +55,6 @@ export const DetailPage = () => {
     const exportReportExcel = () => {
         
         fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -195,7 +191,6 @@ export const DetailPage = () => {
                                         <div className='row card-body-profile-info'>
                                             <div className='col-sm-4'>
                                                 <div className='profile-user'>
-                                                    {/*<img src={crown} className='img-thumbnail'/>*/}
                                                     <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "3.5em"}}></i>
                                                 </div>
                                                 <div>
@@ -267,32 +262,6 @@ export const DetailPage = () => {
                 </div>
             </div>
 
-            {/*<div className="row" style={{marginBottom: '25px'}}>
-                <div className="col-md justifyElements">
-                    <DatePicker
-                        selected={dateStart}
-                        onChange={(date) => dateBeginSet(date)}
-                        inline
-                    />
-                </div>
-                <div className="col-md justifyElements">
-                    <DatePicker
-                        selected={dateEnd}
-                        onChange={(date) => dateEndSet(date)}
-                        inline
-                    />
-                </div>
-            </div>
-
-            <div className="row" style={{marginBottom: '50px'}}>
-                <div className="col-md justifyElements">
-                    <span className="btn btn-success btn-sm" onClick = {exportReportCSV}> Descargar Reporte CSV</span>
-                </div>
-                <div className="col-md justifyElements">
-                    <span className="btn btn-success btn-sm" onClick = {exportReportExcel}> Descargar Reporte Excel</span>
-                </div>
-            </div> */}
-
             { loading ? (
                 <div className="containerCities backgroundColorWhite">
                     <h3 className='style-h-3 mb-3'>Cargando información</h3>
@@ -305,16 +274,6 @@ export const DetailPage = () => {
                                 {arrUserRefferedSales(user)}
                                 <div className="containerCities backgroundColorWhite">
 
-                                    {/*<div style={{marginBottom: '50px'}}>
-                                        <h3 className='style-h-3 mb-3'>{user.display_name}</h3>
-                                        
-                                        <h3 className='style-h-3'> <span className='font-weight-light'>{user.user_email}</span></h3>
-                                        
-                                        <h3 className='style-h-3'> <span className='font-weight-light'> {statesMX[user.state]} - { user.city } </span></h3>
-                                        
-                                        <h3 className='style-h-3'>Cuenta bancaria:  <span className='font-weight-light'> {user.account} </span></h3>
-                                    </div>*/}
-
                                     <div className='detailContainer'>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'>Ventas Distribuidores</h6> 
@@ -324,14 +283,12 @@ export const DetailPage = () => {
                                             <h6 className='upper-h-6'>Ganancias</h6>
                                             <h2 className='style-h-2'>
                                                 $ {user.commission.toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})}
-                                                {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                         <div className='detailContent content-border'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
                                             <h2 className='style-h-2'>
                                                 $ {(2997*12).toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})} 
-                                                {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                         <div className='detailContent'>

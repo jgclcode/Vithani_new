@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
-import perfil from "../../../assets/perfil.png";
 import { AuthContext } from '../../../auth/context/AuthContext';
-
 
 
 export const DetailHead = () => {
@@ -15,7 +13,6 @@ export const DetailHead = () => {
                         <h2>Reporte individual</h2>
                     </div>
                     <div className="coponentTwo col-md justifyElements" style={{marginTop: '15px'}}>
-                        {/* <img src={perfil}/> */}
                         <p>{ user?.name}</p>
                     </div>
                 </div>
