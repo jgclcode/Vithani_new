@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 import '../../../styles.css'
 import '../css/styles-admin.css'
-import { statesMX } from '../../../constants/statesConst';
 import { ReportsHead } from '../components/ReportsHead';
 
 export const ReportsPage = () => {
@@ -76,7 +75,6 @@ export const ReportsPage = () => {
         };
 
         fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
-        // fetch("http://127.0.0.1:8000/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json => {
 
@@ -104,7 +102,6 @@ export const ReportsPage = () => {
     const exportReportCSV = () => {
         
         fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -121,7 +118,6 @@ export const ReportsPage = () => {
     const exportReportExcel = () => {
         
         fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -217,30 +213,15 @@ export const ReportsPage = () => {
                                             <h6 className='upper-h-6'>Ganancias</h6>
                                             <h2 className='style-h-2'>
                                                 $ {totalCommission.toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})}
-                                                {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                         <div className='detailContent'>
                                             <h6 className='upper-h-6'> Objetivo anual</h6>
                                             <h2 className='style-h-2'>
                                                 $ {(735000 * users.length).toLocaleString("en-US",{ minimumFractionDigits: 2, maximumFractionDigits: 2,})}
-                                                {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
                                             </h2>
                                         </div>
                                     </div>
-
-                                    {/*<div className='detailContainer'>
-                                        <div className='detailContent'>
-                                            <p>$ {totalGlobal.toLocaleString("en-US")}</p>
-                                        </div>
-                                        <div className='detailContent'>
-                                            <p>$ {totalCommission.toLocaleString("en-US")}</p>
-
-                                        </div>
-                                        <div className='detailContent'>
-                                            <p> $ {(735000 * users.length).toLocaleString("en-US")} </p>
-                                        </div>
-                                    </div>*/}
                                 </div>
                                 <br />
                                 <div className="containerCities backgroundColorWhite">

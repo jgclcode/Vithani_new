@@ -67,7 +67,6 @@ export const DashboardPage = () => {
     const exportReportCSV = () => {
         
         fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportCSV/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -84,7 +83,6 @@ export const DashboardPage = () => {
     const exportReportExcel = () => {
         
         fetch(`https://vithaniglobal.com/wp-api/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
-        // fetch(`http://127.0.0.1:8000/api/exportGeneralReportExcel/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -174,7 +172,6 @@ export const DashboardPage = () => {
                         selected={dateStart}
                         onChange={(date) => dateBeginSet(date)}
                         className="datepicker-input"
-                        // inline
                     />
                 </div>
                 <div className="col-md justifyElements">
@@ -182,7 +179,6 @@ export const DashboardPage = () => {
                         selected={dateEnd}
                         onChange={(date) => dateEndSet(date)}
                         className="datepicker-input"
-                        // inline
                     />
                 </div>
 
@@ -226,13 +222,11 @@ export const DashboardPage = () => {
                             <div className='detailContent content-border'>
                                 <h6 className='upper-h-6'>Ganancias</h6>
                                 <h2 className='style-h-2'>$ {(totalSales*.2285).toLocaleString("en-US",{maximumFractionDigits: 2})}
-                                {/* <span className='percentage-success'><i className='fa fa-sort-up'></i> +56%</span> */}
                                 </h2>
                             </div>
                             <div className='detailContent content-border'>
                                 <h6 className='upper-h-6'> Objetivo anual</h6>
                                 <h2 className='style-h-2'>$ {(735000 * users.length).toLocaleString("en-US",{maximumFractionDigits: 2})} 
-                                {/* <span className='percentage-danger'><i className='fa fa-sort-down'></i> +56%</span> */}
                                 </h2>
                             </div>
                             <div className='detailContent'>
@@ -255,7 +249,6 @@ export const DashboardPage = () => {
                                                     
                                                     <div key={user.user_id} className="row contMember">
                                                         <div className="col-2">
-                                                            {/*<img className="imageMiembros" src={perfil}/>*/}
                                                             <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-6">
@@ -295,7 +288,6 @@ export const DashboardPage = () => {
 
                                                     <div key={user.display_name} className="row marginRowObjectives">
                                                         <div className="col-2">
-                                                            {/*<img className='imageMiembros' src={perfil}/>*/}
                                                             <i className="fas fa-crown crown-icon" style={{color: changeRankColor(user.rank_id), fontSize: "2em"}}></i>
                                                         </div>
                                                         <div className="col-10">
