@@ -60,19 +60,19 @@ export const Popup = ({ closePopup }) => {
                             </Link>
                         </div>
                         <div className="nav-item mb-3">
-                            <Link to="https://mexico.vithaniglobal.com/materiales/" target="_blank" onClick={closePopup}>
+                            <Link to="https://biogel.mx/materiales/" target="_blank" onClick={closePopup}>
                                 <img className="imgEnlace1" src={media_kit}/>
                                 <p>Media Kit</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3">
-                            <Link to="https://mexico.vithaniglobal.com/legales/" target="_blank" onClick={closePopup}>
+                            <Link to="https://biogel.mx/legales/" target="_blank" onClick={closePopup}>
                                 <img className="imgEnlace1" src={legales}/>
                                 <p>Legales</p>
                             </Link>
                         </div>
                         <div className="nav-item mb-3">
-                            <Link to="https://mexico.vithaniglobal.com/trackselling/" target="_blank" onClick={closePopup}>
+                            <Link to="https://biogel.mx/trackselling/" target="_blank" onClick={closePopup}>
                                 <img className="imgEnlace1" src={trackSellingLink}/>
                                 <p>Track Selling Link</p>
                             </Link>

@@ -28,7 +28,7 @@ export const DetailPage = () => {
             body: JSON.stringify({user_id: user_id, dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => setUser(json.data))
         .finally(() => {
@@ -38,7 +38,7 @@ export const DetailPage = () => {
 
     const exportReportCSV = () => {
         
-        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://biogel.mx/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -54,7 +54,7 @@ export const DetailPage = () => {
 
     const exportReportExcel = () => {
         
-        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://biogel.mx/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 

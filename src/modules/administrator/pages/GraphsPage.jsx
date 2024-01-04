@@ -17,7 +17,7 @@ export const GraphsPage = () => {
 
     const loadGeneralYearData = () => {
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByYear")
+        fetch("https://biogel.mx/wp-api/api/referredSalesByYear")
         .then(response => response.json())
         .then(json => {
             setYearTotalSales(json.yearTotalSales);
@@ -35,7 +35,7 @@ export const GraphsPage = () => {
         };
 
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json => {            
             setUsers(json.data);

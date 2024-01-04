@@ -27,7 +27,7 @@ export const ReferralsPage = () => {
             body: JSON.stringify({ user_id: user_id })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/distributorsRelations", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/distributorsRelations", requestOptions)
         .then(response => response.json())
         .then(json => {
                 setUserRelations(json.data.relations);
@@ -43,7 +43,7 @@ export const ReferralsPage = () => {
             body: JSON.stringify({user_id: user_id, dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => {
             setUserData(json.data)

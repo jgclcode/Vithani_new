@@ -114,7 +114,7 @@ export const DashboardPage = () => {
             body: JSON.stringify({ user_id: user_id })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesByIdAndYear", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/referredSalesByIdAndYear", requestOptions)
         .then(response => response.json())
         .then(json => {
                 setUserYearData(json.data.yearSales);
@@ -132,7 +132,7 @@ export const DashboardPage = () => {
             body: JSON.stringify({user_id: user_id, dateBegin: firstDay.toISOString().substring(0,10), dateEnd: lastDay.toISOString().substring(0,10) })
         };
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSalesById", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/referredSalesById", requestOptions)
         .then(response => response.json())
         .then(json => {
             setUserData(json.data);
@@ -141,7 +141,7 @@ export const DashboardPage = () => {
 
     const exportReportCSV = () => {
         
-        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://biogel.mx/wp-api/api/exportIndividualReportCSV/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -157,7 +157,7 @@ export const DashboardPage = () => {
 
     const exportReportExcel = () => {
         
-        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://biogel.mx/wp-api/api/exportIndividualReportExcel/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -172,7 +172,7 @@ export const DashboardPage = () => {
     }
 
     const exportReportPDF = () => {
-        fetch(`https://vithaniglobal.com/wp-api/api/exportIndividualReportPDF/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
+        fetch(`https://biogel.mx/wp-api/api/exportIndividualReportPDF/${user_id}/${dateStart.toISOString().substring(0,10)}/${dateEnd.toISOString().substring(0,10)}`)
         .then(
             (response) => {
 
@@ -208,7 +208,7 @@ export const DashboardPage = () => {
 
     const handleCopy = (e) => {
         e.preventDefault()
-        navigator.clipboard.writeText("https://mexico.vithaniglobal.com/?dist="+userData.affiliate_id)
+        navigator.clipboard.writeText("https://biogel.mx/?dist="+userData.affiliate_id)
     } 
 
     const [loading, setLoading] = useState(false)
@@ -315,7 +315,7 @@ export const DashboardPage = () => {
                                             <h2 className='style-h-2 mb-3'>{user.display_name}</h2>
                                             <div className='profile-user text-center'>
                                                 <p style={{marginBottom: '0',textAlign: 'center', fontSize: "2em"}}>Link de asociado:</p>
-                                                <p style={{marginBottom: '0',textAlign: 'center', fontSize: "1.8em"}}>https://mexico.vithaniglobal.com/?dist={userData.affiliate_id}</p>
+                                                <p style={{marginBottom: '0',textAlign: 'center', fontSize: "1.8em"}}>https://biogel.mx/?dist={userData.affiliate_id}</p>
                                                 <button className='btn btn-info' onClick={(e) => handleCopy(e)}>Copiar Link</button>
                                             </div>
                                         </div>
@@ -334,7 +334,7 @@ export const DashboardPage = () => {
                                                     <h2 className='style-h-2'> ${`${userData.salesTotal.toLocaleString("en-US",{ maximumFractionDigits: 2 })}`} </h2>
                                                 </div>
                                                 <div className='progress-bar-parent'>
-                                                    <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${userData.ranksGoal}`) >= 100 ? 100: ((`${userYearTotal}` * 100)/`${(userData.ranksGoal * 12)}`) > 5 ? ((`${userData.salesTotal}` * 100)/`${userData.ranksGoal}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
+                                                    <div className='progress-bar-child' style={{ width: (((`${userData.salesTotal}`*100)/`${userData.ranksGoal}`) >= 100 ? 100: ((`${userYearTotal}` * 100)/`${(userData.ranksGoal)}`) > 5 ? ((`${userData.salesTotal}` * 100)/`${userData.ranksGoal}`).toLocaleString("en-US",{maximumFractionDigits: 0}): 8 )+'%' }}>
                                                         <span className='progress-text'>{((`${userData.salesTotal}` * 100)/`${userData.ranksGoal}`).toLocaleString("en-US",{maximumFractionDigits: 0})}%</span>
                                                     </div>
                                                 </div>

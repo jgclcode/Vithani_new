@@ -22,7 +22,7 @@ export const Locations = () => {
     useEffect(() => {
         setLoading(true)
 
-        fetch("https://vithaniglobal.com/wp-api/api/referredSales", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/referredSales", requestOptions)
         .then(response => response.json())
         .then(json =>{
             setUsers(json.data)
