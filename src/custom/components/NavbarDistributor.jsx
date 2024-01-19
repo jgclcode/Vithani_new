@@ -69,19 +69,19 @@ export const NavbarDistributor = () => {
                                     <p>Mi Red</p>
                                 </div>
                             </Link>
-                            <Link to="https://mexico.vithaniglobal.com/materiales/" target="_blank">
+                            <Link to="https://biogel.mx/materiales/" target="_blank">
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={media_kit}/>
                                     <p>Media Kit</p>
                                 </div>
                             </Link>
-                            <Link to="https://mexico.vithaniglobal.com/legales/" target="_blank">
+                            <Link to="https://biogel.mx/legales/" target="_blank">
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={legales}/>
                                     <p>Legales</p>
                                 </div>
                             </Link>
-                            <Link to="https://mexico.vithaniglobal.com/trackselling/" target="_blank">
+                            <Link to="https://biogel.mx/trackselling/" target="_blank">
                                 <div className="nav-item" onClick={onSetActiveMenuItem}>
                                     <img className="imgEnlace1" src={trackSellingLink}/>
                                     <p>Track Selling Link</p>

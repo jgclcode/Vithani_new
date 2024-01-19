@@ -42,7 +42,7 @@ export const LoginAdministrador = () => {
 
         let type = 'Distribuidor';
 
-        fetch("https://vithaniglobal.com/wp-api/api/login", requestOptions)
+        fetch("https://biogel.mx/wp-api/api/login", requestOptions)
         .then(response => response.json())
         .then(json => {
             
